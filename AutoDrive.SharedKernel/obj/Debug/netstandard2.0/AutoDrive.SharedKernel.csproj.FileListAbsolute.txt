@@ -1,0 +1,9 @@
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\bin\Debug\netstandard2.0\AutoDrive.SharedKernel.deps.json
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\bin\Debug\netstandard2.0\AutoDrive.SharedKernel.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\bin\Debug\netstandard2.0\AutoDrive.SharedKernel.pdb
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.csprojAssemblyReference.cache
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.csproj.CoreCompileInputs.cache
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.AssemblyInfoInputs.cache
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.AssemblyInfo.cs
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.SharedKernel\obj\Debug\netstandard2.0\AutoDrive.SharedKernel.pdb

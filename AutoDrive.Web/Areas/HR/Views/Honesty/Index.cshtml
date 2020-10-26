@@ -1,0 +1,261 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeVM
+@{
+    ViewBag.Title = Resources.Honesty;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int EmployeeId = Model != null ? Model.ID : 0;
+}
+
+@using (Ajax.BeginForm("Create", "Honesty", new AjaxOptions { OnSuccess = "Success", OnBegin = "before" }))
+{
+    <div class="modal fade" style="margin:auto!important;width:50%" id="MyModal">
+        <div class="modal-dialog">
+            <div class="clearfix"></div>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle"></h4>
+                </div>
+                @Html.Hidden("EmployeeId", EmployeeId)
+                <div class="modal-body" style="min-height:200px;">
+                    <div id="ItemDetails">
+
+                    </div>
+                    <div id="CreateData">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Messages.Cancel</button>
+                        <input type="submit" value="@Messages.SaveBTN" class="btn btn-default" id="save" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("Delete", "Honesty", new AjaxOptions { OnSuccess = "DeleteSuccess" }))
+{
+    <div class="modal fade modal-sm" style="margin:auto!important" id="Delete">
+        <div class="modal-dialog">
+            <div class="clearfix"></div>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle"></h4>
+                </div>
+                @Html.Hidden("ItemParentId", 0)
+                <div class="modal-body" style="min-height:200px;" id="DeleteData">
+
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Messages.Cancel</button>
+                        <input type="submit" value="@Messages.SaveBTN" class="btn btn-default" id="save" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<h1>@Resources.Honesty</h1>
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-4">
+        <label>@Resources.EmployeeName</label> :
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="col-md-4">
+        <label>@Resources.EmployeeCode</label> :
+        @Html.DisplayFor(model => model.Code)
+    </div>
+    <div class="col-md-4">
+        <label>@Resources.EmployeeDepartment</label> :
+        @Html.DisplayFor(model => model.EmployeeDepartment)
+    </div>
+</div>
+<button class="btn btn-primary btn-lg btn-round navbar-fixed-bottom" onclick="AddNew(0)" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+<div class="row" style="margin-top:50px;">
+    <table id="Honesty" class="table table-striped jambo_table bulk_action">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Messages.items</th>
+                <th>@Messages.ItemCode</th>
+                <th>@Resources.HonestyDate</th>
+                <th>@Messages.Edit</th>
+                <th>@Messages.Delete</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $('#Honesty').DataTable({
+                ajax: {
+
+                    url: '@Url.Action("GetHonestyByEmID","Honesty")',
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            id: '@(Model.ID)',
+                        });
+                    },
+                    type: 'GET'
+
+                },
+                "columns": [
+                    {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { data: "ItemName" },
+                    { data: "ItemCode" },
+                    {
+                        "data": "HonestyDate",
+                        "render": function (data) {
+
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='AddNew(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='Delete(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    }
+                ],
+                "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+
+                info: false,
+                "paging": false
+            })
+
+        })
+
+        function AddNew(id) {
+            $.ajax({
+
+                url: "@Url.Action("Create","Honesty")",
+                data: { ID: id },
+                type: "Get",
+                beforeSend: function () {
+
+                    $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+
+
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+
+                        if (id == 0) {
+                            $("#ModalTitle").text("@Resources.Add")
+                            $("#CreateData").html(rs.View)
+                             $("#ItemDetails").html("")
+                            $("body").preloader('remove')
+                            $("#Delete").css("z-index", "-1")
+                            $("#MyModal").css("z-index", "99999")                            
+                            $("#MyModal").modal("show")
+                        }
+                        else {
+                            $("#ModalTitle").text("@Messages.Edit")
+                            $("#CreateData").html(rs.View)
+                            $("#ItemDetails").html(rs.ItemView)
+                            $("body").preloader('remove')
+                            $("#MyModal").modal("show")
+
+                        }
+                    }
+                    else {
+                        $("body").preloader('remove')
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+
+        function Delete(id) {
+             debugger
+            $.ajax({
+
+                url: "@Url.Action("Delete","Honesty")",
+                data: { ID: id },
+                type: "Get",
+                beforeSend: function () {
+
+                    $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+
+                        $("#DeleteData").html(rs.View)
+                        $("body").preloader('remove')
+                        $("#MyModal").css("z-index","-1")
+                        $("#Delete").css("z-index","99999")
+                        $("#Delete").modal("show")
+
+                    }
+                    else {
+                        $("body").preloader('remove')
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+    </script>
+}

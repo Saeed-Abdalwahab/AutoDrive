@@ -1,0 +1,1151 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeDepartMentQulificationsVM
+
+@{
+    ViewBag.Title = Messages.AddEmployee;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var Areas = jss.Serialize(ViewBag.areas);
+    var JobFunctions = jss.Serialize(ViewBag.JobFunctions);
+
+
+}
+@section Styles{
+
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .ui-helper-hidden-accessible {
+            display: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+
+        .ImgCustomCss {
+            width: 21%;
+            height: 10%;
+            max-width: 49%;
+            max-height: 86%;
+            border-radius: 138px;
+        }
+
+        .profileimgcontainer {
+            text-align: center;
+        }
+    </style>
+}
+
+<div class="clearfix"></div>
+<div id="Container" class="tab-content navbar-right" style="width:100%">
+    <div class="tab-pane fade active in">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>1 : 8</h4>
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm1
+            </span>
+        </div>
+        <form enctype="multipart/form-data" id="EmployeeForm" method="post">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="image-upload profileimgcontainer" id="LableChangPicparnt">
+                            @*<label for="file-input" id="LableChangPicparnt" >*@
+                            <img class="ImgCustomCss" />
+                            @*</label>*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeVM.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.Name, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.EnName, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.EnName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.EnName, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.NationalityId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.NationalityId, ViewBag.Nationalties as SelectList, Messages.NationalityDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.NationalityId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeVM.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(x => x.employeeVM.DateOfBirth, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.DateOfBirth, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.Gender, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EnumDropDownListFor(x => x.employeeVM.Gender, Messages.GenderDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.Gender, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.BloodGroupId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.BloodGroupId, ViewBag.BloodGroups as SelectList, Messages.BloodGroupsDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.BloodGroupId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeVM.BirthPlaceCountryId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.BirthPlaceCountryId, ViewBag.countries as SelectList, Messages.CountryDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeVM.BirthPlaceCountryId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.BirthPlaceAreaId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.BirthPlaceAreaId, ViewBag.areas as SelectList, Messages.areasDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeVM.BirthPlaceAreaId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.MaritalStatusId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.MaritalStatusId, ViewBag.maritalStatus as SelectList, Messages.MaritalStatuDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.MaritalStatusId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeVM.Residence, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.Residence, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.Residence, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.Code, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.Code, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.Code, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.MobileNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.MobileNumber, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeVM.HousePhone, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.HousePhone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.HousePhone, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.EMail, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(x => x.employeeVM.EMail, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeVM.EMail, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeVM.ReligionId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeVM.ReligionId, ViewBag.Religions as SelectList, Messages.ReligionDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeVM.ReligionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="image-upload">
+                        @Html.LabelFor(x => x.employeeVM.ProfileImge, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                        <div class="col-md-3">
+                            @Html.TextBox("Img", null, new { type = "file", id = "file-input", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.employeeVM.ProfileImge, "", new { @class = "text-danger" })
+                            @Html.EditorFor(x => x.employeeVM.ProfileImge, new { htmlAttributes = new { @class = "form-control", style = "visibility: hidden" } })
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" id="EmployeeFormNext" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>2 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm2
+            </span>
+        </div>
+        <form enctype="multipart/form-data" id="DepartmentForm">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.EmployeeDepartmentVM.DepartmentId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="@Messages.DepartmentSearch" id="DepartmentID" />
+                        @Html.ValidationMessageFor(x => x.EmployeeDepartmentVM.DepartmentId, "", new { @class = "text-danger" })
+                        @Html.EditorFor(x => x.EmployeeDepartmentVM.DepartmentId, new { htmlAttributes = new { @class = "form-control", style = "visibility: hidden" } })
+
+                    </div>
+                    @Html.LabelFor(x => x.EmployeeDepartmentVM.StartDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(x => x.EmployeeDepartmentVM.StartDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeDepartmentVM.StartDate, "", new { @class = "text-danger" })
+
+                    </div>
+                    @Html.LabelFor(x => x.EmployeeDepartmentVM.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(x => x.EmployeeDepartmentVM.EndDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeDepartmentVM.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" id="DepartmentFormNext" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" id="DepartmentFormPrevious" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade  ">
+        <form enctype="multipart/form-data" id="LicenceDataForm">
+            <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+                <h4>3 : 8</h4>
+
+                <span style="font-size: larger;width: 102%;color: #060606;">
+                    @Messages.EmployeeForm3
+                </span>
+            </div>
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.LicenceTypeHRId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeLicenceDataVM.LicenceTypeHRId, ViewBag.licenceTypeHRs as SelectList, Messages.licenceTypeHRDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.LicenceTypeHRId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.LicenceKindHRId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeLicenceDataVM.LicenceKindHRId, Enumerable.Empty<SelectListItem>(), Messages.licenceKindHRsDropDown, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.LicenceKindHRId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.LicenseNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(x => x.employeeLicenceDataVM.LicenseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.LicenseNumber, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.SourceAreaId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeLicenceDataVM.SourceAreaId, ViewBag.areas as SelectList, Messages.areasDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.SourceAreaId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.employeeLicenceDataVM.ReleaseDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.ReleaseDate, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeLicenceDataVM.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.employeeLicenceDataVM.EndDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeLicenceDataVM.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" id="LicenceDataFormNext" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" id="LicenceDataFormPrevious" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade  ">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>4 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm4
+            </span>
+        </div>
+        <form enctype="multipart/form-data">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeQualificationVM.CetificationTypeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.CetificationTypeId, ViewBag.certificationTypes as SelectList, Messages.certificationTypeDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.CetificationTypeId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeQualificationVM.CertificationSpecificId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.CertificationSpecificId, Enumerable.Empty<SelectListItem>(), Messages.certificationTypeDropDown, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.CertificationSpecificId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeQualificationVM.CertificationSpecDepartId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.CertificationSpecDepartId, Enumerable.Empty<SelectListItem>(), Messages.certificationSpecDepartDropDown, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.CertificationSpecDepartId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeQualificationVM.CertificationGradeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.CertificationGradeId, ViewBag.certificationGrades as SelectList, Messages.certificationGradeDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.CertificationGradeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeQualificationVM.QualificationDiscribtion, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-11">
+                        @Html.EditorFor(x => x.employeeQualificationVM.QualificationDiscribtion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.QualificationDiscribtion, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeQualificationVM.GraduationMonth, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.GraduationMonth, ViewBag.Monthes as SelectList, Messages.MonthsDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.GraduationMonth, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeQualificationVM.GraduationYear, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.employeeQualificationVM.GraduationYear, ViewBag.Years as SelectList, Messages.YearsDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeQualificationVM.GraduationYear, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" id="QualificationsFormNext" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" id="QualificationsPrevious" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade  ">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>5 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm5
+            </span>
+        </div>
+        <form enctype="multipart/form-data">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeContractDurationVM.FromDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.employeeContractDurationVM.FromDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeContractDurationVM.FromDate, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeContractDurationVM.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.employeeContractDurationVM.EndDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeContractDurationVM.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeContractDurationVM.Duration, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(x => x.employeeContractDurationVM.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.employeeContractDurationVM.Duration, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeContractDurationVM.EmployeeStatusId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(x => x.employeeContractDurationVM.EmployeeStatusId, ViewBag.employeeStatus as SelectList, Messages.EmployeeStatusDropDown, new { @class = "form-control", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(x => x.employeeContractDurationVM.EmployeeStatusId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(x => x.employeeContractDurationVM.EmployeeStatusKindId, ViewBag.EmployeeStatusKinds as SelectList, Messages.EmployeeStatusDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeContractDurationVM.EmployeeStatusKindId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade  ">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>6 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm7
+            </span>
+        </div>
+        <form enctype="multipart/form-data">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.StartDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.EmployeeJobDataVM.StartDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.EmployeeJobDataVM.EndDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.EndDate, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.JobNameId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.EmployeeJobDataVM.JobNameId, ViewBag.JobNames as SelectList, Messages.JobNameDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.JobNameId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.JobFunctionId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.EmployeeJobDataVM.JobFunctionId, ViewBag.JobFunctions as SelectList, Messages.JobFunctionDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.JobFunctionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.CarrerFieldId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.EmployeeJobDataVM.CarrerFieldId, ViewBag.CarrerFields as SelectList, Messages.CarrerFieldDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.CarrerFieldId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.JobDegreeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.EmployeeJobDataVM.JobDegreeId, ViewBag.JobDegrees as SelectList, Messages.JobDegreeDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.JobDegreeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.EmployeeJobDataVM.JobLevelId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(x => x.EmployeeJobDataVM.JobLevelId, ViewBag.JobLevels as SelectList, Messages.JobLevelDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.EmployeeJobDataVM.JobLevelId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade ">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>7 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Resources.EmployeeWorkingHours
+            </span>
+        </div>
+        <div class="row">
+            <table id="EmployeeWorkingHoursTB" class="table table-striped jambo_table bulk_action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>@Resources.ChooseWorkingHours</th>
+                        <th>@Resources.WorkingHours</th>
+                        <th>@Resources.FromDate</th>
+                        <th>@Resources.ToDate</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.Next" id="WorkingHoursNext" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" id="WorkingHoursPrevious" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="" class="tab-pane fade  ">
+        <div style="text-align: center;margin-bottom: 11px;" class="page-header">
+            <h4>8 : 8</h4>
+
+            <span style="font-size: larger;width: 102%;color: #060606;">
+                @Messages.EmployeeForm6
+            </span>
+        </div>
+        <form enctype="multipart/form-data">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeExperienceVM.FromMonth, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(x => x.employeeExperienceVM.FromMonth, ViewBag.Monthes as SelectList, Messages.MonthsDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.FromMonth, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeExperienceVM.FromYear, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(x => x.employeeExperienceVM.FromYear, ViewBag.Years as SelectList, Messages.YearsDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.FromYear, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeExperienceVM.ToMonth, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(x => x.employeeExperienceVM.ToMonth, ViewBag.Monthes as SelectList, Messages.MonthsDropDown, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.ToMonth, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeExperienceVM.ToYear, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(x => x.employeeExperienceVM.ToYear, ViewBag.Years as SelectList, Messages.YearsDropDown, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.ToYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeExperienceVM.CompanyName, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(x => x.employeeExperienceVM.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(x => x.employeeExperienceVM.JobSpecification, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(x => x.employeeExperienceVM.JobSpecification, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.JobSpecification, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.employeeExperienceVM.CompanyAddress, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(x => x.employeeExperienceVM.CompanyAddress, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.ValidationMessageFor(x => x.employeeExperienceVM.CompanyAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            <div style="width:100%; text-align:left;">
+                <input type="button" value="@Messages.SaveWitoutExperience" class="btn btn-default" />
+                <input type="button" value="@Messages.SaveBTN" class="btn btn-default" />
+                <input type="button" value="@Messages.Previous" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+
+    <script>
+        
+        var AllAreas = JSON.parse('@Html.Raw(Areas)');
+        var AllJobFunctions = JSON.parse('@Html.Raw(JobFunctions)');
+        var checkFlag = true;
+        function CreateEmployeeWorkingHours(EmpId) {
+             $.each($("input[name='CheckedWorkingHours']:checked"), function () {
+                 let WorkingHoursID = $(this).val()
+                 let from;
+                 if ($("#inputFrom" + WorkingHoursID).length) {
+                     from = $("#inputFrom" + WorkingHoursID).val();
+                 } else {
+                     from = $("#From" + WorkingHoursID).html();
+                 }
+                       $.ajax({
+                        type: "post",
+                           url: "/EmployeeHoursSetting/Create",
+                           async : false,
+                           data: {
+                             WorkingHoursSettingHRId: WorkingHoursID,
+                             ToDate: $("#To" + WorkingHoursID).html(),
+                             FromDate: from,
+                             EmpId:EmpId
+                           },
+                        success: function (response) {
+                           
+                        }
+                    });
+                
+             });
+             
+           
+        }
+        $(document).ready(function () {
+             
+            $("select").chosen({
+                width: '100%',
+                no_results_text: '',
+                search_contains: true,
+            });
+            $("select").css({ "visibility": "hidden", "position": "absolute", "display": "" });
+
+            $("#Container input[type='button']").click(function () {
+                debugger
+                var Text = $(this).val()
+                var id = $(this).attr("id");
+                if (Text == "@Messages.Next" && id == "WorkingHoursNext") {
+                if ($("#EmployeeWorkingHoursTB").DataTable().data().any()) {
+                    let WorkingHoursIDs=[]
+                     $.each($("input[name='CheckedWorkingHours']:checked"), function () {
+                         WorkingHoursIDs.push($(this).val());
+                     });
+                    if (WorkingHoursIDs.length != 0) {
+                        $.each(WorkingHoursIDs, function( index, value ) {
+                            if ($("#inputFrom"+value).val()=="") {
+                                $("#FromValidation" + value).show()
+                                checkFlag = false;
+                              }
+                        });
+                        if (!checkFlag) {
+                            checkFlag = true;
+                            return false;
+                        }
+
+                    } else {
+                        toastr.error('@Messages.NotCheckWorkingHours', '', { timeOut: 3000 });
+                        return false;
+                    }
+                    }
+                      var ParentDiv = $(this).parent().parent().parent();
+                      var NextDev = ParentDiv.next();
+                      ParentDiv.removeClass("active in");
+                      NextDev.addClass("active in");
+
+            }
+                else if (Text == "@Messages.Next") {
+                    var ParentDiv = $(this).parent().parent().parent();
+                    if (ParentDiv.find("form").valid()) {
+                        var NextDev = ParentDiv.next();
+                        ParentDiv.removeClass("active in");
+                        NextDev.addClass("active in");
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else if (Text == "@Messages.Previous") {
+                    var ParentDiv = $(this).parent().parent().parent();
+
+                    var PreviousDiv = ParentDiv.prev();
+                    PreviousDiv.addClass("active in");
+                    ParentDiv.removeClass("active in");
+                }
+                else if (Text == "@Messages.SaveBTN") {
+                    var ParentDiv = $(this).parent().parent().parent();
+                    if (ParentDiv.find("form").valid()) {
+                        var fd = new FormData();
+                        var file_data = $('input[type="file"]')[0].files; // for multiple files
+
+                        var other_data = $('form').serializeArray();
+                        $.each(other_data, function (key, input) {
+                            fd.append(input.name, input.value);
+                        })
+                        fd.append("ProfileImg", file_data[0]);
+                        $.ajax({
+                            url: "@Url.Action("AddEmployee","Employee")",
+                            type: "post",
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                            success: function (res) {
+                                if (res.status == true) {
+                                    CreateEmployeeWorkingHours(res.EmpID);
+                                    toastr.success("@Messages.SaveSucc", '', { timeOut: 4000 });
+                                    window.location.href = "@Url.Action("Edit","Employee")"+"?ID="+res.EmployeeId;
+                                }
+                                else {
+                            toastr.error("@Messages.SaveErr", '', { timeOut: 3000 });
+
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else if (Text == "@Messages.SaveWitoutExperience") {
+
+                        var fd = new FormData();
+                        var file_data = $('input[type="file"]')[0].files; // for multiple files
+
+                    var other_data = $('form').serializeArray();
+                    $.each(other_data, function (key, input) {
+                        if (!(input.name.startsWith("employeeExperienceVM"))) {
+                            fd.append(input.name, input.value);
+                            }
+                    });
+                    
+                        fd.append("ProfileImg", file_data[0]);
+                        $.ajax({
+                            url: "@Url.Action("AddEmployee","Employee")",
+                            type: "post",
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                         success: function (res) {
+                             if (res.status == true) {
+                                    CreateEmployeeWorkingHours(res.EmpID);
+                                    toastr.success("@Messages.SaveSucc", '', { timeOut: 4000 });
+                                    window.location.href = "@Url.Action("Edit","Employee")"+"?ID="+res.EmployeeId;
+                                }
+                                else {
+                                   toastr.error("@Messages.SaveErr", '', { timeOut: 3000 });
+
+                                }
+                            }
+                        });
+
+                }
+
+
+            });
+
+
+
+            //AutoComplete
+            $("#DepartmentID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("Departments","EmployeeDepartment")",
+                        type: "GET",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeDepartmentVM_DepartmentId').val("")
+                                $('#DepartmentID').val("")
+
+                            }
+                            else {
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeDepartmentVM_DepartmentId').val(ui.item.ss);
+                },
+
+
+            });
+
+            //Picture Settings
+            $("input[type='File']").change(function () {
+                if (parseFloat(this.files[0].size / 1024 / 1024) > 3) {
+                    toastr.error("@Messages.InvalidImgSize", '', { timeOut: 3000 });
+                          $('#LableChangPicparnt img').attr('src', "");
+                    $("#employeeVM_ProfileImge").val("")
+                    return false
+
+                }
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#LableChangPicparnt img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                    $("#employeeVM_ProfileImge").val(url)
+                }
+                else {
+                    $('#LableChangPicparnt img').attr('src', "");
+                    $("#employeeVM_ProfileImge").val("")
+                }
+            });
+
+            //Remove Validation  Msg
+
+            $('input[type="datetime"]').change(function () {
+                var name = $(this).attr("name");
+                $('span[data-valmsg-for="' + name + '"]').text("")
+            })
+            $('select').change(function () {
+                var name = $(this).attr("name");
+                $('span[data-valmsg-for="' + name + '"]').text("")
+            });
+            //Dates
+            
+            $("[data-val-date]").datepicker({
+
+            });
+            //$("#employeeVM_DateOfBirth").datepicker({
+
+            //});
+
+
+
+            $("#EmployeeDepartmentVM_StartDate").change(function () {
+                $("#EmployeeDepartmentVM_EndDate").val("");
+                $("#EmployeeDepartmentVM_EndDate").datepicker("option", "minDate", $(this).val());
+            });
+
+            $("#employeeLicenceDataVM_ReleaseDate").change(function () {
+                $("#employeeLicenceDataVM_EndDate").val("");
+                $("#employeeLicenceDataVM_EndDate").datepicker("option", "minDate", $(this).val());
+            })
+
+            $("#employeeContractDurationVM_FromDate").change(function () {
+                $("#employeeContractDurationVM_EndDate").val("");
+                $("#employeeContractDurationVM_EndDate").datepicker("option", "minDate", $(this).val());
+            });
+
+             $("#EmployeeJobDataVM_StartDate").change(function () {
+                $("#EmployeeJobDataVM_EndDate").val("");
+                $("#EmployeeJobDataVM_EndDate").datepicker("option", "minDate", $(this).val());
+            });
+            //Emloyee Basic info
+
+            $("#employeeVM_BirthPlaceCountryId").change(function () {
+
+                var BirthPlaceCountry = $("#employeeVM_BirthPlaceCountryId").val();
+                if (BirthPlaceCountry == undefined || BirthPlaceCountry == "") {
+
+                    $("#employeeVM_BirthPlaceAreaId option[value!='']").remove();
+                            $.each(AllAreas, function (i, Value) {
+                                var OP = '<option value="' + Value.Value + '">' + Value.Text + '</option>';
+                                $("#employeeVM_BirthPlaceAreaId").append(OP);
+                            });
+                    $("#employeeVM_BirthPlaceAreaId").val("")
+
+                    $("#employeeVM_BirthPlaceAreaId").trigger('chosen:updated');
+
+                }
+                  else {
+                    $.ajax({
+                        url: "@Url.Action("FetchAreas","Area")"+"?ID="+BirthPlaceCountry,
+
+                        type: "GET",
+                        success: function (res) {
+
+
+                            $("#employeeVM_BirthPlaceAreaId option[value!='']").remove();
+                            $.each(res, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#employeeVM_BirthPlaceAreaId").append(OP);
+                            });
+                            $("#employeeVM_BirthPlaceAreaId").trigger('chosen:updated');
+
+                        }
+                    })
+
+                }
+            });
+            $("#employeeVM_BirthPlaceAreaId").change(function () {
+               var BirthPlaceArea = $("#employeeVM_BirthPlaceAreaId").val();
+                if (parseInt(BirthPlaceArea) > 0) {
+                    $.ajax({
+                        url: "@Url.Action("FetchCountryID","Area")" + "?ID=" + BirthPlaceArea,
+
+                        type: "GET",
+                        success: function (res) {
+                            $("#employeeVM_BirthPlaceCountryId").val(res);
+                            $("#employeeVM_BirthPlaceCountryId").trigger('chosen:updated');
+
+                        }
+                    })
+                }
+            })
+
+            //Section For Employee  Licence Data
+            $("#employeeLicenceDataVM_LicenceTypeHRId").change(function () {
+
+                var LicenceTypHrId = $("#employeeLicenceDataVM_LicenceTypeHRId").val();
+                if (LicenceTypHrId == undefined || LicenceTypHrId == "") {
+                    $("#employeeLicenceDataVM_LicenceKindHRId").attr("disabled", "disabled");
+                    $("#employeeLicenceDataVM_LicenceKindHRId").val("")
+                    $("#employeeLicenceDataVM_LicenceKindHRId_chosen").attr('disabled', true).trigger("chosen:updated")
+                    $("#employeeLicenceDataVM_LicenceKindHRId").trigger('chosen:updated');
+
+                }
+                else {
+                    $.ajax({
+                        url: "@Url.Action("FetchLicenceKidHr","LicenceKindHR")",
+                        data: { LicencTypID: LicenceTypHrId },
+                        type: "GET",
+                        success: function (res) {
+
+                            $("#employeeLicenceDataVM_LicenceKindHRId").removeAttr("disabled");
+
+                            $("#employeeLicenceDataVM_LicenceKindHRId option[value!='']").remove();
+                            $.each(res.data, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#employeeLicenceDataVM_LicenceKindHRId").append(OP);
+                            });
+                            $("#employeeLicenceDataVM_LicenceKindHRId").attr("disabled", false);
+
+                            $("#employeeLicenceDataVM_LicenceKindHRId_chosen").attr('disabled', false).trigger("chosen:updated")
+                            $("#employeeLicenceDataVM_LicenceKindHRId").trigger('chosen:updated');
+
+                        }
+                    })
+
+                }
+            });
+
+            //Section For Employee  Qulifications
+            //Frist Drop DownList
+            $("#employeeQualificationVM_CetificationTypeId").change(function () {
+                debugger
+                var CertficationID = $("#employeeQualificationVM_CetificationTypeId").val();
+                if (CertficationID == undefined || CertficationID == "") {
+                    $("#employeeQualificationVM_CertificationSpecificId").attr("disabled", "disabled");
+                    $("#employeeQualificationVM_CertificationSpecificId").val("")
+                    $("#employeeQualificationVM_CertificationSpecificId_chosen").attr('disabled', true).trigger("chosen:updated")
+                    $("#employeeQualificationVM_CertificationSpecificId").trigger('chosen:updated');
+
+                    $("#employeeQualificationVM_CertificationSpecDepartId").attr("disabled", "disabled");
+                    $("#employeeQualificationVM_CertificationSpecDepartId").val("")
+                    $("#employeeQualificationVM_CertificationSpecDepartId_chosen").attr('disabled', true).trigger("chosen:updated")
+                    $("#employeeQualificationVM_CertificationSpecDepartId").trigger('chosen:updated');
+                }
+                else {
+                    $.ajax({
+                        url: "@Url.Action("FetchCertificationspecfic","CertificationSpecific")",
+                        data: { ID: CertficationID },
+                        type: "GET",
+                        success: function (res) {
+                            debugger
+                            $("#employeeQualificationVM_CertificationSpecificId").removeAttr("disabled");
+
+                            $("#employeeQualificationVM_CertificationSpecificId option[value!='']").remove();
+                            $.each(res.data, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#employeeQualificationVM_CertificationSpecificId").append(OP);
+                            });
+                            $("#employeeQualificationVM_CertificationSpecificId").attr("disabled", false);
+
+                            $("#employeeQualificationVM_CertificationSpecificId_chosen").attr('disabled', false).trigger("chosen:updated")
+                            $("#employeeQualificationVM_CertificationSpecificId").trigger('chosen:updated');
+                        }
+                    });
+
+                }
+
+
+            });
+            //Second
+            $("#employeeQualificationVM_CertificationSpecificId").change(function () {
+
+                var ID = $("#employeeQualificationVM_CertificationSpecificId").val();
+                if (ID == undefined || ID == "") {
+                    $("#employeeQualificationVM_CertificationSpecDepartId").attr("disabled", "disabled");
+                    $("#employeeQualificationVM_CertificationSpecDepartId").val("")
+                    $("#employeeQualificationVM_CertificationSpecDepartId_chosen").attr('disabled', true).trigger("chosen:updated")
+                    $("#employeeQualificationVM_CertificationSpecDepartId").trigger('chosen:updated');
+                }
+                else {
+                    $.ajax({
+                        url: "@Url.Action("FetchCertificationspecDepart","CertificationSpecDepart")",
+                        data: { ID: ID },
+                        type: "GET",
+                        success: function (res) {
+
+
+                            $("#employeeQualificationVM_CertificationSpecDepartId option[value!='']").remove();
+                            $.each(res.data, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#employeeQualificationVM_CertificationSpecDepartId").append(OP);
+                            });
+                            $("#employeeQualificationVM_CertificationSpecDepartId").attr("disabled", false);
+
+                            $("#employeeQualificationVM_CertificationSpecDepartId_chosen").attr('disabled', false).trigger("chosen:updated")
+                            $("#employeeQualificationVM_CertificationSpecDepartId").trigger('chosen:updated');
+
+                        }
+                    })
+                }
+            });
+
+
+            /// Emloyee JobData
+
+             $("#EmployeeJobDataVM_JobNameId").change(function () {
+
+                 var Jobname = $("#EmployeeJobDataVM_JobNameId").val();
+                 if (Jobname == undefined || Jobname == "") {
+
+                     $("#EmployeeJobDataVM_JobFunctionId option[value!='']").remove();
+                     $.each(AllJobFunctions, function (i, Value) {
+                                var OP = '<option value="' + Value.Value + '">' + Value.Text + '</option>';
+                                $("#EmployeeJobDataVM_JobFunctionId").append(OP);
+                            });
+                    $("#EmployeeJobDataVM_JobFunctionId").val("")
+
+                    $("#EmployeeJobDataVM_JobFunctionId").trigger('chosen:updated');
+
+                }
+                  else {
+                     $.ajax({
+                         url: "@Url.Action("FetchJobFunctions","JobFunction")" + "?ID=" + Jobname,
+
+                        type: "GET",
+                        success: function (res) {
+
+
+                            $("#EmployeeJobDataVM_JobFunctionId option[value!='']").remove();
+                            $.each(res, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#EmployeeJobDataVM_JobFunctionId").append(OP);
+                            });
+                            $("#EmployeeJobDataVM_JobFunctionId").trigger('chosen:updated');
+
+                        }
+                    })
+
+                }
+            });
+            $("#EmployeeJobDataVM_JobFunctionId").change(function () {
+                var JobFunctionID = $("#EmployeeJobDataVM_JobFunctionId").val();
+                if (parseInt(JobFunctionID) > 0) {
+                    $.ajax({
+                        url: "@Url.Action("FetchJobNameId","JobFunction")" + "?ID=" + JobFunctionID,
+
+                        type: "GET",
+                        success: function (res) {
+                            $("#EmployeeJobDataVM_JobNameId").val(res);
+                            $("#EmployeeJobDataVM_JobNameId").trigger('chosen:updated');
+
+                        }
+                    })
+                }
+            })
+
+        });
+        function changeDate(index) {
+            $("#FromValidation" + index).hide();
+        }
+         $('#EmployeeWorkingHoursTB').DataTable({
+            "ajax": {
+                'url': "@Url.Action("GetEmployeeHoursSForEmployee","WorkingHoursSettingHR")",
+                'type': "GET"
+            }, "columns": [
+                 {
+                        "data":  "ID", orderable: false,
+                    "render": function (data, type, full, meta) {
+                             return "<input type='checkbox' id='checkBox" + data + "' name='CheckedWorkingHours' value='" + data + "'>";
+                        }
+                },
+                { "data": "WorkingHoursName" , "render": function (data, type, row) {
+                             return "<div id='WorkingHoursName"+row.ID+"'>"+data+"</div>";
+                            }
+                 },
+                 {
+                     "data": "From",
+                     "render": function (data, type, row) {
+                         debugger;
+                         if (data =="") {
+                             return "<div class='col-md-4'><input type='text' id='inputFrom" + row.ID + "' class='datePickerClass' name='inputFrom" + row.ID + "' onchange='changeDate("+row.ID+")'/> <span id='FromValidation"+row.ID+"' style='color:#a94442;display:none;'>@Messages.Required</span></div>";
+                         } else {
+                              return "<div id='From"+row.ID+"'>"+data+"</div>";
+                         }
+                        }
+                 },
+                 {
+                     "data": "To", "render": function (data, type, row) {
+                             return "<div id='To"+row.ID+"'>"+data+"</div>";
+                            }
+                 },
+            ],  "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+             info: false,
+            "initComplete": function(settings, json) {
+                     $(".datePickerClass").datepicker({
+                    dateFormat: 'dd/mm/yy'
+
+                });
+  }
+        });
+    </script>
+}

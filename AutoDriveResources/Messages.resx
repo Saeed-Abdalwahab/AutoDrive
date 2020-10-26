@@ -1,0 +1,1071 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>AddEmployee</value>
+  </data>
+  <data name="BloodGroupsDropDown" xml:space="preserve">
+    <value>--Select Bloodgroup--</value>
+  </data>
+  <data name="DeductionDeleted" xml:space="preserve">
+    <value>Increases and Deductions Deleted.</value>
+  </data>
+  <data name="DeductionEdited" xml:space="preserve">
+    <value>Increases and Deductions Edited.</value>
+  </data>
+  <data name="DeductionSaved" xml:space="preserve">
+    <value>Increases and Deductions Saved</value>
+  </data>
+  <data name="DepartmentSearch" xml:space="preserve">
+    <value>--Search For Department--</value>
+  </data>
+  <data name="EmployeeRequired" xml:space="preserve">
+    <value>You should enter Employee.</value>
+  </data>
+  <data name="EndDateError" xml:space="preserve">
+    <value>EndDate must be greater than StartDate</value>
+  </data>
+  <data name="ErrorAdding" xml:space="preserve">
+    <value>An error occurred during the addition, please try again</value>
+  </data>
+  <data name="ErrorDeletion" xml:space="preserve">
+    <value>An error occurred during deletion. Please try again</value>
+  </data>
+  <data name="ErrorModification" xml:space="preserve">
+    <value>An error occurred during the modification, please try again</value>
+  </data>
+  <data name="ExistedName" xml:space="preserve">
+    <value>This name already exists. Please enter another name</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="GenderDropDown" xml:space="preserve">
+    <value>--Select Gender--</value>
+  </data>
+  <data name="IncreasesDeductionTypeDeleted" xml:space="preserve">
+    <value>Increases and Deductions Type Deleted.</value>
+  </data>
+  <data name="IncreasesDeductionTypeEdited" xml:space="preserve">
+    <value>Increases and Deductions Type Edited.</value>
+  </data>
+  <data name="IncreasesDeductionTypeSaved" xml:space="preserve">
+    <value>Increases and Deductions Type Saved.</value>
+  </data>
+  <data name="IncreasingDeductionTypeEdited" xml:space="preserve">
+    <value>Increasing and Deduction Type Edited</value>
+  </data>
+  <data name="IncreasingDeductionTypeSaved" xml:space="preserve">
+    <value>Increasing and Deduction Type Saved</value>
+  </data>
+  <data name="InMonthRequired" xml:space="preserve">
+    <value>You should enter In Month.</value>
+  </data>
+  <data name="InYearRequired" xml:space="preserve">
+    <value>You should enter In Year.</value>
+  </data>
+  <data name="JobDegreeDelete" xml:space="preserve">
+    <value>The job degree has been deleted</value>
+  </data>
+  <data name="JobDegreeEdit" xml:space="preserve">
+    <value>Job Degree Edited</value>
+  </data>
+  <data name="JobDegreeSave" xml:space="preserve">
+    <value>Job Degree saved</value>
+  </data>
+  <data name="JobLevelDelete" xml:space="preserve">
+    <value>Job Degree Deleted</value>
+  </data>
+  <data name="JobLevelEdit" xml:space="preserve">
+    <value>Job Level Edited</value>
+  </data>
+  <data name="JobLevelSave" xml:space="preserve">
+    <value>Job Level Saved</value>
+  </data>
+  <data name="LevelToJobDergee" xml:space="preserve">
+    <value>This job level already exists to this degree. Please enter another job level</value>
+  </data>
+  <data name="licenceTypeHRDropDown" xml:space="preserve">
+    <value>--Select licenceType--</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="MotivationDateRequired" xml:space="preserve">
+    <value>You should enter Motivation Date.</value>
+  </data>
+  <data name="MotivationTypeRequired" xml:space="preserve">
+    <value>You should enter Motivation Type.</value>
+  </data>
+  <data name="NameValidationError" xml:space="preserve">
+    <value>This name is already exists. Please enter another name</value>
+  </data>
+  <data name="NationalityDropDown" xml:space="preserve">
+    <value>--Select Nationality--</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="NotExistedChangedSalary" xml:space="preserve">
+    <value>You should enter Changed Salary</value>
+  </data>
+  <data name="NotExistedDegree" xml:space="preserve">
+    <value>You should enter Job Degree</value>
+  </data>
+  <data name="NotExistedENName" xml:space="preserve">
+    <value>You should enter Name(EN)</value>
+  </data>
+  <data name="NotExistedIncreasingDeductionType" xml:space="preserve">
+    <value>You should enter Increasing and Deduction Type</value>
+  </data>
+  <data name="NotExistedLevel" xml:space="preserve">
+    <value>You should enter Job Level</value>
+  </data>
+  <data name="NotExistedName" xml:space="preserve">
+    <value>You should enter Name(AR)</value>
+  </data>
+  <data name="NotExistedName1" xml:space="preserve">
+    <value>You should enter Name</value>
+  </data>
+  <data name="NotExistedSalary" xml:space="preserve">
+    <value>You should enter Salary</value>
+  </data>
+  <data name="NotSuccessfulOperation" xml:space="preserve">
+    <value>Unsuccessful operation</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ReligionDropDown" xml:space="preserve">
+    <value>--Select Religion--</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value> Required</value>
+  </data>
+  <data name="RequiredBasicSalary" xml:space="preserve">
+    <value>You should enter Basic Salary/All</value>
+  </data>
+  <data name="RequiredDeduction" xml:space="preserve">
+    <value>You should enter Deduction</value>
+  </data>
+  <data name="RequiredName" xml:space="preserve">
+    <value>You should enter name</value>
+  </data>
+  <data name="RequiredRatio" xml:space="preserve">
+    <value>You should enter Ratio/Value</value>
+  </data>
+  <data name="RequiredValue" xml:space="preserve">
+    <value>You should enter value</value>
+  </data>
+  <data name="SalaryDleted" xml:space="preserve">
+    <value>Salary deleted.</value>
+  </data>
+  <data name="SalaryEdited" xml:space="preserve">
+    <value>Salary Edited.</value>
+  </data>
+  <data name="SalarySaved" xml:space="preserve">
+    <value>Salary Saved.</value>
+  </data>
+  <data name="areasDropDown" xml:space="preserve">
+    <value>--Select Area Source--</value>
+  </data>
+  <data name="licenceKindHRsDropDown" xml:space="preserve">
+    <value>--Select licenceKind--</value>
+  </data>
+  <data name="certificationGradeDropDown" xml:space="preserve">
+    <value>--select certification Grade--</value>
+  </data>
+  <data name="certificationSpecDepartDropDown" xml:space="preserve">
+    <value>--Select certification Department--</value>
+  </data>
+  <data name="certificationSpecificDropDown" xml:space="preserve">
+    <value>--Select certification Specifics--</value>
+  </data>
+  <data name="certificationTypeDropDown" xml:space="preserve">
+    <value>--Select CertificationType--</value>
+  </data>
+  <data name="MotivationStatusRequired" xml:space="preserve">
+    <value>You should enter Status.</value>
+  </data>
+  <data name="ValueRequired" xml:space="preserve">
+    <value>You should enter Value.</value>
+  </data>
+  <data name="WithSalaryOrFormRequired" xml:space="preserve">
+    <value>You should enter With Salary/Form</value>
+  </data>
+  <data name="RewardAdopted" xml:space="preserve">
+    <value>Salary has been adopted.Please choose another month</value>
+  </data>
+  <data name="RewardCanceled" xml:space="preserve">
+    <value>Salary has been canceled.Please choose another month</value>
+  </data>
+  <data name="RewardReceived" xml:space="preserve">
+    <value>Salary has been received.Please choose another month</value>
+  </data>
+  <data name="rewardSaved" xml:space="preserve">
+    <value>Reward has been saved.</value>
+  </data>
+  <data name="SameMonth" xml:space="preserve">
+    <value>It is not possible to enter more than one bonus for the same person in the same month. Please enter a month</value>
+  </data>
+  <data name="MonthsDropDown" xml:space="preserve">
+    <value>--Select Month--</value>
+  </data>
+  <data name="EmployeeForm1" xml:space="preserve">
+    <value>Employee Main Information</value>
+  </data>
+  <data name="EmployeeForm2" xml:space="preserve">
+    <value>Employee Department</value>
+  </data>
+  <data name="EmployeeForm3" xml:space="preserve">
+    <value>Employee Licence Data</value>
+  </data>
+  <data name="EmployeeForm4" xml:space="preserve">
+    <value>Employee Qualifications</value>
+  </data>
+  <data name="EmployeeForm5" xml:space="preserve">
+    <value>Employee Contract Duration</value>
+  </data>
+  <data name="EmployeeForm6" xml:space="preserve">
+    <value>Employee Experiences</value>
+  </data>
+  <data name="EmployeeStatusDropDown" xml:space="preserve">
+    <value>--Select Contact Status--</value>
+  </data>
+  <data name="EmployeeSearch" xml:space="preserve">
+    <value>Search for employee</value>
+  </data>
+  <data name="RewardEdited" xml:space="preserve">
+    <value>Reward has been Edited</value>
+  </data>
+  <data name="ViolationTypeEdited" xml:space="preserve">
+    <value>Violation Setting has been edited</value>
+  </data>
+  <data name="YearsDropDown" xml:space="preserve">
+    <value>--Select Year--</value>
+  </data>
+  <data name="SaveBTN" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="AddCountry" xml:space="preserve">
+    <value>Add Country</value>
+  </data>
+  <data name="AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="BackBtn" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmBtn" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmDeleteMsg" xml:space="preserve">
+    <value> Confirm the deletion process !</value>
+  </data>
+  <data name="Countrys" xml:space="preserve">
+    <value>Countrys</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteErr" xml:space="preserve">
+    <value>Can not Delete Right Now </value>
+  </data>
+  <data name="DeleteSucc" xml:space="preserve">
+    <value>Successful deletion</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="NameAlreadyExist" xml:space="preserve">
+    <value>Name Already Exist</value>
+  </data>
+  <data name="NotValidMsg" xml:space="preserve">
+    <value>Please Fill all Filds</value>
+  </data>
+  <data name="SaveErr" xml:space="preserve">
+    <value>Faild Save</value>
+  </data>
+  <data name="SaveSucc" xml:space="preserve">
+    <value>Successful Save</value>
+  </data>
+  <data name="SpeechLanguage" xml:space="preserve">
+    <value>SpeechLanguage</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Areas</value>
+  </data>
+  <data name="CountryDropDown" xml:space="preserve">
+    <value>--Select Country--</value>
+  </data>
+  <data name="AddArea" xml:space="preserve">
+    <value>Add Area</value>
+  </data>
+  <data name="HumanResource" xml:space="preserve">
+    <value>Human Resource</value>
+  </data>
+  <data name="AddNationality" xml:space="preserve">
+    <value>Add Nationality</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="AddBloodGroup" xml:space="preserve">
+    <value>Add BloodGroup</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>Blood Groups</value>
+  </data>
+  <data name="AddReligion" xml:space="preserve">
+    <value>Add Religion</value>
+  </data>
+  <data name="Religion" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="AddLicenceTypeHR" xml:space="preserve">
+    <value>Add LicenceType</value>
+  </data>
+  <data name="LicenceTypeHR" xml:space="preserve">
+    <value>LicenceType</value>
+  </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>Add Department</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="DepartmentDropDown" xml:space="preserve">
+    <value>--Select Managment--</value>
+  </data>
+  <data name="ViolationTypeSaved" xml:space="preserve">
+    <value>Violation Setting has been Saved</value>
+  </data>
+  <data name="ViolationSaved" xml:space="preserve">
+    <value>Violation has been saved</value>
+  </data>
+  <data name="ViolationDeleted" xml:space="preserve">
+    <value>Violation has been deleted</value>
+  </data>
+  <data name="AddCertificationType" xml:space="preserve">
+    <value>Add CertificationType</value>
+  </data>
+  <data name="CertificationType" xml:space="preserve">
+    <value>Certification Types</value>
+  </data>
+  <data name="sEmptyTable" xml:space="preserve">
+    <value>No data available in table</value>
+  </data>
+  <data name="sFirst" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="sInfo" xml:space="preserve">
+    <value>Showing _START_ to _END_ of _TOTAL_ entries</value>
+  </data>
+  <data name="sInfoEmpty" xml:space="preserve">
+    <value>Showing 0 to 0 of 0 entries</value>
+  </data>
+  <data name="sInfoFiltered" xml:space="preserve">
+    <value>(filtered from _MAX_ total entries)</value>
+  </data>
+  <data name="sInfoPostFix" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sInfoThousands" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sLast" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="sLengthMenu" xml:space="preserve">
+    <value>Show _MENU_ entries</value>
+  </data>
+  <data name="sLoadingRecords" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="sNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="sPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="sProcessing" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="sSearch" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="sSortAscending" xml:space="preserve">
+    <value>activate to sort column ascending</value>
+  </data>
+  <data name="sSortDescending" xml:space="preserve">
+    <value>activate to sort column descending</value>
+  </data>
+  <data name="sZeroRecords" xml:space="preserve">
+    <value>No matching records found</value>
+  </data>
+  <data name="ViolationEdited" xml:space="preserve">
+    <value>Violation has been edited</value>
+  </data>
+  <data name="AddMaritalStatu" xml:space="preserve">
+    <value>Add MaritalStatuse</value>
+  </data>
+  <data name="MaritalStatu" xml:space="preserve">
+    <value>Marital Statuse</value>
+  </data>
+  <data name="AutoDriveMain" xml:space="preserve">
+    <value>AutoDriveMain</value>
+  </data>
+  <data name="DriveLevel" xml:space="preserve">
+    <value>DriveLevel</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>JobName</value>
+  </data>
+  <data name="LicenceCategory" xml:space="preserve">
+    <value>LicenceCategory</value>
+  </data>
+  <data name="LicenceType" xml:space="preserve">
+    <value>LicenceType</value>
+  </data>
+  <data name="NationalType" xml:space="preserve">
+    <value>National Type</value>
+  </data>
+  <data name="StudyPeriodSetting" xml:space="preserve">
+    <value>StudyPeriodSetting</value>
+  </data>
+  <data name="Trainee" xml:space="preserve">
+    <value>Trainee</value>
+  </data>
+  <data name="TraineeEvaluation" xml:space="preserve">
+    <value>TraineeEvaluation</value>
+  </data>
+  <data name="Add CertificationSpecifics" xml:space="preserve">
+    <value>Add CertificationSpecific</value>
+  </data>
+  <data name="CertificationSpecifics" xml:space="preserve">
+    <value>CertificationSpecifics</value>
+  </data>
+  <data name="AddCertificationSpecDeparts" xml:space="preserve">
+    <value>Add CertificationSpecDeparts</value>
+  </data>
+  <data name="CertificationSpecDeparts" xml:space="preserve">
+    <value>CertificationSpecDeparts</value>
+  </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>Invalid Email adress</value>
+  </data>
+  <data name="MotivationType" xml:space="preserve">
+    <value>Motivation Type</value>
+  </data>
+  <data name="MaritalStatuDropDown" xml:space="preserve">
+    <value>--select MaritalStatu--</value>
+  </data>
+  <data name="CalculateSalaries" xml:space="preserve">
+    <value>Staff salaries have been successfully calculated</value>
+  </data>
+  <data name="CarrerField" xml:space="preserve">
+    <value>Carrer Field</value>
+  </data>
+  <data name="TraineeFile" xml:space="preserve">
+    <value>Trainee File</value>
+  </data>
+  <data name="AddCarrerField" xml:space="preserve">
+    <value>Add CarrerField</value>
+  </data>
+  <data name="CourseReservation" xml:space="preserve">
+    <value>Course Reservation</value>
+  </data>
+  <data name="BasicCode" xml:space="preserve">
+    <value>Basic Codes</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="SettingMenu" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="AddJobName" xml:space="preserve">
+    <value>Add JobName</value>
+  </data>
+  <data name="AddNationalType" xml:space="preserve">
+    <value>Add National Type</value>
+  </data>
+  <data name="AddSpeechLanguage" xml:space="preserve">
+    <value>Add Speech Language</value>
+  </data>
+  <data name="AddDriveLevel" xml:space="preserve">
+    <value>Add DriveLevel</value>
+  </data>
+  <data name="AddLicenceCategory" xml:space="preserve">
+    <value>AddLicenceCategory</value>
+  </data>
+  <data name="AddLicenceType" xml:space="preserve">
+    <value>Add LicenceType</value>
+  </data>
+  <data name="AddMotivationType" xml:space="preserve">
+    <value>Add Motivation Type</value>
+  </data>
+  <data name="NotCheckedEmployee" xml:space="preserve">
+    <value>No employee has been chosen to approve the salary</value>
+  </data>
+  <data name="NotExistedDataforApproval" xml:space="preserve">
+    <value>There are no data in the table for salary approval.</value>
+  </data>
+  <data name="NotExistedEmployeesForApproval" xml:space="preserve">
+    <value>There are no Employees in the table for salary approval.</value>
+  </data>
+  <data name="SalaryApprovalForChosenEmployees" xml:space="preserve">
+    <value>The salary has been approved for the chosen employees</value>
+  </data>
+  <data name="NoResultFounded" xml:space="preserve">
+    <value>No Result Founded</value>
+  </data>
+  <data name="NotExistedSort" xml:space="preserve">
+    <value>NotExistedSort</value>
+  </data>
+  <data name="DegreeSortValdiation" xml:space="preserve">
+    <value>This sort is already exists. Please enter another sort</value>
+  </data>
+  <data name="AddStudyPeriodSetting" xml:space="preserve">
+    <value>AddStudy PeriodSetting</value>
+  </data>
+  <data name="Practical" xml:space="preserve">
+    <value>Practical</value>
+  </data>
+  <data name="Visual" xml:space="preserve">
+    <value>Visual</value>
+  </data>
+  <data name="ReceiptVoucher" xml:space="preserve">
+    <value>Receipt Voucher</value>
+  </data>
+  <data name="AddReceiptVoucher" xml:space="preserve">
+    <value>AddReceipt Voucher</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="CarrerFieldDropDown" xml:space="preserve">
+    <value>--Select Carrer Filed--</value>
+  </data>
+  <data name="EmployeeForm7" xml:space="preserve">
+    <value>Job Data</value>
+  </data>
+  <data name="JobDegreeDropDown" xml:space="preserve">
+    <value>--Select JobDegree --</value>
+  </data>
+  <data name="JobLevelDropDown" xml:space="preserve">
+    <value>--Select Job Level--</value>
+  </data>
+  <data name="JobNameDropDown" xml:space="preserve">
+    <value>--Select JobName--</value>
+  </data>
+  <data name="JobFunctionDropDown" xml:space="preserve">
+    <value>--Select JobFunction--</value>
+  </data>
+  <data name="SaveWitoutExperience" xml:space="preserve">
+    <value>Save Witout Experience</value>
+  </data>
+  <data name="AddNewBaseDepartment" xml:space="preserve">
+    <value>Add Base Department</value>
+  </data>
+  <data name="MainDepartments" xml:space="preserve">
+    <value>Main Departments</value>
+  </data>
+  <data name="ChooseEmployee" xml:space="preserve">
+    <value>--Choose Employee--</value>
+  </data>
+  <data name="ChooseLevel" xml:space="preserve">
+    <value>--Choose Level--</value>
+  </data>
+  <data name="ChooseLicenceCategory" xml:space="preserve">
+    <value>--Choose LicenceCategory--</value>
+  </data>
+  <data name="ChooseLiceneType" xml:space="preserve">
+    <value>--Choose LiceneType--</value>
+  </data>
+  <data name="ChooseTrainee" xml:space="preserve">
+    <value>--ChooseTrainee--</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="AddWorkTimesSetting" xml:space="preserve">
+    <value>AddWorkTimes Setting</value>
+  </data>
+  <data name="WorkTimesSetting" xml:space="preserve">
+    <value>WorkTimes Setting</value>
+  </data>
+  <data name="fri" xml:space="preserve">
+    <value>friday</value>
+  </data>
+  <data name="mon" xml:space="preserve">
+    <value>Modday</value>
+  </data>
+  <data name="sat" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="sun" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="thu" xml:space="preserve">
+    <value>thursday</value>
+  </data>
+  <data name="tue" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="wed" xml:space="preserve">
+    <value>wednesday</value>
+  </data>
+  <data name="LoanDeleted" xml:space="preserve">
+    <value>Loan has been deleted</value>
+  </data>
+  <data name="LoanAdded" xml:space="preserve">
+    <value>Loan has been added</value>
+  </data>
+  <data name="LoanEdited" xml:space="preserve">
+    <value>Loan has been edited</value>
+  </data>
+  <data name="DataSavedBefor" xml:space="preserve">
+    <value>this Data Already Saved Befor For This Employe</value>
+  </data>
+  <data name="EmployeeEditInfo" xml:space="preserve">
+    <value> Edit Employee Info </value>
+  </data>
+  <data name="InvalidImgSize" xml:space="preserve">
+    <value>Invalid Img Size</value>
+  </data>
+  <data name="JobFunction" xml:space="preserve">
+    <value>Job Function</value>
+  </data>
+  <data name="ChooseADay" xml:space="preserve">
+    <value>Choose A Day</value>
+  </data>
+  <data name="ChooseTraineeCode" xml:space="preserve">
+    <value>--Choose Trainee Code--</value>
+  </data>
+  <data name="Numeric_only" xml:space="preserve">
+    <value>Numeric Only</value>
+  </data>
+  <data name="accounting" xml:space="preserve">
+    <value>accounting</value>
+  </data>
+  <data name="PaymentConverted" xml:space="preserve">
+    <value>It has been converted to Payment.</value>
+  </data>
+  <data name="SearchBTN" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TraineeAttendance" xml:space="preserve">
+    <value>Trainee Attendance</value>
+  </data>
+  <data name="AddTraineeAttendance" xml:space="preserve">
+    <value>Add Trainee Attendance</value>
+  </data>
+  <data name="AttendanceDate" xml:space="preserve">
+    <value>Attendance Date</value>
+  </data>
+  <data name="DaysWork" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Practicaldays" xml:space="preserve">
+    <value>Practical</value>
+  </data>
+  <data name="Visualdays" xml:space="preserve">
+    <value>Visual</value>
+  </data>
+  <data name="EmployeeVacationBalanceDeleted" xml:space="preserve">
+    <value>Employee Vacation Balance has been deleted.</value>
+  </data>
+  <data name="EmployeeVacationBalanceEdited" xml:space="preserve">
+    <value>Employee Vacation Balance has been edited</value>
+  </data>
+  <data name="PracticalOrVisual" xml:space="preserve">
+    <value>Practical/Visual</value>
+  </data>
+  <data name="EmployeeVacationAdded" xml:space="preserve">
+    <value>Vacation has been added</value>
+  </data>
+  <data name="EmployeeVacationEdited" xml:space="preserve">
+    <value>Vacation has been edited</value>
+  </data>
+  <data name="NotExistedBalance" xml:space="preserve">
+    <value>There is no balance for this vacation.</value>
+  </data>
+  <data name="EmployeeVacationDeleted" xml:space="preserve">
+    <value>Vacation has been deleted</value>
+  </data>
+  <data name="ExistedBalance" xml:space="preserve">
+    <value>This balance is already Existed.Please enter anthor balance</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemCode" xml:space="preserve">
+    <value>ItemCode</value>
+  </data>
+  <data name="MainItem" xml:space="preserve">
+    <value>Main Item</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="EditItem" xml:space="preserve">
+    <value>Edit Item</value>
+  </data>
+  <data name="ErrorDataBase" xml:space="preserve">
+    <value>An error occurred, try again</value>
+  </data>
+  <data name="ItemType" xml:space="preserve">
+    <value>Item Type</value>
+  </data>
+  <data name="AddSuccess" xml:space="preserve">
+    <value>Saved successfully</value>
+  </data>
+  <data name="AddArchiveSettingHR" xml:space="preserve">
+    <value>Add ArchiveSettingHR</value>
+  </data>
+  <data name="ArchiveSettingHRDropDown" xml:space="preserve">
+    <value>--Select Main Item--</value>
+  </data>
+  <data name="ArchiveSettingHRs" xml:space="preserve">
+    <value>Employee Files items</value>
+  </data>
+  <data name="MainArchiveSettingHRs" xml:space="preserve">
+    <value>Main Files Items</value>
+  </data>
+  <data name="VacationDeductionSaved" xml:space="preserve">
+    <value>Vacations Deduction has been saved</value>
+  </data>
+  <data name="VacationsDeductionDeleted" xml:space="preserve">
+    <value>Vacations Deduction has been deleted</value>
+  </data>
+  <data name="VacationsDeductionEdited" xml:space="preserve">
+    <value>Vacations Deduction has been edited</value>
+  </data>
+  <data name="ApprovalSalary" xml:space="preserve">
+    <value>The process cannot be done to approve the salary. Please enter another period</value>
+  </data>
+  <data name="CanceledSalary" xml:space="preserve">
+    <value>The process cannot be done to cancel the salary. Please enter another period</value>
+  </data>
+  <data name="ReceivedSalary" xml:space="preserve">
+    <value>The process cannot be done to receive the salary. Please enter another period</value>
+  </data>
+  <data name="TraineeAttendingFollowup" xml:space="preserve">
+    <value>TraineeAttending Followup</value>
+  </data>
+  <data name="ChooseAttendanceDay" xml:space="preserve">
+    <value>--Select Course Day--</value>
+  </data>
+  <data name="AddTraineeAttendingFollowup" xml:space="preserve">
+    <value>AddTraineeAttendingFollowup</value>
+  </data>
+  <data name="Day_ofWeek" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="TraineeAttendanceDay" xml:space="preserve">
+    <value>Course Day</value>
+  </data>
+  <data name="TraineeAttendance_Absence" xml:space="preserve">
+    <value>Trainee Attendance Absence Report</value>
+  </data>
+  <data name="Add_Item" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="ArchiveSettingDrive" xml:space="preserve">
+    <value>Archive Setting Drive</value>
+  </data>
+  <data name="ItemDropDown" xml:space="preserve">
+    <value>--Choose Item--</value>
+  </data>
+  <data name="MainSelected_Item" xml:space="preserve">
+    <value>Main Items</value>
+  </data>
+  <data name="Selected_Item" xml:space="preserve">
+    <value>Selected Item</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>NotActive</value>
+  </data>
+  <data name="ChooseCode" xml:space="preserve">
+    <value>--Choose Code--</value>
+  </data>
+  <data name="ChooseEmployeeSafe" xml:space="preserve">
+    <value>--Choose Employee--</value>
+  </data>
+  <data name="HonestyDate" xml:space="preserve">
+    <value>HonestyDate</value>
+  </data>
+  <data name="honestyEndDate" xml:space="preserve">
+    <value>honesty End Date</value>
+  </data>
+  <data name="ItemId" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="items" xml:space="preserve">
+    <value>الصنف</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="ChoseType" xml:space="preserve">
+    <value>--Select Type--</value>
+  </data>
+  <data name="Deleterelated" xml:space="preserve">
+    <value>There is data for this category. Please delete it first</value>
+  </data>
+  <data name="ImageSize" xml:space="preserve">
+    <value>Image size is more than 3MB</value>
+  </data>
+  <data name="Itemto" xml:space="preserve">
+    <value>Item To</value>
+  </data>
+  <data name="ArchiveDocument" xml:space="preserve">
+    <value>Archive Document</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ExistedVacation" xml:space="preserve">
+    <value>This employee has a vacation in that period. Please choose another period</value>
+  </data>
+  <data name="ExistedWorkingHoursSettingHR" xml:space="preserve">
+    <value>This working hours is existed.Please enter another continuity.</value>
+  </data>
+  <data name="ExistedWorkingHoursSettingInPeriod" xml:space="preserve">
+    <value>This working hours is existed in that period, please choose another period</value>
+  </data>
+  <data name="NotEnoughBalance" xml:space="preserve">
+    <value>There is not enough balance for this vacation. Please choose another period</value>
+  </data>
+  <data name="WorkingHourNameDeleted" xml:space="preserve">
+    <value>Working Hour Name has been deleted</value>
+  </data>
+  <data name="WorkingHoursSettingHREdited" xml:space="preserve">
+    <value>Working Hour Name has been edited</value>
+  </data>
+  <data name="TraineeArchive" xml:space="preserve">
+    <value>Trainee Archive</value>
+  </data>
+  <data name="SendToTraffic" xml:space="preserve">
+    <value>Send To Traffic</value>
+  </data>
+  <data name="WorkingHoursDetialsExisted" xml:space="preserve">
+    <value>Working Hours Detials are existed already.Please enter another detials.</value>
+  </data>
+  <data name="WorkingHoursSettingDetialsHRAdded" xml:space="preserve">
+    <value>Working Hours Detials have been added</value>
+  </data>
+  <data name="ChooseTestId" xml:space="preserve">
+    <value>Choose Test</value>
+  </data>
+  <data name="ChooseTestResultId" xml:space="preserve">
+    <value>Choose TestResult</value>
+  </data>
+  <data name="WorkingHoursDetialsDeleted" xml:space="preserve">
+    <value>Working Hours Detials have been deleted</value>
+  </data>
+  <data name="WorkingHoursSettingDetialsHREdited" xml:space="preserve">
+    <value>Working Hours Detials have been edited</value>
+  </data>
+  <data name="ExistedEmployeeWorkingHours" xml:space="preserve">
+    <value>This Working Hours is existed for the same employee in that period, please choose another period</value>
+  </data>
+  <data name="EmployeeWorkingHoursDeleted" xml:space="preserve">
+    <value>Employee Working Hours have been deleted</value>
+  </data>
+  <data name="EmployeeWorkingHoursEdited" xml:space="preserve">
+    <value>Employee Working Hours have been edited</value>
+  </data>
+  <data name="ReceivingHonestyDate" xml:space="preserve">
+    <value>Receiving Honesty Date</value>
+  </data>
+  <data name="ReceivingHonestyFromEmployee" xml:space="preserve">
+    <value>Receiving Honesty From Employee</value>
+  </data>
+  <data name="NotCheckWorkingHours" xml:space="preserve">
+    <value>No Working Hours are chosen, please choose</value>
+  </data>
+  <data name="TraineeTestResult" xml:space="preserve">
+    <value>Trainee TestResult</value>
+  </data>
+  <data name="AddTest" xml:space="preserve">
+    <value>Add Test</value>
+  </data>
+  <data name="AddTestResult" xml:space="preserve">
+    <value>Add TestResult</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TestResult" xml:space="preserve">
+    <value>Test Result</value>
+  </data>
+  <data name="TestAlreadyExist" xml:space="preserve">
+    <value>Test Already Exist</value>
+  </data>
+  <data name="ExistedEmployeeAttendance" xml:space="preserve">
+    <value>This data is duplicate, please enter other data</value>
+  </data>
+  <data name="EmployeeAttendanceDepartureDeleted" xml:space="preserve">
+    <value>Employee Attendance and Departure has been deleted</value>
+  </data>
+  <data name="EmployeeAttendanceDepartureEdited" xml:space="preserve">
+    <value>Employee Attendance and Departure has been edited</value>
+  </data>
+  <data name="Relation" xml:space="preserve">
+    <value>Relation</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ArName" xml:space="preserve">
+    <value>ArName</value>
+  </data>
+  <data name="EnName" xml:space="preserve">
+    <value>EnName</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+</root>

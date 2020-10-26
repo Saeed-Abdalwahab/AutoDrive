@@ -1,0 +1,72 @@
+﻿<div class="container" style="margin-top:3%">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div id="Tree"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="row" style="margin-top:40px;" id="files">
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/jsTree/themes/default/style.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jsTree3/jstree.js"></script>
+
+<script>
+
+            var selectedNodeValue = 0;
+            function MapJson(Obj, form) {
+                $.each(Obj, function (key, value) {
+                    form.find("input[name='" + key + "']").val(value);
+                    form.find("select[name='" + key + "']").val(value);
+                });
+            }
+            //Tree
+            var tree = $('#Tree').jstree({
+
+                'core': {
+                    'data': {
+                        'url': '@Url.Action("TreeData","ArchiveSettingHR")',
+                        'dataType': 'json'
+                    }
+                }
+            });
+            $('#Tree').on("changed.jstree", function (e, data) {
+                selectedNodeValue = data.selected[0];
+                $.ajax({
+
+                    url: "@Url.Action("GetFiles","Employee")",
+                    data: { ID: selectedNodeValue, EmployeeId:@Model.employeeVM.ID},
+                    type: "Get",
+                    beforeSend: function () {
+                        $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+                    },
+                    success: function (rs) {
+                        debugger
+                        if (rs.data.Type == "Success") {
+                            $("#files").html(rs.View)
+                            $("#ArchiveSettingHRsId").val(selectedNodeValue)
+                            $("#btnadd").removeClass("hidden")
+                            $("body").preloader('remove')
+                        }
+                        else {
+                            $("body").preloader('remove')
+                            toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                        }
+
+                    },
+
+                })
+
+
+
+
+
+
+            });
+
+
+</script>

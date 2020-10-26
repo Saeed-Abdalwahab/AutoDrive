@@ -1,0 +1,20 @@
+﻿@model AutoDrive.VM.AutoDriveHR.ItemIndexVM
+
+@Html.HiddenFor(model=>model.ID)
+    <h2>@Messages.ConfirmDeleteMsg</h2>
+
+<script>
+    function DeleteSuccess(rs) {
+        if (rs.data.Type == "Success") {
+
+            $("#item").DataTable().ajax.reload();
+            $('#Tree').jstree(true).refresh();
+            $("#Delete").modal("hide")
+            toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+        }
+        if (rs.data.Type == "Error") {
+            $("#Delete").modal("show")
+            toastr.error(rs.data.Message, " ", { timeOut: 1500 })
+        }
+    }
+</script>

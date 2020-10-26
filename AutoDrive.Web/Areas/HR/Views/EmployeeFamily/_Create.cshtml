@@ -1,0 +1,77 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeFamilyVM
+
+
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.EmployeeId)
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.ArName, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.ArName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.EnName, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.EnName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EnumDropDownListFor(model => model.Gender, Messages.ChoseType, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.Relation, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EnumDropDownListFor(model => model.Relation, Messages.ChoseType, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Relation, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<script>
+         function before() {
+        $(".x_panel").preloader({ // loading text
+            text: 'جارى التحميل',
+            zIndex: '99999999999',
+
+        });
+     }
+        
+    function Success(rs) {
+
+        if (rs.data.Type == "Success") {
+            debugger
+            $("#Family").DataTable().ajax.reload();
+            $("body").preloader('remove');
+            $("#MyModal").modal("hide")
+            toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+        }
+         else if (rs.data.Type == "NotValid") {
+            $("body").preloader('remove')
+            $("#CreateData").html(rs.View)
+            $("#MyModal").modal("show")
+        }
+        else {
+            $("body").preloader('remove')
+            $("#MyModal").modal("show")
+            toastr.error(rs.data.Message, " ", { timeOut: 1500 })
+        }
+    }
+</script>

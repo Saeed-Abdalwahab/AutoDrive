@@ -1,0 +1,492 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveHR.EmployeeHoursSettingVM
+@{
+    ViewBag.Title = Resources.EmployeeWorkingHours;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style>
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2000 !important;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+            color: black;
+            padding-right: 2%;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+    </style>
+<div class="x_content">
+    <h2>@Resources.EmployeeWorkingHours</h2>
+
+    <div class="modal topclass" id="myModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="create">
+                    <form id="form">
+
+                        <div class="form-horizontal">
+
+                            @Html.HiddenFor(m => m.ID, new { @id = "EmployeeHoursSettingID" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden"  } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WorkingHoursSettingHRId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.WorkingHoursSettingHRId, ViewBag.WorkingHours as SelectList, Resources.Choose ,htmlAttributes : new { @class = "form-control",@style="width:100%",@onchange="WorkingHoursChange()" } )
+                                    @Html.ValidationMessageFor(model => model.WorkingHoursSettingHRId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2",@id="FromDateLB" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+                                </div>
+                           
+
+                           
+                                @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2",@id="ToDateLB" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+                                <span id="GreaterThanValidation" style="color:#a94442;display:none;">@Resources.DateToValidation</span>
+                            </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="SaveEmployeeHoursSetting"></a>
+                    <a href="#" class="btn btn-primary"  data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.DeleteEmployeeWorkingHours</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteEmployeeHoursSetting">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" id="con">
+        <table id="EmployeeHoursSettingTB" class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.Employee</th>
+                    <th>@Resources.WorkingHours</th>
+                    <th>@Resources.FromDate</th>
+                    <th>@Resources.ToDate</th>
+                    <th>@Resources.Edit</th>
+                    <th>@Resources.Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.AddEmployeeHoursSetting" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+        var DeleteID;
+    function Create() {
+        $("span[class*='error']").text("")
+        $("#form")[0].reset();
+        $("#modalTitle").html("@Resources.AddEmployeeHoursSetting");
+        $("#SaveEmployeeHoursSetting").html("@Resources.Add");
+        $("#EmployeeHoursSettingID").val(0);
+        $("#myModel").modal();
+        $("#EmpID").focus();
+        $("#GreaterThanValidation").hide();
+        WorkingHoursChange();
+       }
+        $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"/Employee/EmployeesSearch",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+        });
+      function EmpChange() {
+        $("#EmployeeId-error").hide();
+        if ($("#EmpID").val()=="") {
+               $('#EmployeeId').val("")
+
+        }
+         
+    }
+     function checkDates(FromDate, ToDate) {
+        debugger;
+        if (FromDate == "" || ToDate == "") {
+            return false;
+        } else {
+            var match1 = /(\d+)\/(\d+)\/(\d+)/.exec(ToDate)
+            var end_date = new Date(match1[3], match1[2], match1[1]);
+            var match2 = /(\d+)\/(\d+)\/(\d+)/.exec(FromDate)
+            var start_date = new Date(match2[3], match2[2], match2[1]);
+            if (end_date < start_date) {
+                return true
+            }
+            return false;
+        }
+        
+    }
+    $(document).ready(function () {
+        $("#FromDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            let DateTo = $("#ToDate").val();
+            let DateFrom = $("#FromDate").val();
+            if (checkDates(DateFrom, DateTo)) {
+                $("#GreaterThanValidation").show();
+            } else {
+                $("#GreaterThanValidation").hide();
+            }
+
+        });
+        $("#ToDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            let DateTo = $("#ToDate").val();
+            let DateFrom = $("#FromDate").val();
+            if (checkDates(DateFrom, DateTo)) {
+                $("#GreaterThanValidation").show();
+            } else {
+                $("#GreaterThanValidation").hide();
+            }
+        });
+    });
+    function WorkingHoursChange() {
+        let id;
+        if ($("#WorkingHoursSettingHRId").val() == "") {
+            id = 0
+        } else {
+            id = $("#WorkingHoursSettingHRId").val();
+        }
+        $.ajax({
+            type: "post",
+            url: "/EmployeeHoursSetting/checkWorkingHours?WorkingHoursId=" + id,
+            async : false,
+            success: function (response) {
+                if (response.data == false) {
+                    $("#ToDate").val("");
+                    $("#ToDate").hide();
+                    $("#FromDate").val("");
+                    $("#FromDate").hide()
+                    $("#FromDateLB").hide();
+                    $("#ToDateLB").hide();
+                } else {
+                    $("#ToDate").show();
+                    $("#FromDate").show()
+                    $("#FromDateLB").show();
+                    $("#ToDateLB").show();
+                    $("#ToDate").val("");
+                    $("#FromDate").val("");
+                }
+            }
+        });
+            }
+    $(document).ready(function () {
+
+        $('#EmployeeHoursSettingTB').DataTable({
+            "ajax": {
+                'url': "GetEmployeeHoursSettings",
+                'type': "GET"
+            }, "columns": [
+                 {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                },
+                { "data": "EmpName" },
+                { "data": "WorkingHoursName" },
+                { "data": "from" },
+                { "data": "to" },
+               {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditEmployeeHoursSetting(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteEmployeeHoursSetting(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+            ], "language":GetLanguage()
+        });
+    });
+    function DeleteEmployeeHoursSetting(id) {
+         $("#myModelDelete").modal('show');
+           DeleteID = id;
+    }
+     $("#DeleteEmployeeHoursSetting").click(function () {
+        debugger;
+         $.ajax({
+                type: "post",
+                url: "/EmployeeHoursSetting/delete?id="+DeleteID,
+
+                success: function (response) {
+                    $("#myModelDelete").modal("hide");
+                    $("#EmployeeHoursSettingTB").DataTable().ajax.reload();
+                    toastr.success('@Messages.EmployeeWorkingHoursDeleted', '', { timeOut: 4000 })
+                },
+                error: function () {
+                   toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+                }
+            });
+     });
+    function GetLanguage() {
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+            }
+    $("#SaveEmployeeHoursSetting").click(function () {
+        Save();
+    });
+    function formValidation() {
+         let DateTo = $("#ToDate").val();
+        let DateFrom = $("#FromDate").val();
+        let checkDate = checkDates(DateFrom, DateTo);
+           
+        if (!($("#form").valid())||checkDate) {
+             if (checkDate) {
+                $("#GreaterThanValidation").show();
+            } else {
+                $("#GreaterThanValidation").hide();
+            }
+            return false;
+        }
+        return true;
+    }
+    $("#EmpID").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#EmpID").val()=="") {
+                            $("#EmpID").focus();
+                        }
+                    }
+                }
+    });
+     function Save() {
+     if (!formValidation()) {
+            return false;
+        }
+        var data = $("#form").serialize();
+        $.ajax({
+            type: "post",
+            url: "/EmployeeHoursSetting/Save",
+            data: data,
+            success: function (response) {
+                if (response.msg != "Model is null") {
+                    if (response.msg == "true") {
+                        $("#EmployeeHoursSettingTB").DataTable().ajax.reload();
+                        $("#form")[0].reset();
+                        $("#EmpID").focus();
+                        WorkingHoursChange();
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.success('@Resources.EmployeeWorkingHoursAdded', '', { timeOut: 4000 });
+                        }
+                        else {
+                            $("#myModel").modal("hide");
+                            toastr.success('@Messages.EmployeeWorkingHoursEdited ', '', { timeOut: 4000 });
+                        }
+                    }
+                    else if(response.msg=="Employee Working Hours is existed in the same period") {
+                        toastr.error('@Messages.ExistedEmployeeWorkingHours', '', { timeOut: 3000 });
+                    }
+                }
+                else {
+
+                        toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+
+                }
+
+
+            },
+            error: function () {
+
+                      if (data.split("&")[0] == "ID=0") {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                    }
+                    else {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                    }
+            }
+        });
+
+            }
+    function EditEmployeeHoursSetting(ID) {
+         var url = "/EmployeeHoursSetting/getEmployeeHoursSettingByID?id=" + ID;
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (rs) {
+                debugger;
+                $("#modalTitle").html("@Resources.EditEmployeeWorkingHours");
+                $("#SaveEmployeeHoursSetting").html("@Resources.Edit");
+                $("#myModel").modal('show');
+                 $("span[class*='error']").text("")
+                 $("#form")[0].reset();
+                $("#EmployeeHoursSettingID").val(rs.data.ID)
+                $("#EmployeeId").val(rs.data.EmployeeId);
+                $("#EmpID").val(rs.data.EmpName)
+                $("#WorkingHoursSettingHRId").val(rs.data.WorkingHoursSettingHRId);
+                WorkingHoursChange();
+                $("#FromDate").val(rs.data.from);
+                $("#ToDate").val(rs.data.to);
+                 
+            }
+        });
+    }
+    </script>
+}
+

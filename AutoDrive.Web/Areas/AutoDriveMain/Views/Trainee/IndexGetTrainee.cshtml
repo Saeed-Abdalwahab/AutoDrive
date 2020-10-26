@@ -1,0 +1,419 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+    width: 28.33333333%;
+}
+    .col-md-8 {
+    width: 71.66666666%;
+}
+</style>
+<div class="text-center">
+    <h3 class="center info">@Messages.Trainee</h3>
+</div>
+
+@*Creat apopup Modal For Add And Edit*@
+
+
+@using (Html.BeginForm("CreateTrainee", "Trainee", FormMethod.Post, new { Id = "myForm", enctype = "multipart/form-data" }))
+{
+<div class="form-horizontal">
+
+
+    @if (Model != null)
+    {
+        <input type="text" value="@Model.ID" id="ID" name="ID" style="display:none" />
+        <input value="@Model.TraineeGuid" id="TraineeGuid" name="TraineeGuid" style="display:none" />
+
+
+
+    }
+
+  
+    
+
+
+    <div class="row ">
+        <div class="col-md-9">
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Name, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ArName, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.EnName, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(x => x.EnName, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.TraineeGuid, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.TraineeGuid, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.TraineeGuid, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>*@
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Gender, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(x => x.Gender, @ViewBag.CheckUS == "En-Us" ? "--Choose Type--" : "--اختر النوع --", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @*@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Nationality, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownList("Nationality", ViewBag.NationalityId as SelectList, @ViewBag.CheckUS == "En-Us" ? "--Choose Nationality--" : "--اختر الجنسيه--", new { @class = "form-control", @id = "NationalityId", @Name = "NationalityId" ,required = "required"})
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessage("NationalityId", "مطلوب", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.DateOfBirth, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.EditorFor(x => x.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @Name = "DateOfBirth", @id = "DateOfBirth" } })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Age, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.Editor("Age", new { htmlAttributes = new { @class = "form-control", @Id = "Age", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.NationalType, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownList("NationalType", (SelectList)ViewBag.NationalTypeId, @ViewBag.CheckUS == "En-Us" ? "--Choose NationalType--" : "--اختر نوع الهويه--", new { @class = "form-control", @id = "NationalTypeId", @Name = "NationalTypeId" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.NationalTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.NationalId, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.NationalId, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @*@Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Religion, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownList("Religion", (SelectList)ViewBag.ReligionId, @ViewBag.CheckUS == "En-Us" ? "--Choose Religion--" : "--اختار الديانه--", new { @class = "form-control", @id = "ReligionId", @Name = "ReligionId" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.ReligionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Residence, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Residence, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.Residence, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.SpeechLanguageId, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownList("SpeechLanguage", (SelectList)ViewBag.SpeechLanguageId, @ViewBag.CheckUS == "En-Us" ? "--Choose Language--" : "--اختر اللغه--", new { @class = "form-control", @Id = "SpeechLanguageId", @Name = "SpeechLanguageId" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.SpeechLanguageId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <input type="file" name="f1" id="fileChooser" />
+                </div>
+                <div class="col-md-12">
+                    <img src="~/Upload/@Model.Photopath" id="Photopath" title="Photo" width="110" height="110" />
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+    <div class="modal-footer">
+        <div class="text-left">
+            @if (Model != null)
+            {
+                if (Model.ID == 0)
+                {
+                    <input type="submit" value="@Messages.SaveBTN" id="btnSave" />
+                }
+
+
+                else
+                {
+                    <input type="submit" value="@Messages.Edit" id="btnEdit" />
+                    <input type="submit" value="@Messages.Delete" id="btnDelete" />
+                }
+            }
+            @*<a href="#" class="btn btn-primary" data-dismiss="modal">الغاء</a>*@
+
+        </div>
+    </div>
+}
+
+
+
+
+
+@section scripts
+{
+    <script src="~/vendors/jquery/jquery.datetimepicker.js"></script>
+
+    <script>
+        $("#NationalId").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+
+        $(function () {
+            $("#fileChooser").bind("change", function () {
+
+               var fileImageSize = this.files[0].size;
+                //function ValidateFileUpload() {
+                var fuData = document.getElementById('fileChooser');
+                var FileUploadPath = fuData.value;
+
+                //To check if user upload any file
+                    if (FileUploadPath == '') {
+
+                    alert("Please upload an image");
+
+                } else {
+                    var Extension = FileUploadPath.substring(
+                        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                    //The file uploaded is an image
+                    if ((Extension == "png" || Extension == "jpeg" || Extension == "jpg") && fileImageSize < 3000000){
+
+                        //// To Display
+                        if (fuData.files && fuData.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#Photopath').attr('src', e.target.result);
+                            }
+
+                            reader.readAsDataURL(fuData.files[0]);
+                        }
+
+
+                        $("#btnSave").prop('disabled', false);
+                        $("#btnEdit").prop('disabled', false);
+                    }
+
+                    //The file upload is NOT an image
+                    else {
+                        var fo = '@ViewBag.CheckUS'
+                        if (fo == "En-Us") {
+                            alert("Photo only allows file types of  PNG, JPG and JPEG. and Should be <=3Mg");
+                        }
+                        else {
+                            alert("الصوره يجب ان تكون PNG او JPG او JPEG واقل من 3 ميجا");
+                        }
+                        $("#btnSave").attr("disabled", "disabled");
+                        $("#btnEdit").attr("disabled", "disabled");
+
+                    }
+                }
+                // }
+            });
+        });
+
+        $(function () {
+
+            var age = moment().diff($("#DateOfBirth").val(), 'years');
+            if (age > 0) {
+                $("#Age").val(age);
+            }
+            else {
+                $("#Age").val(0);
+            }
+
+
+            $('#DateOfBirth').datepicker({
+
+                    dateFormat: 'mm/dd/yy'
+            });
+
+            $('#DateOfBirth').change(function () {
+            var age = moment().diff($("#DateOfBirth").val(), 'years');
+            if (age > 0) {
+                $("#Age").val(age);
+            }
+            else {
+                $("#Age").val(0);
+            }
+        });
+            $("#btnEdit").click(function () {
+                $("#myForm").attr("action", "/AutoDriveMain/Trainee/EditTrainee");
+            });
+            $("#btnDelete").click(function () {
+                $("#myForm").attr("action", "/AutoDriveMain/Trainee/DeleteTrainee");
+            });
+        });
+
+
+        //$("body").on('click', function (e) {
+
+        //    const age = moment().diff($("#DateOfBirth").val(), 'years');
+
+        //    if (age > 0) {
+        //        $("#Age").val(age);
+        //    }
+        //    else {
+        //        $("#Age").val(0);
+        //    }
+        //});
+
+        $(function () {
+            var xEn = '@Session["En_msg"]';
+            var xAr = '@Session["Ar_msg"]';
+            var vbg = '@ViewBag.CheckUS';
+           
+            if (vbg== "En-Us" && xEn != "0") {
+               // alert(xEn);
+                toastr.success(xEn, { timeOut: 4000 });
+            }
+            else if(vbg == "Ar-Egy" && xAr!="0") {
+               //alert(xAr);
+
+                toastr.success(xAr, { timeOut: 4000 });
+
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+}
+

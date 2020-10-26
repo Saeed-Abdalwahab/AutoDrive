@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AutoDrive.VM.AutoDriveHR.HonestyVM>
+    <style>
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 120px;
+        }
+        .card .card-body {
+            background: #e6e6e6;
+            padding-top: 5px;
+        }
+
+        .card .card-body p {
+            margin: 0px;
+            font-size: 11px;
+            padding-left: 8px;
+        }
+
+        .card .card-body .price {
+            color: #c2272d;
+        }
+
+        .card .card-body .mainbtn {
+            width: 96%;
+            margin-right: 2%;
+            margin-left: 2%;
+            background: #5bc0de;
+            color: #fff;
+            height: 30px;
+            border: none;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+
+
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+
+        <div class="card col-md-3 col-xs-12 " >
+            <img class="card-img-top" src="@item.ImageUrl" style="border:1px solid #ddd" />
+
+            <div class="card-body">
+                <h2 style="text-align:center;">@item.ItemName</h2>
+                <a href="@item.ImageUrl" target="_blank" class="mainbtn" download>@Resources.ShowBtn</a>
+            </div>
+        </div>
+    }
+}

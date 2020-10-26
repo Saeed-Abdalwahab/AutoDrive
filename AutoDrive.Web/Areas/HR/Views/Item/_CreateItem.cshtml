@@ -1,0 +1,184 @@
+﻿@model AutoDrive.VM.AutoDriveHR.ItemIndexVM
+@{ 
+    string ItemPathImage = Model != null ? Model.ItemPathImage : "";
+}
+
+@Html.HiddenFor(model=>model.ID)
+@Html.HiddenFor(model=>model.ItemParentId)
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group col-md-12" id="test">
+   
+            @if (ItemPathImage != "" && ItemPathImage !=null )
+            {
+                <img src="@ItemPathImage" alt="Alternate Text" style="width:200px;height:200px;margin-bottom:20px;" class="center-block" />
+            }
+    </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.EnName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.EnName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.ItemType, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EnumDropDownListFor(model => model.ItemType,Messages.ChoseType,new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ItemType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div id="class" class="hidden">
+
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.ItemCode, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.ItemCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.ItemPathImage, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @*@Html.TextBoxFor(model=>model.D_photo, new { type = "file", id = "D_photo", @class = "form-control",name="D_photo" })*@
+                    <input type="file" name="upload" id="D_photo" data-validate-length-range="6" data-validate-words="2" accept="image/png , image/jpg ,image/JPEG" />
+                    @Html.ValidationMessageFor(model => model.ItemPathImage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#D_photo").change(function (e) {
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+                var file = e.originalEvent.srcElement.files[i];
+
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                    reader.val
+                }
+                reader.readAsDataURL(file);
+                img.style.marginRight = "40%";
+                img.style.width = "200px";
+                img.style.height = "200px";
+                img.style.marginBottom = "20px";
+                img.classList.add("center-block");
+
+                $("#CreateData").css("height","400px")
+                $("#test").html("");
+                $("#test").append(img);
+            }
+        })
+
+        $("#save").click(function () {
+            var arr = ['jpg', 'png', 'gif', 'jpeg'];
+            if ($("#D_photo").val() != "") {
+                var filename = document.getElementById("D_photo").value;
+                var ex = filename.substr(filename.lastIndexOf('.') + 1).toLowerCase();
+                //console.log(filename.toString());
+                if ($.inArray(ex, arr) == -1) {
+
+                    $("span[data-valmsg-for='ItemPathImage']").text("اختر صوره")
+                    return false;
+                }
+                var filesize = document.getElementById("D_photo").files[0].size;
+                if (filesize > 3 * 1024 * 1024) {
+                    $("span[data-valmsg-for='ItemPathImage']").text("@Messages.ImageSize")
+                    return false;
+                }
+
+            } 
+        })
+
+        if ($("#ItemType").val()==2) {
+            $(".hidden").removeClass("hidden");
+        }
+
+        $("#ItemType").change(function () {
+            var ItemType = $(this).children("option:selected").val();
+            if (ItemType != 1) {
+
+                $("#class").removeClass("hidden");
+            }
+            else {
+
+                $("#class").addClass("hidden");
+            }
+        })
+
+    })
+     function before() {
+        $(".x_panel").preloader({ // loading text
+            text: 'جارى التحميل',
+            zIndex: '99999999999',
+
+        });
+    }
+
+      
+
+    function ajaxpost(formData) {
+        var test = {
+            url: "@Url.Action("Create","Item")",
+            data: new FormData(formData),
+            type: "Post",
+            beforeSend: function () {
+                $("body").preloader({ // loading text
+                    text: 'جارى التحميل',
+                    zIndex: '99999999999',
+                });
+            },
+            success: function (rs) {
+
+                if (rs.data.Type == "Success") {
+
+                    $("#item").DataTable().ajax.reload();
+                    $('#Tree').jstree(true).refresh();
+                    $("body").preloader('remove');
+                    $("#MyModal").modal("hide")
+                    toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+                }
+                if (rs.data.Type == "NotValid") {
+                    $("body").preloader('remove')
+                    $("#CreateData").html(rs.View)
+                    $("#MyModal").modal("show")
+                }
+            }
+
+        }
+        if ($(formData).attr("enctype") == "multipart/form-data") {
+            test["contentType"] = false
+            test["processData"] = false
+        }
+        $.ajax(test);
+        return false;
+    }
+
+        
+
+   
+</script>

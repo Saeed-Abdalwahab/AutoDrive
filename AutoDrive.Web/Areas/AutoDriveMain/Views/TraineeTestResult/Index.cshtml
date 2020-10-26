@@ -1,0 +1,36 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeTestResultVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("GetDetails", "TraineeTestResult", FormMethod.Get))
+{
+    <div class="col-md-6" style="margin-bottom:17px;">
+        @Html.DropDownList("TraineeGuid", (SelectList)ViewBag.TraineeGuid, Messages.ChooseTrainee, new { @class = "form-control", @id = "TraineeGuid", @name = "TraineeGuid" })
+    </div>
+
+
+    <div class="col-md-6" style="margin-bottom:17px;">
+
+        <input type="submit" id="SearchBTN" value="@Messages.SearchBTN">
+
+    </div>
+}
+
+
+@section scripts
+{
+
+    <script>
+        $(function () {
+            $("#TraineeGuid").chosen();
+
+
+
+        });
+
+    </script>
+}

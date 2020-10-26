@@ -1,0 +1,1074 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>إضافه موظف</value>
+  </data>
+  <data name="BloodGroupsDropDown" xml:space="preserve">
+    <value>--اختر فصيلة الدم--</value>
+  </data>
+  <data name="DeductionDeleted" xml:space="preserve">
+    <value>تم حذف البدلات و الاستقطاعات</value>
+  </data>
+  <data name="DeductionEdited" xml:space="preserve">
+    <value>تم تعديل البدلات و الاستقطاعات</value>
+  </data>
+  <data name="DeductionSaved" xml:space="preserve">
+    <value>تم حفظ البدلات و الاستقطاعات</value>
+  </data>
+  <data name="DepartmentSearch" xml:space="preserve">
+    <value>--بحث عن القسم--</value>
+  </data>
+  <data name="EmployeeRequired" xml:space="preserve">
+    <value>يجب ادخال الموظف</value>
+  </data>
+  <data name="EndDateError" xml:space="preserve">
+    <value>تاريخ النهايه غير صحيح</value>
+  </data>
+  <data name="ErrorAdding" xml:space="preserve">
+    <value>حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري</value>
+  </data>
+  <data name="ErrorDeletion" xml:space="preserve">
+    <value>حدث خطأ اثناء الحذف  برجاء المحاوله مره اخري</value>
+  </data>
+  <data name="ErrorModification" xml:space="preserve">
+    <value>حدث خطأ اثناء التعديل برجاء المحاوله مره اخري</value>
+  </data>
+  <data name="ExistedName" xml:space="preserve">
+    <value>هذا الاسم موجود بالفعل برجاء ادخال اسم اخر</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>انثي</value>
+  </data>
+  <data name="GenderDropDown" xml:space="preserve">
+    <value>--اختر النوع--</value>
+  </data>
+  <data name="IncreasesDeductionTypeDeleted" xml:space="preserve">
+    <value>تم حذف نوع البدلات و الاستقطاعات</value>
+  </data>
+  <data name="IncreasesDeductionTypeEdited" xml:space="preserve">
+    <value>تم تعديل نوع البدلات و الاستقطاعات</value>
+  </data>
+  <data name="IncreasesDeductionTypeSaved" xml:space="preserve">
+    <value>تم حفظ نوع البدلات و الاستقطاعات</value>
+  </data>
+  <data name="IncreasingDeductionTypeEdited" xml:space="preserve">
+    <value>تم تعديل نوع البدلات و الاستقطاعات</value>
+  </data>
+  <data name="IncreasingDeductionTypeSaved" xml:space="preserve">
+    <value>تم حفظ نوع البدلات و الاستقطاعات</value>
+  </data>
+  <data name="InMonthRequired" xml:space="preserve">
+    <value>يجب ادخال عن شهر</value>
+  </data>
+  <data name="InYearRequired" xml:space="preserve">
+    <value>يجب ادخال عن سنة </value>
+  </data>
+  <data name="JobDegreeDelete" xml:space="preserve">
+    <value>تم حذف الدرجة الوظيفية</value>
+  </data>
+  <data name="JobDegreeEdit" xml:space="preserve">
+    <value>تم تعديل الدرجة الوظيفية</value>
+  </data>
+  <data name="JobDegreeSave" xml:space="preserve">
+    <value>تم حفظ الدرجة الوظيفية</value>
+  </data>
+  <data name="JobLevelDelete" xml:space="preserve">
+    <value>تم حذف المستوى الوظيفى</value>
+  </data>
+  <data name="JobLevelEdit" xml:space="preserve">
+    <value>تم تعديل المستوى الوظيفى </value>
+  </data>
+  <data name="JobLevelSave" xml:space="preserve">
+    <value>تم حفظ المستوى الوظيفى</value>
+  </data>
+  <data name="LevelToJobDergee" xml:space="preserve">
+    <value>هذا المستوى الوظيفى موجود بالفعل لهذة الدرجة برجاء ادخال مستوى وظيفى اخر</value>
+  </data>
+  <data name="licenceTypeHRDropDown" xml:space="preserve">
+    <value>--اختر نوع الرخصه--</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>ذكر</value>
+  </data>
+  <data name="MotivationDateRequired" xml:space="preserve">
+    <value>يجب ادخال تاريخ الحافز</value>
+  </data>
+  <data name="MotivationTypeRequired" xml:space="preserve">
+    <value>يجب ادخال نوع الحافز</value>
+  </data>
+  <data name="NameValidationError" xml:space="preserve">
+    <value>هذا الاسم موجود مسبقا برجاء ادخال اسم اخر</value>
+  </data>
+  <data name="NationalityDropDown" xml:space="preserve">
+    <value>--اختر الجنسيه--</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="NotExistedChangedSalary" xml:space="preserve">
+    <value>يجب ادخال المرتب المتغير</value>
+  </data>
+  <data name="NotExistedDegree" xml:space="preserve">
+    <value>يجب ادخال الدرجة الوظيفية</value>
+  </data>
+  <data name="NotExistedENName" xml:space="preserve">
+    <value>يجب ادخال الاسم(انجليزى)</value>
+  </data>
+  <data name="NotExistedIncreasingDeductionType" xml:space="preserve">
+    <value>يجب ادخال نوع البدل و الاستقطاع</value>
+  </data>
+  <data name="NotExistedLevel" xml:space="preserve">
+    <value>يجب ادخال المستوى الوظيفى </value>
+  </data>
+  <data name="NotExistedName" xml:space="preserve">
+    <value>يجب ادخال الاسم(عربى)</value>
+  </data>
+  <data name="NotExistedName1" xml:space="preserve">
+    <value>يجب ادخال الاسم</value>
+  </data>
+  <data name="NotExistedSalary" xml:space="preserve">
+    <value>يجب ادخال المرتب</value>
+  </data>
+  <data name="NotSuccessfulOperation" xml:space="preserve">
+    <value>عملية غير ناجحة</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="ReligionDropDown" xml:space="preserve">
+    <value>--اختر الديانه--</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>مطلوب*</value>
+  </data>
+  <data name="RequiredBasicSalary" xml:space="preserve">
+    <value>يجب ادخال الاساسى/الشامل</value>
+  </data>
+  <data name="RequiredDeduction" xml:space="preserve">
+    <value>يجب ادخال الاستحقاق</value>
+  </data>
+  <data name="RequiredName" xml:space="preserve">
+    <value>يجب ادخال الاسم</value>
+  </data>
+  <data name="RequiredRatio" xml:space="preserve">
+    <value>يجب ادخال النسبة/القيمة</value>
+  </data>
+  <data name="RequiredValue" xml:space="preserve">
+    <value>يجب ادخال القيمة </value>
+  </data>
+  <data name="SalaryDleted" xml:space="preserve">
+    <value>تم حذف المرتب</value>
+  </data>
+  <data name="SalaryEdited" xml:space="preserve">
+    <value>تم تعديل المرتب</value>
+  </data>
+  <data name="SalarySaved" xml:space="preserve">
+    <value>تم حفظ المرتب </value>
+  </data>
+  <data name="MotivationStatusRequired" xml:space="preserve">
+    <value>يجب ادخال الحالة</value>
+  </data>
+  <data name="ValueRequired" xml:space="preserve">
+    <value>يجب ادخال القيمة</value>
+  </data>
+  <data name="WithSalaryOrFormRequired" xml:space="preserve">
+    <value>يجب ادخال على الراتب/استمارة منفصلة</value>
+  </data>
+  <data name="RewardAdopted" xml:space="preserve">
+    <value>تم اعتماد المرتب برجاء اختيار شهر اخر</value>
+  </data>
+  <data name="RewardCanceled" xml:space="preserve">
+    <value>تم الغاء المرتب برجاء اختيار شهر اخر</value>
+  </data>
+  <data name="RewardReceived" xml:space="preserve">
+    <value>تم استلام المرتب برجاء اختيار شهر اخر</value>
+  </data>
+  <data name="rewardSaved" xml:space="preserve">
+    <value>تم حفظ المكافاة</value>
+  </data>
+  <data name="areasDropDown" xml:space="preserve">
+    <value>--اختر مكان الاصدار--</value>
+  </data>
+  <data name="licenceKindHRs" xml:space="preserve">
+    <value>--اختر تصنيف الرخصه--</value>
+  </data>
+  <data name="certificationGradeDropDown" xml:space="preserve">
+    <value>--اختر التقدير--</value>
+  </data>
+  <data name="certificationSpecDepartDropDown" xml:space="preserve">
+    <value>--اختر تخصص المؤهل--</value>
+  </data>
+  <data name="certificationSpecificDropDown" xml:space="preserve">
+    <value>--اختر المؤهل--</value>
+  </data>
+  <data name="certificationTypeDropDown" xml:space="preserve">
+    <value>--اختر نوع الشهادة--</value>
+  </data>
+  <data name="licenceKindHRsDropDown" xml:space="preserve">
+    <value>--اختر تصنيف الرخصه--</value>
+  </data>
+  <data name="MonthsDropDown" xml:space="preserve">
+    <value>--اختر شهر--</value>
+  </data>
+  <data name="SameMonth" xml:space="preserve">
+    <value>لا يمكن ادخال اكثر من مكافاة لنفس الشخص فى نفس الشهر برجاء ادخال شهر </value>
+  </data>
+  <data name="EmployeeForm1" xml:space="preserve">
+    <value>البيانات الاساسيه للموظف</value>
+  </data>
+  <data name="EmployeeForm2" xml:space="preserve">
+    <value>ادارات الموظف</value>
+  </data>
+  <data name="EmployeeForm3" xml:space="preserve">
+    <value>بيانات الرخص للموظف</value>
+  </data>
+  <data name="EmployeeForm4" xml:space="preserve">
+    <value>بيانات المؤهلات للموظف</value>
+  </data>
+  <data name="EmployeeForm5" xml:space="preserve">
+    <value>مدة العقد</value>
+  </data>
+  <data name="EmployeeForm6" xml:space="preserve">
+    <value>خبرات الموظف</value>
+  </data>
+  <data name="EmployeeStatusDropDown" xml:space="preserve">
+    <value>--اختر حاله العقد--</value>
+  </data>
+  <data name="EmployeeSearch" xml:space="preserve">
+    <value>بحث عن الموظف</value>
+  </data>
+  <data name="RewardEdited" xml:space="preserve">
+    <value>تم تعديل المكافاة</value>
+  </data>
+  <data name="ViolationTypeEdited" xml:space="preserve">
+    <value>تم تعديل اعداد الجزاء</value>
+  </data>
+  <data name="YearsDropDown" xml:space="preserve">
+    <value>--اختر السنه--</value>
+  </data>
+  <data name="SaveBTN" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddCountry" xml:space="preserve">
+    <value>اضافه دولة</value>
+  </data>
+  <data name="AddNew" xml:space="preserve">
+    <value>اضافه جديد</value>
+  </data>
+  <data name="BackBtn" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
+  <data name="ConfirmBtn" xml:space="preserve">
+    <value>تاكيد</value>
+  </data>
+  <data name="ConfirmDeleteMsg" xml:space="preserve">
+    <value>هل انت متاكد من عمليه الحذف ؟</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteErr" xml:space="preserve">
+    <value>عمليه حذف غير ناجحه </value>
+  </data>
+  <data name="DeleteSucc" xml:space="preserve">
+    <value>تم الحذف بنجاح</value>
+  </data>
+  <data name="NameAlreadyExist" xml:space="preserve">
+    <value>الاسم مسجل بالفعل</value>
+  </data>
+  <data name="SaveErr" xml:space="preserve">
+    <value>لم يتم الحفظ</value>
+  </data>
+  <data name="SaveSucc" xml:space="preserve">
+    <value>تم الحفظ بنجاح</value>
+  </data>
+  <data name="Countrys" xml:space="preserve">
+    <value>الدول</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="NotValidMsg" xml:space="preserve">
+    <value>التاكد من ملء كل الحقول</value>
+  </data>
+  <data name="SpeechLanguage" xml:space="preserve">
+    <value>اللغه</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>المناطق</value>
+  </data>
+  <data name="CountryDropDown" xml:space="preserve">
+    <value>--اختر الدولة--</value>
+  </data>
+  <data name="AddArea" xml:space="preserve">
+    <value>اضافه منطقه</value>
+  </data>
+  <data name="HumanResource" xml:space="preserve">
+    <value>الموارد البشريه</value>
+  </data>
+  <data name="AddNationality" xml:space="preserve">
+    <value>اضافه جنسية</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>الجنسية</value>
+  </data>
+  <data name="AddBloodGroup" xml:space="preserve">
+    <value>اضافه فصية دم</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>فصائل الدم</value>
+  </data>
+  <data name="AddReligion" xml:space="preserve">
+    <value>اضافه ديانه</value>
+  </data>
+  <data name="Religion" xml:space="preserve">
+    <value>الديانه</value>
+  </data>
+  <data name="AddLicenceTypeHR" xml:space="preserve">
+    <value>اضافه نوع رخصه</value>
+  </data>
+  <data name="LicenceTypeHR" xml:space="preserve">
+    <value>انواع الرخص</value>
+  </data>
+  <data name="AddDepartment" xml:space="preserve">
+    <value>اضافه قسم </value>
+  </data>
+  <data name="DepartmentDropDown" xml:space="preserve">
+    <value>--اختر الادارة--</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>الهيكل الاداري</value>
+  </data>
+  <data name="ViolationTypeSaved" xml:space="preserve">
+    <value>تم حفظ اعداد الجزاء</value>
+  </data>
+  <data name="ViolationSaved" xml:space="preserve">
+    <value>تم حفظ الجزاء</value>
+  </data>
+  <data name="ViolationDeleted" xml:space="preserve">
+    <value>تم حذف الجزاء</value>
+  </data>
+  <data name="AddCertificationType" xml:space="preserve">
+    <value>اضافه نوع شهادة</value>
+  </data>
+  <data name="CertificationType" xml:space="preserve">
+    <value>انواع الشهادات</value>
+  </data>
+  <data name="sEmptyTable" xml:space="preserve">
+    <value>ليست هناك بيانات متاحة في الجدول</value>
+  </data>
+  <data name="sFirst" xml:space="preserve">
+    <value>الأول</value>
+  </data>
+  <data name="sInfo" xml:space="preserve">
+    <value>إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل</value>
+  </data>
+  <data name="sInfoEmpty" xml:space="preserve">
+    <value>يعرض 0 إلى 0 من أصل 0 سجل</value>
+  </data>
+  <data name="sInfoFiltered" xml:space="preserve">
+    <value>(منتقاة من مجموع _MAX_ مُدخل)</value>
+  </data>
+  <data name="sInfoPostFix" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sInfoThousands" xml:space="preserve">
+    <value />
+  </data>
+  <data name="sLast" xml:space="preserve">
+    <value>الأخير</value>
+  </data>
+  <data name="sLengthMenu" xml:space="preserve">
+    <value>أظهر _MENU_ مدخلات</value>
+  </data>
+  <data name="sLoadingRecords" xml:space="preserve">
+    <value>جارٍ التحميل...</value>
+  </data>
+  <data name="sNext" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="sPrevious" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="sProcessing" xml:space="preserve">
+    <value>جارٍ التحميل...</value>
+  </data>
+  <data name="sSearch" xml:space="preserve">
+    <value>ابحث:</value>
+  </data>
+  <data name="sSortAscending" xml:space="preserve">
+    <value>تفعيل لترتيب العمود تصاعديا</value>
+  </data>
+  <data name="sSortDescending" xml:space="preserve">
+    <value>تفعيل لترتيب العمود تنازلياً</value>
+  </data>
+  <data name="sZeroRecords" xml:space="preserve">
+    <value>لم يتم العثور علي اي بيانات</value>
+  </data>
+  <data name="ViolationEdited" xml:space="preserve">
+    <value>تم تعديل الجزاء</value>
+  </data>
+  <data name="AddMaritalStatu" xml:space="preserve">
+    <value>اضافه حاله اجتماعيه</value>
+  </data>
+  <data name="MaritalStatu" xml:space="preserve">
+    <value>الحاله الاجتماعيه</value>
+  </data>
+  <data name="AutoDriveMain" xml:space="preserve">
+    <value>منظومه القياده</value>
+  </data>
+  <data name="DriveLevel" xml:space="preserve">
+    <value>مستويات القياده</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>الوظيفه</value>
+  </data>
+  <data name="LicenceCategory" xml:space="preserve">
+    <value>نوع فئه الرخصه </value>
+  </data>
+  <data name="LicenceType" xml:space="preserve">
+    <value>نوع رخصه المتدرب</value>
+  </data>
+  <data name="NationalType" xml:space="preserve">
+    <value>الهوية</value>
+  </data>
+  <data name="StudyPeriodSetting" xml:space="preserve">
+    <value>مده الدراسه</value>
+  </data>
+  <data name="Trainee" xml:space="preserve">
+    <value>المتدربين</value>
+  </data>
+  <data name="TraineeEvaluation" xml:space="preserve">
+    <value>تقييم المتدربين</value>
+  </data>
+  <data name="Add CertificationSpecific" xml:space="preserve">
+    <value>اضافه شهاده</value>
+  </data>
+  <data name="CertificationSpecifics" xml:space="preserve">
+    <value>الشهادات</value>
+  </data>
+  <data name="AddCertificationSpecDeparts" xml:space="preserve">
+    <value>اضافه تخصص شهادات</value>
+  </data>
+  <data name="CertificationSpecDeparts" xml:space="preserve">
+    <value>تخصص الشهادات</value>
+  </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>بريد الكتروني غير صحيح</value>
+  </data>
+  <data name="MotivationType" xml:space="preserve">
+    <value>انواع الحوافز</value>
+  </data>
+  <data name="MaritalStatuDropDown" xml:space="preserve">
+    <value>--اختر الحاله الاجتماعيه--</value>
+  </data>
+  <data name="CalculateSalaries" xml:space="preserve">
+    <value>تم حساب مرتبات الموظفين بنجاح</value>
+  </data>
+  <data name="CarrerField" xml:space="preserve">
+    <value>مجال العمل</value>
+  </data>
+  <data name="TraineeFile" xml:space="preserve">
+    <value>ملف المتدربين</value>
+  </data>
+  <data name="AddCarrerField" xml:space="preserve">
+    <value>اضافه مجال عمل</value>
+  </data>
+  <data name="CourseReservation" xml:space="preserve">
+    <value>حجز الدوره</value>
+  </data>
+  <data name="BasicCode" xml:space="preserve">
+    <value>الاكواد الرئيسية</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>العمليات</value>
+  </data>
+  <data name="SettingMenu" xml:space="preserve">
+    <value>الاعدادت</value>
+  </data>
+  <data name="AddJobName" xml:space="preserve">
+    <value>اضافه وظيفه جديد</value>
+  </data>
+  <data name="AddNationalType" xml:space="preserve">
+    <value>اضافه نوع الهويه</value>
+  </data>
+  <data name="AddSpeechLanguage" xml:space="preserve">
+    <value>اضافه اللغه</value>
+  </data>
+  <data name="AddDriveLevel" xml:space="preserve">
+    <value>اضافه مستوى القياده</value>
+  </data>
+  <data name="AddLicenceCategory" xml:space="preserve">
+    <value>اضافه نوع  فئه الرخصه</value>
+  </data>
+  <data name="AddLicenceType" xml:space="preserve">
+    <value>اضافه نوع الرخصه</value>
+  </data>
+  <data name="NoResultFounded" xml:space="preserve">
+    <value>لا توجد بيانات</value>
+  </data>
+  <data name="AddMotivationType" xml:space="preserve">
+    <value>اضافه نوع حافز </value>
+  </data>
+  <data name="NotCheckedEmployee" xml:space="preserve">
+    <value>لم يتم اختيار اى موظف لاعتماد المرتب</value>
+  </data>
+  <data name="NotExistedDataforApproval" xml:space="preserve">
+    <value>لا يوجد بيانات فى الجدول لاعتماد المرتب</value>
+  </data>
+  <data name="NotExistedEmployeesForApproval" xml:space="preserve">
+    <value>لايوجد موظفين لاعتماد المرتب</value>
+  </data>
+  <data name="SalaryApprovalForChosenEmployees" xml:space="preserve">
+    <value>لقد تم اعتماد المرتب للموظفين المختارين</value>
+  </data>
+  <data name="NotExistedSort" xml:space="preserve">
+    <value>يجب ادخال الترتيب</value>
+  </data>
+  <data name="DegreeSortValdiation" xml:space="preserve">
+    <value>هذا الترتيب موجود مسبقا برجاء ادخال ترتيب اخر</value>
+  </data>
+  <data name="AddStudyPeriodSetting" xml:space="preserve">
+    <value>اضافه مده دراسيه جديده</value>
+  </data>
+  <data name="Practical" xml:space="preserve">
+    <value>عملى</value>
+  </data>
+  <data name="Visual" xml:space="preserve">
+    <value>نظرى</value>
+  </data>
+  <data name="CarrerFieldDropDown" xml:space="preserve">
+    <value>--اختر مجال العمل--</value>
+  </data>
+  <data name="EmployeeForm7" xml:space="preserve">
+    <value>بيانات الوظيفه</value>
+  </data>
+  <data name="JobDegreeDropDown" xml:space="preserve">
+    <value>--اختر الدرجه الوظيفيه--</value>
+  </data>
+  <data name="JobLevelDropDown" xml:space="preserve">
+    <value>--اختر مستوي الوظيفه--</value>
+  </data>
+  <data name="JobNameDropDown" xml:space="preserve">
+    <value>--اختر الاسم الوظيفي--</value>
+  </data>
+  <data name="JobFunctionDropDown" xml:space="preserve">
+    <value>--اختر التخصص الوظيفي--</value>
+  </data>
+  <data name="SaveWitoutExperience" xml:space="preserve">
+    <value>حفظ بدون خبرات</value>
+  </data>
+  <data name="AddNewBaseDepartment" xml:space="preserve">
+    <value>اضافه قسم اساسي</value>
+  </data>
+  <data name="MainDepartments" xml:space="preserve">
+    <value>الاقسام الرئيسيه</value>
+  </data>
+  <data name="ReceiptVoucher" xml:space="preserve">
+    <value>اقساط الدوره للمتدرب</value>
+  </data>
+  <data name="AddReceiptVoucher" xml:space="preserve">
+    <value>اضافه قسط </value>
+  </data>
+  <data name="ChooseEmployee" xml:space="preserve">
+    <value>--اختر الموظف--</value>
+  </data>
+  <data name="ChooseLevel" xml:space="preserve">
+    <value>--اختر المستوى--</value>
+  </data>
+  <data name="ChooseLicenceCategory" xml:space="preserve">
+    <value>--اختر فئه الرخصه--</value>
+  </data>
+  <data name="ChooseLiceneType" xml:space="preserve">
+    <value>--اختر نوع الرخصه--</value>
+  </data>
+  <data name="ChooseTrainee" xml:space="preserve">
+    <value>--اختر المتدرب--</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>الملفات</value>
+  </data>
+  <data name="AddWorkTimesSetting" xml:space="preserve">
+    <value>تم اضافه ميعاد عمل</value>
+  </data>
+  <data name="WorkTimesSetting" xml:space="preserve">
+    <value>مواعيد العمل</value>
+  </data>
+  <data name="fri" xml:space="preserve">
+    <value>الجمعه</value>
+  </data>
+  <data name="mon" xml:space="preserve">
+    <value>الاثنين</value>
+  </data>
+  <data name="sat" xml:space="preserve">
+    <value>السبت</value>
+  </data>
+  <data name="sun" xml:space="preserve">
+    <value>الاحد</value>
+  </data>
+  <data name="thu" xml:space="preserve">
+    <value>الخميس</value>
+  </data>
+  <data name="tue" xml:space="preserve">
+    <value>الثلثاء</value>
+  </data>
+  <data name="wed" xml:space="preserve">
+    <value>الاربعاء</value>
+  </data>
+  <data name="EmployeeEditInfo" xml:space="preserve">
+    <value>تعديل بيانات الموظف</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="AddJobFunction" xml:space="preserve">
+    <value>اضافه تخصص وظيفي</value>
+  </data>
+  <data name="JobFunction" xml:space="preserve">
+    <value>التخصص الوظيفي</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>تاريخ غير صحيح</value>
+  </data>
+  <data name="InvalidImgSize" xml:space="preserve">
+    <value>حجم الصورة يجب ان لا يتعدي 3 ميجا</value>
+  </data>
+  <data name="DataSavedBefor" xml:space="preserve">
+    <value>هذه البيانات مسجلة بالفعل لهذا الموظف </value>
+  </data>
+  <data name="LoanDeleted" xml:space="preserve">
+    <value>تم حذف السلفة</value>
+  </data>
+  <data name="LoanAdded" xml:space="preserve">
+    <value>تم اضافة السلفة</value>
+  </data>
+  <data name="LoanEdited" xml:space="preserve">
+    <value>تم تعديل السلفة</value>
+  </data>
+  <data name="ChooseADay" xml:space="preserve">
+    <value>من فضلك اختار يوم</value>
+  </data>
+  <data name="accounting" xml:space="preserve">
+    <value>منظومه الحسابات</value>
+  </data>
+  <data name="PaymentConverted" xml:space="preserve">
+    <value>تم التحويل الى تم الدفع بالكامل </value>
+  </data>
+  <data name="ChooseTraineeCode" xml:space="preserve">
+    <value>--اختر كود الموظف--</value>
+  </data>
+  <data name="Numeric_only" xml:space="preserve">
+    <value>ارقام فقط</value>
+  </data>
+  <data name="SearchBTN" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="TraineeAttendance" xml:space="preserve">
+    <value>جدول الحضور والانصراف</value>
+  </data>
+  <data name="AddTraineeAttendance" xml:space="preserve">
+    <value>تم اضافه حصه</value>
+  </data>
+  <data name="AttendanceDate" xml:space="preserve">
+    <value>تاريخ الحضور</value>
+  </data>
+  <data name="DaysWork" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="Practicaldays" xml:space="preserve">
+    <value>العملى</value>
+  </data>
+  <data name="Visualdays" xml:space="preserve">
+    <value>النظرى</value>
+  </data>
+  <data name="EmployeeVacationBalanceDeleted" xml:space="preserve">
+    <value>قد تم حذف رصيد اجازات الموظف</value>
+  </data>
+  <data name="EmployeeVacationBalanceEdited" xml:space="preserve">
+    <value>قد تم تعديل رصيد اجازات الموظف</value>
+  </data>
+  <data name="PracticalOrVisual" xml:space="preserve">
+    <value>عملى/نظرى</value>
+  </data>
+  <data name="EmployeeVacationAdded" xml:space="preserve">
+    <value>تم اضافة اجازة</value>
+  </data>
+  <data name="EmployeeVacationEdited" xml:space="preserve">
+    <value>تم تعديل الاجازة</value>
+  </data>
+  <data name="NotExistedBalance" xml:space="preserve">
+    <value>لا يوجد رصيد لهذة الاجازة</value>
+  </data>
+  <data name="EmployeeVacationDeleted" xml:space="preserve">
+    <value>قد تم حذف الاجازة</value>
+  </data>
+  <data name="ExistedBalance" xml:space="preserve">
+    <value>هذا الرصيد موجود مسبقا من فضلك ادخال رصيد اخر</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>تكويد اصناف العهد </value>
+  </data>
+  <data name="ItemCode" xml:space="preserve">
+    <value>كود الصنف</value>
+  </data>
+  <data name="MainItem" xml:space="preserve">
+    <value>الانواع الرائيسية</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>م</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>الرقم التعريفى</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>اضافة صنف</value>
+  </data>
+  <data name="EditItem" xml:space="preserve">
+    <value>تعديل صنف</value>
+  </data>
+  <data name="ErrorDataBase" xml:space="preserve">
+    <value>حدث خطاء حاول مرة اخرى</value>
+  </data>
+  <data name="ItemType" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="AddSuccess" xml:space="preserve">
+    <value>تم الحفظ بنجاح</value>
+  </data>
+  <data name="AddArchiveSettingHR" xml:space="preserve">
+    <value>اضافه صنف</value>
+  </data>
+  <data name="ArchiveSettingHRDropDown" xml:space="preserve">
+    <value>--اختر الصنف الاساسي --</value>
+  </data>
+  <data name="ArchiveSettingHRs" xml:space="preserve">
+    <value>اصناف ملفات الموظفين</value>
+  </data>
+  <data name="MainArchiveSettingHRs" xml:space="preserve">
+    <value>اصناف الملفات الرئيسيه</value>
+  </data>
+  <data name="TraineeAttendingFollowup" xml:space="preserve">
+    <value>متابعه الحضور والانصراف</value>
+  </data>
+  <data name="ChooseAttendanceDay" xml:space="preserve">
+    <value>--اختر يوم الدوره--</value>
+  </data>
+  <data name="AddTraineeAttendingFollowup" xml:space="preserve">
+    <value>اضافه متابعة الحضور والانصراف</value>
+  </data>
+  <data name="Day_ofWeek" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="TraineeAttendanceDay" xml:space="preserve">
+    <value>يوم الدوره</value>
+  </data>
+  <data name="TraineeAttendance_Absence" xml:space="preserve">
+    <value>تقرير الحضور والغياب للموظف</value>
+  </data>
+  <data name="VacationDeductionSaved" xml:space="preserve">
+    <value>لقد تم حفظ خصم الاجازات</value>
+  </data>
+  <data name="VacationsDeductionDeleted" xml:space="preserve">
+    <value>لقد تم حذف خصم الاجازات</value>
+  </data>
+  <data name="VacationsDeductionEdited" xml:space="preserve">
+    <value>لقد تم تعديل خصم الاجازات</value>
+  </data>
+  <data name="ApprovalSalary" xml:space="preserve">
+    <value>لا يمكن اتمام العملية لاعتماد المرتب برجاء ادخال فترة اخرى</value>
+  </data>
+  <data name="CanceledSalary" xml:space="preserve">
+    <value>لا يمكن اتمام العملية لالغاء المرتب برجاء ادخال فترة اخرى </value>
+  </data>
+  <data name="ReceivedSalary" xml:space="preserve">
+    <value>لا يمكن اتمام العملية لاستلام المرتب برجاء ادخال فترة اخرى </value>
+  </data>
+  <data name="Add_Item" xml:space="preserve">
+    <value>اضافه صنف</value>
+  </data>
+  <data name="ArchiveSettingDrive" xml:space="preserve">
+    <value>تكويد عناصر الارشفه</value>
+  </data>
+  <data name="ItemDropDown" xml:space="preserve">
+    <value>--اختر الصنف--</value>
+  </data>
+  <data name="MainSelected_Item" xml:space="preserve">
+    <value>بيانات الاساسيه</value>
+  </data>
+  <data name="Selected_Item" xml:space="preserve">
+    <value>العنصر المختار</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>مفعل</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>غير مفعل</value>
+  </data>
+  <data name="ChooseCode" xml:space="preserve">
+    <value>--اختر الكود--</value>
+  </data>
+  <data name="ChooseEmployeeSafe" xml:space="preserve">
+    <value>--اختر الموظف--</value>
+  </data>
+  <data name="HonestyDate" xml:space="preserve">
+    <value>تاريخ صرف العهده</value>
+  </data>
+  <data name="honestyEndDate" xml:space="preserve">
+    <value>تاريخ نهاية العهده</value>
+  </data>
+  <data name="ItemId" xml:space="preserve">
+    <value>الصنف</value>
+  </data>
+  <data name="items" xml:space="preserve">
+    <value>الصنف المصروف</value>
+  </data>
+  <data name="ExistedVacation" xml:space="preserve">
+    <value>يوجد لهذا الموظف اجازة فى تلك الفترة برجاء اختيار فترة اخرى</value>
+  </data>
+  <data name="NotEnoughBalance" xml:space="preserve">
+    <value>لا يوجد رصيد كافى لهذا الاجازة برجاء اختيار فترة اخرى</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>الموظفين</value>
+  </data>
+  <data name="ChoseType" xml:space="preserve">
+    <value>--اختر النوع--</value>
+  </data>
+  <data name="Deleterelated" xml:space="preserve">
+    <value>يوجد بيانات تابعه لهذا الصنف الرجاء حذفها اوالا</value>
+  </data>
+  <data name="ImageSize" xml:space="preserve">
+    <value>حجم الصورة اكبر من 3 ميجا بايت</value>
+  </data>
+  <data name="Itemto" xml:space="preserve">
+    <value>تكويد  الاصناف التابعه ل</value>
+  </data>
+  <data name="ArchiveDocument" xml:space="preserve">
+    <value>أرشفة المستندات</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تنزيل</value>
+  </data>
+  <data name="ExistedWorkingHoursSettingHR" xml:space="preserve">
+    <value>هذا الدوام موجود مسبقا برجاء ادخال دوام اخر</value>
+  </data>
+  <data name="ExistedWorkingHoursSettingInPeriod" xml:space="preserve">
+    <value>هذا الدوام يوجد فى تلك الفترة برجاء اختيار فترة اخرى</value>
+  </data>
+  <data name="WorkingHoursSettingHREdited" xml:space="preserve">
+    <value>قد تم تعديل اسم الدوام</value>
+  </data>
+  <data name="WorkingHourNameDeleted" xml:space="preserve">
+    <value>قد تم حذف اسم الدوام</value>
+  </data>
+  <data name="TraineeArchive" xml:space="preserve">
+    <value>أرشفة المستندات</value>
+  </data>
+  <data name="SendToTraffic" xml:space="preserve">
+    <value>ارسال للمرور</value>
+  </data>
+  <data name="WorkingHoursDetialsExisted" xml:space="preserve">
+    <value>تفاصيل هذا الدوام موجودة مسبقا برجاء ادخال تفاصيل اخرى</value>
+  </data>
+  <data name="WorkingHoursSettingDetialsHRAdded" xml:space="preserve">
+    <value>لقد تم اضافة تفاصيل الدوام</value>
+  </data>
+  <data name="WorkingHoursDetialsDeleted" xml:space="preserve">
+    <value>لقد تم حذف تفاصيل الدوام</value>
+  </data>
+  <data name="WorkingHoursSettingDetialsHREdited" xml:space="preserve">
+    <value>لقد تم تعديل تفاصيل الدوام</value>
+  </data>
+  <data name="ExistedEmployeeWorkingHours" xml:space="preserve">
+    <value>يوجد هذا الدوام لنفس الموظف فى تلك الفترة برجاء اختيار فترة اخرى</value>
+  </data>
+  <data name="EmployeeWorkingHoursDeleted" xml:space="preserve">
+    <value>لقد تم حذف دوام الموظف</value>
+  </data>
+  <data name="EmployeeWorkingHoursEdited" xml:space="preserve">
+    <value>لقد تم تعديل دوام الموظف</value>
+  </data>
+  <data name="ReceivingHonestyDate" xml:space="preserve">
+    <value>تاريخ استالم العهده من الموظف</value>
+  </data>
+  <data name="ReceivingHonestyFromEmployee" xml:space="preserve">
+    <value>استلام عهده من موظف</value>
+  </data>
+  <data name="NotCheckWorkingHours" xml:space="preserve">
+    <value>لم يتم اختيار اى دوام برجاء الاختيار </value>
+  </data>
+  <data name="TraineeTestResult" xml:space="preserve">
+    <value>نتيجه اختبار المتدرب</value>
+  </data>
+  <data name="AddTest" xml:space="preserve">
+    <value>اضافه اختبار</value>
+  </data>
+  <data name="AddTestResult" xml:space="preserve">
+    <value>اضافه نتيجه اختبار</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>الأختبار</value>
+  </data>
+  <data name="TestResult" xml:space="preserve">
+    <value>نتيجه الأختبار</value>
+  </data>
+  <data name="TestAlreadyExist" xml:space="preserve">
+    <value>الاختبار موجود بالفعل</value>
+  </data>
+  <data name="ExistedEmployeeAttendance" xml:space="preserve">
+    <value>هذة البيانات مكررة برجاء ادخال بيانات اخرى</value>
+  </data>
+  <data name="EmployeeAttendanceDepartureDeleted" xml:space="preserve">
+    <value>لقد تم حذف حضور و انصراف الموظف</value>
+  </data>
+  <data name="EmployeeAttendanceDepartureEdited" xml:space="preserve">
+    <value>لقد تم تعديل حضور و انصراف الموظف</value>
+  </data>
+  <data name="Relation" xml:space="preserve">
+    <value>صلة القرابة</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="ArName" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="EnName" xml:space="preserve">
+    <value>الاسم باالنجليزيه</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>مستندات</value>
+  </data>
+</root>

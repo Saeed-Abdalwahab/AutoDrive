@@ -1,0 +1,10 @@
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\bin\Release\AutoDrive.Static.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\bin\Release\AutoDrive.Static.pdb
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\bin\Release\AutoDriveResources.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\bin\Release\AutoDriveResources.pdb
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\bin\Release\ar\AutoDriveResources.resources.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\obj\Release\AutoDrive.Static.csprojAssemblyReference.cache
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\obj\Release\AutoDrive.Static.csproj.CoreCompileInputs.cache
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\obj\Release\AutoDrive.Static.csproj.CopyComplete
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\obj\Release\AutoDrive.Static.dll
+F:\ArmyTechProject\AutoDrive\AutoDrive.Static\obj\Release\AutoDrive.Static.pdb

@@ -1,0 +1,13 @@
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\bin\Debug\AutoDriveResources.dll
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\bin\Debug\AutoDriveResources.pdb
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\bin\Debug\ar\AutoDriveResources.resources.dll
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.csprojAssemblyReference.cache
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.Resources.resources
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.Messages.resources
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.Resources.ar.resources
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.Messages.ar.resources
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.csproj.GenerateResource.cache
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.csproj.CoreCompileInputs.cache
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\ar\AutoDriveResources.resources.dll
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.dll
+F:\ArmyTechProject\AutoDrive\AutoDriveResources\obj\Debug\AutoDriveResources.pdb

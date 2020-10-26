@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = Messages.EmployeeEditInfo;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+}
+@section Styles{
+
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+</style>
+    }
+<div class="form-group">
+    <label class="control-label col-md-1" for="employeeVM_Name">@Resources.Employee</label>
+    <div class="col-md-5">
+        <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmployeeSearch" />
+        @*<input hidden id="EmployeeID" />*@
+        <span class="text-danger" id="ErrorMsg"></span>
+    </div>
+    <div class="col-md-1">
+        @*<button onclick="GetEmployee()" class="btn btn-info">@Messages.Search</button>*@
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        function GetEmployee() {
+            var Employeeid = $("#EmployeeID").val();
+            if (parseInt(Employeeid) > 0) {
+                window.location.href = "@Url.Action("Edit","Employee")" + "?ID=" + Employeeid;
+            }
+            else {
+                $("#ErrorMsg").text("@Messages.Required");
+            }
+        }
+        $(document).ready(function () {
+               //AutoComplete
+            $("#EmployeeSearch").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("EmployeesSearch","Employee")",
+                        type: "GET",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            debugger
+                            if (!data.length) {
+                                $('#EmployeeID').val("0")
+                                $('#EmployeeSearch').val("")
+
+
+                            }
+                            else {
+                $("#ErrorMsg").text("");
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.GUID };
+                                }));
+                            }
+                        }
+                    });
+                },
+               
+                select: function (event, ui) {
+                window.location.href = "@Url.Action("Edit","Employee")" + "?ID=" + ui.item.ss;
+
+                    //$('#EmployeeID').val(ui.item.ss);
+                },
+
+
+            });
+
+        });
+
+    </script>
+    }

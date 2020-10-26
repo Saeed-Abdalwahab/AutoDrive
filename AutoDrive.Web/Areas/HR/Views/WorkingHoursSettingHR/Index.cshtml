@@ -1,0 +1,377 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveHR.WorkingHoursSettingHRVM
+@{
+    ViewBag.Title = Resources.continuityNames;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="x_content">
+    <h2>@Resources.continuityNames</h2>
+
+    <div class="modal topclass" id="myModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" onclick="Cancel()" data-dismiss="modal">&times;</a>
+                    <h4 id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="create">
+                    <form id="form">
+
+                        <div class="form-horizontal">
+
+                            @Html.HiddenFor(m => m.ID, new { @id = "WorkingHoursSettingHRID" })
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.ArName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ArName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.EnName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.EnName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+                                    <span id="FromDateValdiation" style="color:#a94442;display:none;">@Messages.Required</span>
+
+                                </div>
+                                @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+                                <span id="ToDateValdiation" style="color:#a94442;display:none;">@Messages.Required</span>
+                                <span id="GreaterThanValidation" style="color:#a94442;display:none;">@Resources.DateToValidation</span>
+                            </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="SaveWorkingHoursSettingHR"></a>
+                    <a href="#" class="btn btn-primary" onclick="Cancel()" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.DeleteWorkingHour</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteWorkingHoursSettingHR">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" id="con">
+        <table id="WorkingHoursSettingHRTB" class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.Name</th>
+                    <th>@Resources.EnName</th>
+                    <th>@Resources.FromDate</th>
+                    <th>@Resources.ToDate</th>
+                    <th>@Resources.Edit</th>
+                    <th>@Resources.Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.AddWorkingHoursSettingHR" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+    function Create() {
+        $("span[class*='error']").text("")
+        $("#form")[0].reset();
+        $("#modalTitle").html("@Resources.AddWorkingHoursSettingHR");
+        $("#SaveWorkingHoursSettingHR").html("@Resources.Add");
+        $("#WorkingHoursSettingHRID").val(0);
+        $("#myModel").modal("show");
+        $("#ArName").focus();
+    }
+      $("#SaveWorkingHoursSettingHR").click(function () {
+        Save();
+      });
+    function formValidation() {
+         let DateTo = $("#ToDate").val();
+         let DateFrom = $("#FromDate").val();
+        let checkDatesFlage = checkDates(DateFrom, DateTo);
+        if (!($("#form").valid())||(checkDatesFlage)) {
+            if(checkDatesFlage) {
+                $("#GreaterThanValidation").show();
+            }
+            return false;
+        }
+        return true;
+    }
+    $("#ArName").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#ArName").val()=="") {
+                            $("#ArName").focus();
+                        } else if ($("#EnName").val() == "") {
+                            $("#EnName").focus();
+                        }
+                    }
+                }
+    });
+    $("#EnName").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#ArName").val()=="") {
+                            $("#ArName").focus();
+                        } else if ($("#EnName").val() == "") {
+                            $("#EnName").focus();
+                        }
+                    }
+                }
+    });
+ 
+    function Save() {
+     if (!formValidation()) {
+            return false;
+        }
+        var data = $("#form").serialize();
+        $.ajax({
+            type: "post",
+            url: "/WorkingHoursSettingHR/Save",
+            data: data,
+            success: function (response) {
+                if (response.msg != "Model is null") {
+                    if (response.msg == "true") {
+                        $("#WorkingHoursSettingHRTB").DataTable().ajax.reload();
+                        $("#form")[0].reset();
+                        $("#ArName").focus();
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.success('@Resources.WorkingHoursSettingHRAdded', '', { timeOut: 4000 });
+                        }
+                        else {
+                            $("#myModel").modal("hide");
+                            toastr.success('@Messages.WorkingHoursSettingHREdited ', '', { timeOut: 4000 });
+                        }
+                    }
+                    else if(response.msg=="Working Hours Setting is existed") {
+                        toastr.error('@Messages.ExistedWorkingHoursSettingHR', '', { timeOut: 3000 });
+                    } else if (response.msg=="Working Hours Setting is existed in the same period") {
+                        toastr.error('@Messages.ExistedWorkingHoursSettingInPeriod', '', { timeOut: 3000 });
+                    }
+                }
+                else {
+
+                        toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+
+                }
+
+
+            },
+            error: function () {
+
+                      if (data.split("&")[0] == "ID=0") {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                    }
+                    else {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                    }
+            }
+        });
+
+    }
+    $(document).ready(function () {
+        $("#ToDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            let DateTo = $("#ToDate").val();
+            let DateFrom = $("#FromDate").val();
+            if (checkDates(DateFrom, DateTo)) {
+                $("#GreaterThanValidation").show();
+            } else {
+                $("#GreaterThanValidation").hide();
+            }
+
+        });
+        $("#FromDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            let DateTo = $("#ToDate").val();
+            let DateFrom = $("#FromDate").val();
+            if (checkDates(DateFrom, DateTo)) {
+                $("#GreaterThanValidation").show();
+            } else {
+                $("#GreaterThanValidation").hide();
+            }
+
+        });
+        
+    });
+      $(document).ready(function () {
+
+        $('#WorkingHoursSettingHRTB').DataTable({
+            "ajax": {
+                'url': "GetWorkingHoursSettingHRs",
+                'type': "GET"
+            }, "columns": [
+                 {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                },
+                { "data": "ArName" },
+                { "data": "EnName" },
+                { "data": "From" },
+                { "data": "To" },
+               {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditWorkingHoursSettingHR(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteWorkingHoursSettingHR(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+            ], "language":GetLanguage()
+        });
+     });
+      function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+            }
+      function checkDates(FromDate, ToDate) {
+        debugger;
+        if (FromDate == "" || ToDate == "") {
+            return false;
+        } else {
+            var match1 = /(\d+)\/(\d+)\/(\d+)/.exec(ToDate)
+            var end_date = new Date(match1[3], match1[2], match1[1]);
+            var match2 = /(\d+)\/(\d+)\/(\d+)/.exec(FromDate)
+            var start_date = new Date(match2[3], match2[2], match2[1]);
+            if (end_date < start_date) {
+                return true
+            }
+            return false;
+        }
+
+            }
+    function EditWorkingHoursSettingHR(ID) {
+        var url = "/WorkingHoursSettingHR/getWorkingHoursSettingHRByID?id=" + ID;
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (rs) {
+                $("#modalTitle").html("@Resources.WorkingHourNameEdit");
+                $("#SaveWorkingHoursSettingHR").html("@Resources.Edit");
+                $("#myModel").modal('show');
+                 $("span[class*='error']").text("")
+                 $("#form")[0].reset();
+                $("#WorkingHoursSettingHRID").val(rs.data.ID)
+                $("#ArName").val(rs.data.ArName);
+                $("#EnName").val(rs.data.EnName);
+                $("#FromDate").val(rs.data.From);
+                $("#ToDate").val(rs.data.To);
+
+            }
+        });
+    }
+    let DeleteID;
+    function DeleteWorkingHoursSettingHR(id) {
+         $("#myModelDelete").modal('show');
+           DeleteID = id;
+            }
+     $("#DeleteWorkingHoursSettingHR").click(function () {
+        debugger;
+         $.ajax({
+                type: "post",
+                url: "/WorkingHoursSettingHR/delete?id="+DeleteID,
+
+                success: function (response) {
+                    $("#myModelDelete").modal("hide");
+                    $("#WorkingHoursSettingHRTB").DataTable().ajax.reload();
+                    toastr.success('@Messages.WorkingHourNameDeleted', '', { timeOut: 4000 })
+                },
+                error: function () {
+                   toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+                }
+            });
+     });
+    </script>
+    }

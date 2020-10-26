@@ -1,0 +1,597 @@
+﻿@model AutoDrive.VM.AutoDrivePayroll.MotivationEmployeeVM
+@using AutoDriveResources
+@{
+    ViewBag.Title = Resources.MotivationEmployee;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 2000 !important;
+        float: left;
+        display: none;
+        min-width: 160px;
+        padding: 4px 0;
+        margin: 0 0 10px 25px;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+        color: black;
+        padding-right: 2%;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    .page-header {
+        padding-bottom: 9px;
+        margin: 40px 0 20px;
+        border-bottom: 1px solid #0c0c0c;
+    }
+</style>
+@*<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />*@
+
+<div class="x_content">
+    <h2>@Resources.MotivationEmployee</h2>
+
+    <div class="modal" id="myModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" onclick="cancel()" data-dismiss="modal">&times;</a>
+                    <h4 id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="create">
+                    <form id="form">
+
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(m => m.ID, new { @id = "MotivationEmployeeID" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MotivationDate, htmlAttributes: new { @class = "control-label col-md-2 " })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.MotivationDate, htmlAttributes: new { @class = "form-control", @onchange = "onchangeevent();", @style = "text-align: right;padding-right: 5%;" })
+                                    @Html.ValidationMessageFor(model => model.MotivationDate, "", new { @class = "text-danger", @id = "MotivationDateValidation" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MotivationTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.MotivationTypeId, ViewBag.MotivationTypes as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%" })
+                                    @Html.ValidationMessageFor(model => model.MotivationTypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", style = "visibility: hidden" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control"} })
+                                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WithSalaryOrForm, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.WithSalaryOrForm, Resources.Choose, htmlAttributes: new { @class = "form-control", @onchange = "changeWithSalaryOrForm()" })
+                                    @Html.ValidationMessageFor(model => model.WithSalaryOrForm, Messages.WithSalaryOrFormRequired, new { @class = "text-danger", @id = "WithSalaryOrFormValidation", @style = "color:#a94442;display:none" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InMonth, htmlAttributes: new { @class = "control-label col-md-2", @style = "display:none;", @Id = "InMonthLB" })
+                                <div class="col-md-4">
+                                    @Html.EnumDropDownListFor(model => model.InMonth, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "display:none;", @onchange = "changeInMonth()" })
+                                    @Html.ValidationMessageFor(model => model.InMonth, Messages.InMonthRequired, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "InMonthValidation" })
+                                </div>
+                                @Html.LabelFor(model => model.InYear, htmlAttributes: new { @class = "control-label col-md-2", @style = "display:none;", @Id = "InYearLB" })
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(model => model.InYear, ViewBag.YearsLst as SelectList, htmlAttributes: new { @class = "form-control", @style = "width:100%;display:none;" })
+                                    @Html.ValidationMessageFor(model => model.InYear, "", new { @class = "text-danger", @style = "display:none;" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MotivationStatus, htmlAttributes: new { @class = "control-label col-md-2",@style="display:none;",@id="StatusLB" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.MotivationStatus, Resources.Choose, htmlAttributes: new { @class = "form-control", @style="display:none;",@onchange = "changeMotivationStatus()" })
+                                    @Html.ValidationMessageFor(model => model.MotivationStatus, Messages.MotivationStatusRequired, new { @class = "text-danger", @id = "MotivationStatusValidation", @style = "color:#a94442;display:none" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="SaveMotivationEmployee"></a>
+                    <a href="#" class="btn btn-primary" onclick="cancel()" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.DeleteReward</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteMotivationEmployee">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" id="con">
+        <table id="MotivationEmployeeTB" class="table table-striped jambo_table bulk_action" style=@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"":"margin-right:-4%")>
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.MotivationDate</th>
+                    <th>@Resources.MotivationType</th>
+                    <th>@Resources.Employee</th>
+                    <th>@Resources.InMonth</th>
+                    <th>@Resources.InYear</th>
+                    <th>@Resources.Note</th>
+                    <th>@Resources.MotivationStatus</th>
+                    <th>@Resources.WithSalaryOrForm1</th>
+                    <th>@Resources.Value</th>
+                    <th>@Resources.Edit</th>
+                    <th>@Resources.Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.RewardAdd" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+            let DeleteID;
+            function Create() {
+                $("span[class*='error']").text("")
+                $("#form")[0].reset();
+                $("#modalTitle").html("@Resources.RewardAdd");
+                $("#SaveMotivationEmployee").html("@Resources.Add");
+                $("#MotivationEmployeeID").val(0);
+                $("#myModel").modal()
+                $("#StatusLB").hide();
+                $("#MotivationStatus").hide()
+            }
+            function onchangeevent() {
+                $("#MotivationDate-error").hide();
+            }
+       function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+            }
+            $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../hr/Employee/EmployeesSearch",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+            });
+   
+            $(document).ready(function () {
+                $("#MotivationDate").datepicker({
+                    dateFormat: 'dd/mm/yy'
+
+                });
+                $('#MotivationEmployeeTB').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("GetMotivationEmployee","MotivationEmployee")",
+                        'type': "GET"
+                    }, "columns": [
+                        {
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+                        {
+                            "data": "MotivationDate", "render": function (data, type, row) {
+                                return moment(data).format('DD/MM/YYYY');
+                            },width:"10%"
+                        },
+                        { "data": "MotivationTypeName",width:"10%" },
+                        { "data": "EmployeeName" ,width:"10%"},
+                        { "data": "InMonthName" ,width:"10%"},
+                        { "data": "InyearName" ,width:"10%"},
+                        { "data": "Note",width:"10%" },
+                        { "data": "MotivationStatusName" ,width:"10%"},
+                        { "data": "WithsalaryOrFromName", width:"10%" },
+                        { "data": "Value", width:"10%" }, {
+                            "data": "ID", "render": function (data, type, row) {
+                                if (!row.check) {
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditMotivationEmployee(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+
+                                }
+                                else {
+                                    return "";
+                                }
+
+                            },"width": "10%"
+                        },
+                        {
+                            "data": "ID", "render": function (data, type, row) {
+                                if (!row.check) {
+                                    return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteMotivationEmployee(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                                } else {
+                                    return "";
+                                }
+                            },"width": "10%"
+                        }
+                    ], "language": GetLanguage()
+                });
+            });
+            function changeWithSalaryOrForm() {
+                $("#WithSalaryOrFormValidation").hide();
+                if ($("#WithSalaryOrForm").val() == "1") {
+                    $("#InMonthLB").show();
+                    $("#InMonth").show();
+                    $("#InYearLB").show();
+                    $("#InYear").show();
+                    $("#InYear").val(@DateTime.Now.Year);
+                    $("#InMonth").val(0);
+                } else {
+                    $("#InMonthLB").hide();
+                    $("#InMonth").hide();
+                    $("#InYearLB").hide();
+                    $("#InYear").hide();
+                    $("#InYear").val(0);
+                    $("#InMonth").val(0);
+                }
+            }
+            function changeMotivationStatus() {
+                $("#MotivationStatusValidation").hide();
+            }
+            function changeInMonth() {
+                $("#InMonthValidation").hide();
+            }
+
+            $("#SaveMotivationEmployee").click(function () {
+                Save();
+            });
+            $("#Note").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        $(".input-validation-error").focus();
+                    }
+                }
+            });
+            $("#Value").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        $(".input-validation-error").focus();
+                    }
+                }
+            });
+    function formValidation() {
+        debugger;
+                if (!($("#form").valid()) || $("#WithSalaryOrForm").val() == "0" || ($("#MotivationStatus").val() == "0" && $("#MotivationEmployeeID").val()>0) || ($("#InMonth").val() == "0" && $("#WithSalaryOrForm").val() == "1")) {
+                   
+                    if ($("#WithSalaryOrForm").val() == "0")
+                        $("#WithSalaryOrFormValidation").show();
+                    else
+                        $("#WithSalaryOrFormValidation").hide();
+                    if (($("#MotivationStatus").val() == "0" && $("#MotivationEmployeeID").val()>0))
+                        $("#MotivationStatusValidation").show();
+                    else
+                        $("#MotivationStatusValidation").hide();
+                    if ($("#InMonth").val() == "0" && $("#WithSalaryOrForm").val() == "1")
+                        $("#InMonthValidation").show();
+                    else
+                        $("#InMonthValidation").hide();
+
+                    return false;
+                }
+                else {
+                     $("#WithSalaryOrFormValidation").hide();
+                    $("#MotivationStatusValidation").hide();
+                    $("#InMonthValidation").hide();
+                    return true;
+                }
+
+            }
+    function Save() {
+        debugger;
+                if (!formValidation()) {
+                    return true;
+                }
+                var data = $("#form").serialize();
+                $.ajax({
+                    type: "post",
+                    url: "/MotivationEmployee/Save",
+                    data: data,
+                    success: function (response) {
+                        if (response.msg != "Model is null") {
+                            $("#WithSalaryOrFormValidation").hide();
+                            $("#MotivationStatusValidation").hide();
+                            $("#InMonthValidation").hide();
+                             $("#StatusLB").hide();
+                            $("#MotivationStatus").hide()
+                    @*if (response.msg =="The same month") {
+                        toastr.error('@Messages.SameMonth', '', { timeOut: 4000 });
+                    }
+                    else*@
+                            if (response.msg == "adopted") {
+
+                                toastr.error('@Messages.RewardAdopted', '', { timeOut: 4000 });
+                            } else if (response.msg == "canceled") {
+                                toastr.error('@Messages.RewardCanceled', '', { timeOut: 4000 });
+                            } else if (response.msg == "received") {
+                                toastr.error('@Messages.RewardReceived', '', { timeOut: 4000 });
+                            }
+                            else if (response.msg == "true") {
+
+                                $("#MotivationEmployeeTB").DataTable().ajax.reload();
+                                $("#form")[0].reset();
+                                $("#InMonthLB").hide();
+                                $("#InMonth").hide();
+                                $("#InYearLB").hide();
+                                $("#InYear").hide();
+
+                                if (data.split("&")[0] == "ID=0") {
+                                    toastr.success('@Messages.rewardSaved ', '', { timeOut: 4000 });
+
+                                }
+                                else {
+                                    debugger;
+                                    $("#myModel").modal("hide");
+                                    toastr.success('@Messages.RewardEdited ', '', { timeOut: 4000 });
+                                }
+                            }
+
+                        }
+                        else {
+
+                            if ($("#WithSalaryOrForm").val() == "0")
+                                $("#WithSalaryOrFormValidation").show();
+                            else
+                                $("#WithSalaryOrFormValidation").hide();
+                            if ($("#MotivationStatus").val() == "0")
+                                $("#MotivationStatusValidation").show();
+                            else
+                                $("#WithSalaryOrFormValidation").hide();
+
+                            if ($("#InMonth").val() == "0" && $("#WithSalaryOrForm").val() == "1")
+                                $("#InMonthValidation").show();
+                            else
+                                $("#InMonthValidation").hide();
+
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                        }
+
+
+                    },
+                    error: function () {
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                        }
+                        else {
+                            toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                        }
+
+                    }
+                });
+
+            }
+            function cancel() {
+                $("#WithSalaryOrFormValidation").hide();
+                $("#MotivationStatusValidation").hide();
+                $("#InMonthValidation").hide();
+                $("#MotivationDate-error").hide();
+                $("#MotivationTypeId-error").hide();
+                $("#EmployeeId-error").hide();
+                $("#Value-error").hide();
+                $("#form")[0].reset();
+                $("#InMonthLB").hide();
+                $("#InMonth").hide();
+                $("#InYearLB").hide();
+                $("#InYear").hide();
+            }
+            function DeleteMotivationEmployee(id) {
+                $("#myModelDelete").modal('show');
+                DeleteID = id;
+            }
+            $("#DeleteMotivationEmployee").click(function () {
+                debugger;
+                $.ajax({
+                    type: "post",
+                    url: "/MotivationEmployee/delete?id=" + DeleteID,
+
+                    success: function (response) {
+                        $("#myModelDelete").modal("hide");
+                        $("#MotivationEmployeeTB").DataTable().ajax.reload();
+                        toastr.success('@Resources.RewardDeleted', '', { timeOut: 4000 })
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                    }
+                });
+            });
+            function EditMotivationEmployee(id) {
+                var url = "/MotivationEmployee/getMotivationEmployeeByID?id=" + id;
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (rs) {
+                        $("#modalTitle").html("@Resources.EditReward");
+                        $("#SaveMotivationEmployee").html("@Resources.Edit");
+                        $("#myModel").modal('show');
+                        $("span[class*='error']").text("")
+                        $("#form")[0].reset();
+                        $("#MotivationEmployeeID").val(rs.data.ID)
+                        $("#MotivationDate").val(dateFormat(new Date(parseInt((rs.data.MotivationDate).match(/\d+/)[0]))));
+                        $("#MotivationTypeId").val(rs.data.MotivationTypeId);
+                        $("#EmployeeId").val(rs.data.EmployeeId);
+                        $("#Note").val(rs.data.Note);
+                        $("#WithSalaryOrForm").val(rs.data.WithSalaryOrForm);
+                        $("#InMonth").val(rs.data.InMonth);
+                        $("#InYear").val(rs.data.InYear);
+                        $("#MotivationStatus").val(rs.data.MotivationStatus);
+                        $("#Value").val(rs.data.Value);
+                        $("#EmpID").val(rs.data.EmployeeName)
+                        if ($("#WithSalaryOrForm").val() == "1") {
+                            $("#InMonthLB").show();
+                            $("#InMonth").show();
+                            $("#InYearLB").show();
+                            $("#InYear").show();
+                        }
+                         $("#StatusLB").show();
+                         $("#MotivationStatus").show()
+
+                    }
+                    
+                });
+            }
+            function dateFormat(d) {
+                return  (d.getDate() + "").padStart(2, "0")
+                    + "/" +((d.getMonth() + 1) + "").padStart(2, "0")
+                    + "/" + d.getFullYear();
+    }
+ function EmpChange() {
+        $("#EmployeeId-error").hide();
+        if ($("#EmpID").val()=="") {
+               $('#EmployeeId').val("")
+
+        }
+
+    }
+    </script>
+    }

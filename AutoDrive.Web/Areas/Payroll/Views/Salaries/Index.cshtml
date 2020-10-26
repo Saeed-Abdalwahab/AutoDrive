@@ -1,0 +1,89 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDrivePayroll.SalariesVM
+@{
+    ViewBag.Title = Resources.EmployeesSalaries;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .RightClass{
+        width: 100%;
+        position: relative;
+        left: 21%;
+    }
+    .YearLeftClass{
+        position: relative;
+    right: 21%;
+    }
+    .MonthLeftClass{
+        position: relative;
+    right: 14%;s
+    }
+</style>
+<div class="x_content">
+    <h2>@Resources.EmployeesSalaries</h2>
+
+    <div class="col-sm-12" id="con">
+        <form id="form">
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.EnumDropDownListFor(model => model.Month, Resources.Choose, htmlAttributes: new { @class =System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"form-control RightClass":"form-control MonthLeftClass",  @onchange = "MonthChange()" })
+                    @Html.ValidationMessageFor(model => model.Month, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "MonthValidation" })
+                </div>
+
+
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Year, ViewBag.YearsLst as SelectList, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"form-control RightClass":"form-control YearLeftClass" })
+                    @Html.ValidationMessageFor(model => model.Year, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "YearValidation" })
+                </div>
+                <div class="col-md-2">
+                    <a href="#" class="btn btn-primary" id="CalculateSalaries">@Resources.CalculateSalary</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $("#CalculateSalaries").click(function () {
+                Calculate();
+        });
+        function MonthChange() {
+            $("#MonthValidation").hide();
+        }
+        function Validation() {
+            if ($("#Month").val() == "0") {
+                $("#MonthValidation").show();
+                return false;
+            }
+            return true;
+        }
+        function Calculate() {
+            if (!Validation()) {
+                return true;
+            }
+            var data = $("#form").serialize();
+            $.ajax({
+                type: "post",
+                url: "/Salaries/CalculateSalaries",
+                data: data,
+                success: function (response) {
+
+                    if (response.msg != "Model is null") {
+                        if (response.msg == true) {
+                            toastr.success('@Messages.CalculateSalaries', '', { timeOut: 3000 });
+                        }
+                    } else {
+                         if ($("#Month").val() == "0") 
+                             $("#MonthValidation").show();
+                    }
+                },
+                error: function () {
+                    toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+                }
+            });
+        }
+    </script>
+    }

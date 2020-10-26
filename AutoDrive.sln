@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.DAL", "AutoDrive.DAL\AutoDrive.DAL.csproj", "{9D519014-DC4B-4C6B-A878-C162BB379262}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.BLL", "AutoDrive.BLL\AutoDrive.BLL.csproj", "{D1B51436-84F0-45BB-9832-AB1B08639DEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.VM", "AutoDrive.VM\AutoDrive.VM.csproj", "{73C4493E-61D0-43B8-89CB-9E86976F673F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.Static", "AutoDrive.Static\AutoDrive.Static.csproj", "{87E63881-7B38-436F-B276-7FC33F403BE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.Web", "AutoDrive.Web\AutoDrive.Web.csproj", "{308870EB-8F66-499C-8CE7-88FB49601924}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDriveResources", "AutoDriveResources\AutoDriveResources.csproj", "{10B88062-0117-4E15-9491-78BBDF0467C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDrive.Core", "AutoDrive.Core\AutoDrive.Core.csproj", "{26C6764F-1C9A-476C-9D32-0F0C06130005}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D519014-DC4B-4C6B-A878-C162BB379262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D519014-DC4B-4C6B-A878-C162BB379262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D519014-DC4B-4C6B-A878-C162BB379262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D519014-DC4B-4C6B-A878-C162BB379262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B51436-84F0-45BB-9832-AB1B08639DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B51436-84F0-45BB-9832-AB1B08639DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B51436-84F0-45BB-9832-AB1B08639DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B51436-84F0-45BB-9832-AB1B08639DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C4493E-61D0-43B8-89CB-9E86976F673F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C4493E-61D0-43B8-89CB-9E86976F673F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C4493E-61D0-43B8-89CB-9E86976F673F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C4493E-61D0-43B8-89CB-9E86976F673F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E63881-7B38-436F-B276-7FC33F403BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E63881-7B38-436F-B276-7FC33F403BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E63881-7B38-436F-B276-7FC33F403BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E63881-7B38-436F-B276-7FC33F403BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308870EB-8F66-499C-8CE7-88FB49601924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308870EB-8F66-499C-8CE7-88FB49601924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308870EB-8F66-499C-8CE7-88FB49601924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308870EB-8F66-499C-8CE7-88FB49601924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B88062-0117-4E15-9491-78BBDF0467C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B88062-0117-4E15-9491-78BBDF0467C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B88062-0117-4E15-9491-78BBDF0467C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B88062-0117-4E15-9491-78BBDF0467C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26C6764F-1C9A-476C-9D32-0F0C06130005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C6764F-1C9A-476C-9D32-0F0C06130005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C6764F-1C9A-476C-9D32-0F0C06130005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26C6764F-1C9A-476C-9D32-0F0C06130005}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7637D894-713F-40C6-983A-A337FF66E520}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/armytechgroup1
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AutoDrive.BLL\\AutoDrive.BLL.csproj
+		SccProjectName1 = AutoDrive.BLL
+		SccLocalPath1 = AutoDrive.BLL
+		SccProjectUniqueName2 = AutoDrive.DAL\\AutoDrive.DAL.csproj
+		SccProjectName2 = AutoDrive.DAL
+		SccLocalPath2 = AutoDrive.DAL
+		SccProjectUniqueName3 = AutoDrive.Static\\AutoDrive.Static.csproj
+		SccProjectName3 = AutoDrive.Static
+		SccLocalPath3 = AutoDrive.Static
+		SccProjectUniqueName4 = AutoDrive.VM\\AutoDrive.VM.csproj
+		SccProjectName4 = AutoDrive.VM
+		SccLocalPath4 = AutoDrive.VM
+		SccProjectUniqueName5 = AutoDrive.Web\\AutoDrive.Web.csproj
+		SccProjectName5 = AutoDrive.Web
+		SccLocalPath5 = AutoDrive.Web
+		SccProjectUniqueName6 = AutoDriveResources\\AutoDriveResources.csproj
+		SccProjectName6 = AutoDriveResources
+		SccLocalPath6 = AutoDriveResources
+		SccProjectUniqueName7 = AutoDrive.Core\\AutoDrive.Core.csproj
+		SccProjectName7 = AutoDrive.Core
+		SccLocalPath7 = AutoDrive.Core
+	EndGlobalSection
+EndGlobal

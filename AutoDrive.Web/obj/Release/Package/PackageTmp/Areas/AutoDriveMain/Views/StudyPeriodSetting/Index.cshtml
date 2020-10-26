@@ -1,0 +1,417 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.StudyPeriodSettingVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+</style>
+<div class="text-center">
+    <h3 class="center info">@Messages.StudyPeriodSetting</h3>
+</div>
+
+@*Creat apopup Modal For Add And Edit*@
+<div class="modal fade" id="MyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="Modaltitle"></h4>
+            </div>
+            <div class="modal-body" style="height:138px">
+                <form id="form">
+                    <div class="form-horizontal">
+
+                        @Html.HiddenFor(m => m.ID, new { @id = "StudyPeriodSetting_ID" })
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6" style="margin-bottom:17px;">
+
+                                    @*<label>المستوى</label>*@
+                                    @Html.LabelFor(x=>x.DriveLevelId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.DropDownListFor(x => x.DriveLevelId, (SelectList)ViewBag.DriveLevelId,  @ViewBag.CheckUS == "En-Us"?"--Choose Level--":"--اختر المستوى--", new { @class = "form-control" })
+                                        @*@Html.TextBoxFor(m => m.DriveLevelId, new { @class = "form-control", @placeholder = "المستوى" })*@
+                                        @*@Html.ValidationMessageFor(model => model.DriveLevelId, "", new { @class = "text-danger" })*@
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" style="margin-bottom:17px;">
+                                    @Html.LabelFor(x=>x.LevelStatus, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @*@Html.TextBoxFor(x => x.LevelStatus, new { @class = "form-control" })*@
+                                        @Html.EnumDropDownListFor(x => x.LevelStatus,@ViewBag.CheckUS == "En-Us"?"--Choose Status--":"--اختر الحاله--", new { @class = "form-control" })
+
+                                        @Html.ValidationMessageFor(model => model.LevelStatus, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row" margin-bottom:17px;padding-top:5px;">
+
+                                <div class="col-md-4">
+                                    <span class="col-md-1">@Messages.Visual</span>
+
+                                    @Html.LabelFor(x=>x.VisualStudyCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.VisualStudyCount, new { @class = "form-control", Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.VisualStudyCount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(x=>x.VisualStudyCost, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.VisualStudyCost, new { @class = "form-control", Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.VisualStudyCost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(x=>x.VisualStudyTotal, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.VisualStudyTotal, new { @class = "form-control", Value = "0", @readonly = "true" })
+                                        @Html.ValidationMessageFor(model => model.VisualStudyTotal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" margin-bottom:17px;padding-top:5px;">
+
+                                <div class="col-md-4">
+                                    <span class="col-md-1">@Messages.Practical</span>
+
+                                    @Html.LabelFor(x=>x.PracticalCount, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.PracticalCount, new { @class = "form-control", Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.PracticalCount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(x=>x.PracticalCost, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.PracticalCost, new { @class = "form-control", Value = "0" })
+                                        @Html.ValidationMessageFor(model => model.PracticalCost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.LabelFor(x=>x.PracticalTotal, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.PracticalTotal, new { @class = "form-control", Value = "0", @readonly = "true" })
+                                        @Html.ValidationMessageFor(model => model.PracticalTotal, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4" style="margin-bottom:17px;">
+                                @Html.Label(@ViewBag.CheckUS == "En-Us"?"Total Count":"عدد الحصص", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBox(" ", "", htmlAttributes: new { @class = "form-control", Value = "0", id = "totalCount", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="margin-bottom:17px;"></div>
+
+                            <div class="col-md-4" style="margin-bottom:17px;">
+                                @Html.LabelFor(x=>x.LevelTotal, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(x => x.LevelTotal, new { @class = "form-control", Value = "0", @readonly = "true" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="SaveStudyPeriodSetting">@Messages.SaveBTN</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Creat Popup For Delete*@
+<div id="DeletDiv" class="d-none">
+
+</div>
+
+<div class="container" style="margin-top:3%">
+    @*<button class="btn btn-primary" onclick="AddStudyPeriodSetting(0)">أضافه مده دراسه </button>*@
+    <button class="btn btn-primary btn-lg btn-round navbar-fixed-bottom" onclick="AddStudyPeriodSetting(0)" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="أضافه مده دراسه" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+    <table class="table table-striped" id="StudyPeriodSettingTable">
+        <thead>
+            <tr>
+                <th>م</th>
+                <th>@Html.DisplayNameFor(x => x.DriveLevelId)</th>
+                <th>@Html.DisplayNameFor(x => x.VisualStudyCount)</th>
+                <th>@Html.DisplayNameFor(x => x.VisualStudyCost)</th>
+                <th>@Html.DisplayNameFor(x => x.VisualStudyTotal)</th>
+                <th>@Html.DisplayNameFor(x => x.PracticalCount)</th>
+                <th>@Html.DisplayNameFor(x => x.PracticalCost)</th>
+                <th>@Html.DisplayNameFor(x => x.PracticalTotal)</th>
+                <th>@Html.DisplayNameFor(x => x.LevelTotal)</th>
+                <th>@Html.DisplayNameFor(x => x.LevelStatus)</th>
+                <th style="width:80px"></th>
+
+            </tr>
+        </thead>
+
+
+    </table>
+</div>
+
+
+@section scripts
+{
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+
+
+
+
+        $('#VisualStudyCount , #PracticalCount').on('keyup', function () {
+            var countAll = parseInt($("#PracticalCount").val()) + parseInt($("#VisualStudyCount").val());
+            $("#totalCount").val(countAll);
+        });
+        $('#VisualStudyCount , #PracticalCount , #VisualStudyCost , #PracticalCost').on('keyup', function () {
+            if (parseInt($("#VisualStudyCount").val()) != 0 && parseInt($("#VisualStudyCost").val()) != 0) {
+                var visualtotal = parseInt($("#VisualStudyCount").val()) * parseInt($("#VisualStudyCost").val());
+                $("#VisualStudyTotal").val(visualtotal);
+            }
+
+            if (parseInt($("#PracticalCount").val()) != 0 && parseInt($("#PracticalCost").val()) != 0) {
+                var Practicaltotal = parseInt($("#PracticalCount").val()) * parseInt($("#PracticalCost").val());
+                $("#PracticalTotal").val(Practicaltotal);
+            }
+
+            var totalAll = parseInt($("#VisualStudyTotal").val()) + parseInt($("#PracticalTotal").val());
+            $("#LevelTotal").val(totalAll);
+        });
+
+
+        function Save() {
+
+            if ($("#form").valid()) {
+                var data = $("#form").serialize();
+
+                $.ajax({
+                    type: "post",
+                    url:"@Url.Action("Save_studyPeriodSetting","StudyPeriodSetting")" ,
+
+                    data: data,
+                    success: function (response) {
+                        if (response.msg == true) {
+                            if (data.split("&")[0] == "ID=0") {
+
+                                $("#StudyPeriodSettingTable").DataTable().ajax.reload();
+                                toastr.success("@Messages.SaveSucc", 'اشعار', { timeOut: 4000 });
+                                AddStudyPeriodSetting(0);
+                                //$("#MyModal").modal("hide");
+
+                            }
+                            else {
+                                $("#StudyPeriodSettingTable").DataTable().ajax.reload();
+                                toastr.success("@Messages.SaveSucc", 'اشعار', { timeOut: 4000 });
+                                $("#MyModal").modal("hide");
+                            }
+                        }
+                        else {
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+
+                        }
+                    },
+                    fail: function () {
+                        toastr.error('الاسم مسجل بالفعل', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    },
+                    error: function () {
+                        toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    }
+                });
+            }
+            else {
+                toastr.error('برجاءادخال الحقول', 'اشعار', { timeOut: 3000 });
+            }
+        }
+        function AddStudyPeriodSetting(ID) {
+            $("#form")[0].reset();
+            $("#Modaltitle").html("@Messages.AddStudyPeriodSetting");
+            $("#StudyPeriodSetting_ID").val("0");
+
+            $("#MyModal").modal();
+        }
+
+
+        $("#EditClick").click(function () {
+
+
+            // var countAll2 = parseInt($("#PracticalCount").val()) + parseInt($("#VisualStudyCount").val());
+            alert("go");
+            // $("#totalCount").val(countAll2);
+        });
+        function EditStudyPeriodSetting(ID) {
+
+
+            var url ="@Url.Action("GetStudyPeriodSetting_byId","StudyPeriodSetting")" + "/" + ID;
+
+            $("#Modaltitle").html("@Messages.Edit");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (rs) {
+
+                    $("#MyModal").modal();
+                    $("#StudyPeriodSetting_ID").val(rs.data.ID);
+                    $("#DriveLevelId").val(rs.data.DriveLevelId);
+                    $("#VisualStudyCount").val(rs.data.VisualStudyCount);
+                    $("#VisualStudyCost").val(rs.data.VisualStudyCost);
+                    $("#VisualStudyTotal").val(rs.data.VisualStudyTotal);
+                    $("#PracticalCount").val(rs.data.PracticalCount);
+                    $("#PracticalCost").val(rs.data.PracticalCost);
+                    $("#PracticalTotal").val(rs.data.PracticalTotal);
+                    $("#LevelTotal").val(rs.data.LevelTotal);
+                    $("#LevelStatus").val(rs.data.LevelStatus);
+
+                    var countAll2 = parseInt($("#PracticalCount").val()) + parseInt($("#VisualStudyCount").val());
+                    $("#totalCount").val(countAll2);
+                }
+            })
+        }
+
+    function DeleteStudyPeriodSetting(ID) {
+            var url ="@Url.Action("GetDelete","StudyPeriodSetting")" + "/" + ID;
+
+
+            $("#MyModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                dataType: 'html',
+                url: url,
+                success: function (data) {
+                    $('#DeletDiv').html(data);
+                    $('#DeletDiv .modal').modal('show');
+                },
+                fail: function (xhr, textStatus, errorThrown) {
+                    toastr.error('لا يمكن حذف النوع', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                }
+            })
+        }
+
+        function DeletSuccess() {
+            $('#DeletDiv .modal').modal('hide');
+            $("#StudyPeriodSettingTable").DataTable().ajax.reload();
+            toastr.success('تم حذف  مده الدراسه', 'اشعار', { timeOut: 4000 });
+        }
+
+
+
+        $("#SaveStudyPeriodSetting").click(function () {
+
+            Save();
+        });
+
+
+        //datatable function
+        $(document).ready(function () {
+
+
+            var t = $('#StudyPeriodSettingTable').DataTable({
+
+                "ajax": {
+                    'url':"@Url.Action("GetStudyPeriodSetting","StudyPeriodSetting")",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"DriveLevelEnName": "DriveLevelName"},
+                    { "data": "VisualStudyCount" },
+                    { "data": "VisualStudyCost" },
+                    { "data": "VisualStudyTotal" },
+                    { "data": "PracticalCount" },
+                    { "data": "PracticalCost" },
+                    { "data": "PracticalTotal" },
+                    { "data": "LevelTotal" },
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"LevelStatusEnName": "LevelStatusName" },
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' id='EditClick' onclick='EditStudyPeriodSetting(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteStudyPeriodSetting(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+                    //{
+                    //    "data": "ID", "render": function (data) {
+                    //        return "<botton class='btn btn-primary ED' id='EditClick' style='margin-top:3px' onclick='EditStudyPeriodSetting(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                    //    }
+                    //},
+                    //{
+                    //    "data": "ID", "render": function (data) {
+                    //        return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteStudyPeriodSetting(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                    //    }
+                    //},
+
+
+                ],
+               "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+
+                info: false,
+
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        });
+
+    </script>
+}
+
+
+
+
+

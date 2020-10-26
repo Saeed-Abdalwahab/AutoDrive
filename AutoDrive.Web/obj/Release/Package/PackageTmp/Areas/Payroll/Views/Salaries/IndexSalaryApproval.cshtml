@@ -1,0 +1,331 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDrivePayroll.ViewSalaryVM
+@{
+    ViewBag.Title = Resources.SalaryApproval;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .LeftCheckedEmployeesSalariesApproval{
+            position: relative;
+            left: 64%;
+    }
+    .RightCheckedEmployeesSalariesApproval{
+              position: relative;
+              right: 72%;
+    }
+</style>
+<div class="x_content">
+    <h2>@Resources.SalaryApproval</h2>
+    <div class="modal fade" id="myModelSalaryVocabulary" role="dialog" data-url="@Url.Action("ShowSalaryVocabulary","Salaries")">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.ShowSalaryVocabulary</h4>
+                </div>
+                <div class="modal-body text-center" id="displayEmployeeMoneyDetials">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.ReturnToSalaryApproval</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div id="Tree"></div>
+                        <span style="color:#a94442;display:none;" id="TreeValidation">@Messages.Required</span>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <form id="form">
+                                <div class="form-group">
+
+                                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-2">
+                                        @Html.EnumDropDownListFor(model => model.Month, Resources.Choose, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "form-control RightClass" : "form-control MonthLeftClass", @onchange = "MonthChange()" })
+                                        @Html.ValidationMessageFor(model => model.Month, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "MonthValidation" })
+                                    </div>
+
+
+                                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(model => model.Year, ViewBag.YearsLst as SelectList, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "form-control RightClass" : "form-control YearLeftClass" })
+                                        @Html.ValidationMessageFor(model => model.Year, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "YearValidation" })
+                                    </div>
+                                    @Html.LabelFor(model => model.SalaryStatus, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-2">
+                                        @Html.EnumDropDownListFor(model => model.SalaryStatus, Resources.Choose, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "form-control RightClass" : "form-control MonthLeftClass", @onchange = "SalaryStatusChange()" })
+                                        @Html.ValidationMessageFor(model => model.SalaryStatus, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "SalaryStatusValidation" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-primary" id="ViewSalaries">@Resources.ViewSalaries</a>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="row">
+                            <a href="#" class=" @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"btn btn-primary RightCheckedEmployeesSalariesApproval":"btn btn-primary LeftCheckedEmployeesSalariesApproval")" id="CheckedEmployeesSalariesApproval">@Resources.CheckedEmployeesSalariesApproval</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <table id="EmployeesSalariesApproval" class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr>
+                                <th>@Resources.SerialNumber</th>
+                                <th>@Resources.CheckToApproveSalary</th>
+                                <th>@Resources.Employee</th>
+                                <th>@Resources.JobDegree</th>
+                                <th>@Resources.JobLevel</th>
+                                <th>@Resources.AffiliateManagement</th>
+                                <th id="PerviousMonth"></th>
+                                <th id="CurrentMonth"></th>
+                                <th>@Resources.SalaryStatus</th>
+                                <th>@Resources.Approval</th>
+                                <th>@Resources.ShowSalaryVocabulary</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            @section scripts{
+                <link href="~/Content/jsTree/themes/default/style.css" rel="stylesheet" />
+                <script src="~/Scripts/jsTree3/jstree.js"></script>
+                <script>
+        var SelectedNodes = [];
+        $('#Tree').jstree({
+            'core': {
+                'data': {
+                    'url': "../../hr/Department/TreeData",
+                    'dataType': 'json',
+                    check_callback: false
+                }
+            },
+    checkbox: {
+      whole_node : false,  // to avoid checking the box just clicking the node
+      tie_selection : false // for checking without selecting and selecting without checking
+    },
+    plugins: ['checkbox']
+        }).on("check_node.jstree uncheck_node.jstree", function(e, data) {
+           $("#TreeValidation").hide();
+});
+        function MonthChange() {
+            $("#MonthValidation").hide();
+        }
+        function SalaryStatusChange() {
+            $("#SalaryStatusValidation").hide();
+        }
+        function TestValidation() {
+            if ((SelectedNodes.length == 0)||($("#Month").val()=="0")||($("#SalaryStatus").val()=="0")) {
+                 if (SelectedNodes.length == 0)
+                    $("#TreeValidation").show();
+                if (($("#Month").val()=="0")) {
+                    $("#MonthValidation").show();
+                }
+                if ($("#SalaryStatus").val()=="0") {
+                  $("#SalaryStatusValidation").show()
+                }
+                return false;
+            }
+            return true;
+        }
+         function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+        }
+
+
+        $("#ViewSalaries").click(function () {
+                ViewSalaries();
+         });
+        function ViewSalaries() {
+           SelectedNodes = $('#Tree').jstree("get_checked").map(x=>+x);
+            if (!TestValidation()) {
+                return true
+            }
+            $('#EmployeesSalariesApproval').DataTable().ajax.reload();
+              $("#CurrentMonth").html("@Resources.CurrentMonth"+" " + $("#Month").val());
+            if ($("#Month").val()=="1") {
+                   $("#PerviousMonth").html("@Resources.CurrentMonth"+" 12");
+
+            } else
+                $("#PerviousMonth").html( "@Resources.CurrentMonth"+" " + (parseInt($("#Month").val())-1));
+
+        }
+
+    $(document).ready(function () {
+        debugger
+        $('#EmployeesSalariesApproval').DataTable({
+            "ajax": {
+                'url': "/Salaries/ViewSalariesTB",
+                'type': "GET",
+                'data': function (data) {
+                    data.DeptIDs = SelectedNodes;
+                  data.Month = $("#Month").val();
+                      data.Year = $("#Year").val();
+                      data.SalaryStatus=$("#SalaryStatus").val()
+}
+                ,
+                'traditional': true,
+                  'cache': false,
+
+            }, "columns": [
+                {
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+                       {
+                           "data": "EmployeeMoneyID", "render": function (data, type, row) {
+                               debugger
+                                if (row.check) {
+                                    return "<input type='checkbox' id='" + data + "' name='CheckedEmployee' value='" + data + "'>";
+                                } else {
+                                    return "";
+                                }
+                            },"width": "10%"
+                        },
+                        { "data": "Employeename",width:"10%" },
+                        { "data": "JobDegree" ,width:"10%"},
+                        { "data": "JobLevel" ,width:"10%"},
+                        { "data": "ManagementName", width: "10%" },
+                        { "data": "PerviousMonth", width: "10%" },
+                        { "data": "currentMonth", width: "10%" },
+                        { "data": "StatusName", width: "10%" },
+                         {
+                            "data": "EmployeeMoneyID", "render": function (data, type, row) {
+                                if (row.check) {
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EmployeeSalaryApproval(" + data + ")'>@Resources.ApprovalBtn</botton>"
+                                } else {
+                                    return "";
+                                }
+                            },"width": "10%"
+                        },
+                         {
+                            "data": "EmployeeMoneyID", "render": function (data, type, row) {
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='ShowSalaryVocabulary(" + data + ")'>@Resources.ShowBtn</botton>"
+
+                            },"width": "10%"
+                        }
+            ], "language": GetLanguage()
+        });
+    });
+        function EmployeeSalaryApproval(id) {
+             $.ajax({
+                    type: "post",
+                    url: "/Salaries/EmployeeSalaryApproval?id=" + id,
+
+                    success: function (response) {
+                        $("#EmployeesSalariesApproval").DataTable().ajax.reload();
+                        toastr.success('@Resources.employeeSalaryApproval', '', { timeOut: 4000 })
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                    }
+                });
+        }
+         $("#CheckedEmployeesSalariesApproval").click(function () {
+             if (!$("#EmployeesSalariesApproval").DataTable().data().any()) {
+                 toastr.error('@Messages.NotExistedDataforApproval', '', { timeOut: 3000 });
+             } else {
+                 if ($('input[type="checkbox"]').length != 0) {
+                     let EmployeeMoneyIDs=[]
+                     $.each($("input[name='CheckedEmployee']:checked"), function () {
+                         EmployeeMoneyIDs.push($(this).val());
+                     });
+                     if (EmployeeMoneyIDs.length !=0) {
+                         $.ajax({
+                                type: "post",
+                                url: "/Salaries/EmployeesSalariesApproval",
+                                data: { EmployeeMoneyIDs: EmployeeMoneyIDs },
+                                traditional: true,
+                                success: function (response) {
+                                    $("#EmployeesSalariesApproval").DataTable().ajax.reload();
+                                    toastr.success('@Messages.SalaryApprovalForChosenEmployees', '', { timeOut: 4000 })
+                                },
+                                error: function () {
+                                    toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                                }
+                });
+                     } else {
+                         toastr.error('@Messages.NotCheckedEmployee', '', { timeOut: 3000 });
+                     }
+                 } else {
+                        toastr.error('@Messages.NotExistedEmployeesForApproval', '', { timeOut: 3000 });
+                 }
+
+             }
+         });
+        function ShowSalaryVocabulary(id) {
+
+            var url = $("#myModelSalaryVocabulary").data('url');
+            //$.get(url, { id: id }, function (data) {
+            //    $("#myModelSalaryVocabulary").html(data);
+            //    $("#myModelSalaryVocabulary").modal("show");
+            //})
+            $.ajax({
+                    type: "post",
+                    url: url,
+                    data:{ id: id },
+                    success: function (data) {
+                         $("#displayEmployeeMoneyDetials").html(data);
+                        $("#myModelSalaryVocabulary").modal("show");
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                    }
+                });
+        }
+
+                </script>
+            }

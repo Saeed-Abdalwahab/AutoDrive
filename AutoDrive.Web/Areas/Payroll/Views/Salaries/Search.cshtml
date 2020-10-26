@@ -1,0 +1,102 @@
+﻿@model AutoDrive.VM.AutoDrivePayroll.SearchedEmployeeSalaryVM
+@using AutoDriveResources
+@{ 
+    var text = Resources.SalaryMonth + " " + Model.Month + " " + Resources.ForYear + " " + Model.Year+" ";
+}
+<style>
+#EmployeeSalaryInquire{
+    background: #eef5f9;
+    color:black;
+}
+.BorderLeft{
+    border-left: 1px solid #ddd;
+}
+.BorderRight{
+    border-right: 1px solid #ddd;
+}
+.LastRow{
+    background: rgb(67, 142, 185);
+}
+.blodedCell{
+    font-weight:bold;
+}
+</style>
+<div>
+    <div style= "@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"text-align:center;":"text-align:center; color:black;")"> @text <span style="margin: 50px; font-weight:bold">@Model.SalaryStatus</span> </div> 
+    
+</div>
+<table id="EmployeeSalaryInquire" class="table" >
+    <tbody>
+        <tr>
+            <td class="blodedCell @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")">@Resources.EmployeeCode</td>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")">@Model.EmployeeCode</td>
+            <td colspan="3" >@Model.DeptName</td>
+        </tr>
+        <tr>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight") blodedCell">@Resources.Name1</td>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")">@Model.EmpName</td>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")">@Model.JobName</td>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")">@Model.JobDegreeName</td>
+            <td>@Model.JobLevelName</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="blodedCell">@Resources.Benefits</td>
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")"></td>
+            <td colspan="2" class="blodedCell">@Resources.Deductions</td>
+        </tr>
+      @{
+          int lenght = 0;
+          int IncreasesLenght =Model.IncreaseList==null?0: Model.IncreaseList.Count;
+          int DeductionLenght =Model.DeductionList==null?0: Model.DeductionList.Count;
+          if (IncreasesLenght>DeductionLenght)
+          {
+              lenght =Model.IncreaseList==null?0: IncreasesLenght;
+          }
+          else
+          {
+              lenght =Model.DeductionList==null?0: DeductionLenght;
+          }
+
+      }
+       
+        @for (int i = 0; i < lenght; i++)
+        {
+    <tr>
+        @if (IncreasesLenght-1 >= i)
+        {
+            var element1 = Model.IncreaseList.ElementAt(i);
+            <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight") blodedCell">@element1.Key</td>
+            <td >@element1.Value</td>
+        }
+        else
+        {
+            <td ></td>
+            <td></td>
+        }
+        <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")"></td>
+        @if (DeductionLenght-1>= i)
+        {
+            var element2 = Model.DeductionList.ElementAt(i);
+            <td class="BorderLeft blodedCell">@element2.Key</td>
+            <td>@element2.Value</td>
+        }
+        else
+        {
+            <td></td>
+            <td></td>
+        }
+    </tr>
+        }
+    <tr>
+        <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight") blodedCell">@Resources.Total</td>
+        <td >@Model.IncreaseTotal</td>
+        <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight")"></td>
+        <td class="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft?"BorderLeft":" BorderRight") blodedCell">@Resources.Total</td>
+        <td>@Model.DeductionTotal</td>
+    </tr>
+    <tr class="LastRow">
+        <td colspan="2" class="blodedCell">@Resources.Net</td>
+        <td colspan="3" class="blodedCell">@Model.Total</td>
+    </tr>    
+    </tbody>
+</table>

@@ -1,0 +1,151 @@
+﻿@using Microsoft.AspNet.Identity
+@{ 
+    string navbardir;
+
+    var returnURL = Request.Url.AbsoluteUri;
+}
+
+
+
+@if (Request.Cookies["Language"] != null && Request.Cookies["Language"].Value.ToLower() == "En-Us".ToLower())
+{
+    navbardir = "navbar-right";
+}
+else
+{
+    navbardir = "navbar-left";
+}
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav @navbardir">
+
+            <li>
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                   aria-expanded="false">
+                    @User.Identity.GetUserName()
+                    <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li> @Html.ActionLink("حسابى", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out pull-right"></i> خروج</a></li>
+                </ul>
+            </li>
+
+
+            <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fa fa-bell" style="font-size:27px"></i>
+                    <span class="badge bg-green">6</span>
+                </a>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                        <a>
+                            <span class="image">
+                                <img src="../build/images/img.jpg"
+                                     alt="Profile Image" />
+                            </span>
+                            <span>
+                                <span>مرتضی کریمی</span>
+                                <span class="time">3 دقیقه پیش</span>
+                            </span>
+                            <span class="message">
+                                فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="image">
+                                <img src="../build/images/img.jpg"
+                                     alt="Profile Image" />
+                            </span>
+                            <span>
+                                <span>مرتضی کریمی</span>
+                                <span class="time">3 دقیقه پیش</span>
+                            </span>
+                            <span class="message">
+                                فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="image">
+                                <img src="../build/images/img.jpg"
+                                     alt="Profile Image" />
+                            </span>
+                            <span>
+                                <span>مرتضی کریمی</span>
+                                <span class="time">3 دقیقه پیش</span>
+                            </span>
+                            <span class="message">
+                                فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <span class="image">
+                                <img src="../build/images/img.jpg"
+                                     alt="Profile Image" />
+                            </span>
+                            <span>
+                                <span>مرتضی کریمی</span>
+                                <span class="time">3 دقیقه پیش</span>
+                            </span>
+                            <span class="message">
+                                فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="text-center">
+                            <a>
+                                <strong>مشاهده تمام اعلان ها</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    }
+}
+else
+{
+<ul class="nav navbar-nav @navbardir">
+
+    <li class="dropdown dropdown-language">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            <img alt="" src="~/Images/flags/@(System.Threading.Thread.CurrentThread.CurrentCulture.Name).png">
+            <span class="langname">
+                @System.Threading.Thread.CurrentThread.CurrentCulture.NativeName
+            </span>
+           
+            <i class="fa fa-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                @*@Html.ActionLink("English", "ChangeLanguage", new { LanguageAbbrevation = "en" }, null)*@
+
+                <a href="~/Language/ChangeLanguage?SelectedLanguage=ar-EG&returnURL=@returnURL">
+                    <img src="~/Images/flags/ar.png" /> العربية
+                </a>
+                <a href="~/Language/ChangeLanguage?SelectedLanguage=en-US&returnURL=@returnURL">
+                    <img src="~/Images/flags/us.png" /> English
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    <li class="" style="">
+        @Html.ActionLink("تسجيل دخول", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @style = "list-style:none" })
+    </li>
+</ul>
+}

@@ -1,0 +1,193 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeQualificationVM
+
+<form enctype="multipart/form-data" action="@Url.Action("Save","employeequalification")">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.HiddenFor(x => x.ID)
+            @Html.HiddenFor(x => x.EmployeeId)
+            @Html.LabelFor(x => x.CetificationTypeId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.CetificationTypeId, ViewBag.certificationTypes as SelectList, Messages.certificationTypeDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CetificationTypeId, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.CertificationSpecificId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.CertificationSpecificId, Enumerable.Empty<SelectListItem>(), Messages.certificationTypeDropDown, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(x => x.CertificationSpecificId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.CertificationSpecDepartId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.CertificationSpecDepartId, Enumerable.Empty<SelectListItem>(), Messages.certificationSpecDepartDropDown, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(x => x.CertificationSpecDepartId, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.CertificationGradeId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.CertificationGradeId, ViewBag.certificationGrades as SelectList, Messages.certificationGradeDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CertificationGradeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.GraduationMonth, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.GraduationMonth, ViewBag.Monthes as SelectList, Messages.MonthsDropDown, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(x => x.GraduationMonth, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.GraduationYear, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(x => x.GraduationYear, ViewBag.Years as SelectList, Messages.YearsDropDown, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(x => x.GraduationYear, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.QualificationDiscribtion, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-11">
+                @Html.EditorFor(x => x.QualificationDiscribtion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.QualificationDiscribtion, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+
+
+        $("select").chosen({
+            width: '100%',
+            no_results_text: '@Messages.NoResultFounded',
+            search_contains: true,
+        });
+        $("select").css({ "visibility": "hidden", "position": "absolute", "display": "" });
+
+        if (parseInt($("#CetificationTypeId").val()) > 0) {
+
+            $.ajax({
+                url: "@Url.Action("FetchCertificationspecfic","CertificationSpecific")",
+                data: { ID: parseInt($("#CetificationTypeId").val()) },
+                type: "GET",
+                success: function (res) {
+
+                    $("#CertificationSpecificId").removeAttr("disabled");
+
+                    $("#CertificationSpecificId option[value!='']").remove();
+                    $.each(res.data, function (i, Value) {
+                        var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                        $("#CertificationSpecificId").append(OP);
+                    });
+                    $("#CertificationSpecificId").val("@Model.CertificationSpecificId")
+
+                    $("#CertificationSpecificId_chosen").attr('disabled', false).trigger("chosen:updated")
+
+                    $("#CertificationSpecificId").trigger('chosen:updated');
+                }
+            });
+
+            $.ajax({
+                url: "@Url.Action("FetchCertificationspecDepart","CertificationSpecDepart")",
+                data: { ID: @Model.CertificationSpecificId },
+                type: "GET",
+                success: function (res) {
+
+                    $("#CertificationSpecDepartId").removeAttr("disabled");
+
+                    $("#CertificationSpecDepartId option[value!='']").remove();
+                    $.each(res.data, function (i, Value) {
+                        var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                        $("#CertificationSpecDepartId").append(OP);
+                    });
+                    $("#CertificationSpecDepartId").val("@Model.CertificationSpecDepartId")
+
+                    $("#CertificationSpecDepartId_chosen").attr('disabled', false).trigger("chosen:updated")
+
+                    $("#CertificationSpecDepartId").trigger('chosen:updated');
+                }
+            });
+        }
+
+
+
+
+        //Section For Employee  Qulifications
+        //Frist Drop DownList
+        $("#CetificationTypeId").change(function () {
+
+            var CertficationID = $("#CetificationTypeId").val();
+            if (CertficationID == undefined || CertficationID == "") {
+                $("#CertificationSpecificId").attr("disabled", "disabled");
+                $("#CertificationSpecificId").val("")
+                $("#CertificationSpecificId_chosen").attr('disabled', true).trigger("chosen:updated")
+                $("#CertificationSpecificId").trigger('chosen:updated');
+
+                $("#CertificationSpecDepartId").attr("disabled", "disabled");
+                $("#CertificationSpecDepartId").val("")
+                $("#CertificationSpecDepartId_chosen").attr('disabled', true).trigger("chosen:updated")
+                $("#CertificationSpecDepartId").trigger('chosen:updated');
+            }
+            else {
+                $.ajax({
+                    url: "@Url.Action("FetchCertificationspecfic","CertificationSpecific")",
+                    data: { ID: CertficationID },
+                    type: "GET",
+                    success: function (res) {
+                        debugger
+                        $("#CertificationSpecificId").removeAttr("disabled");
+
+                        $("#CertificationSpecificId option[value!='']").remove();
+                        $.each(res.data, function (i, Value) {
+                            var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                            $("#CertificationSpecificId").append(OP);
+                        });
+                        $("#CertificationSpecificId").attr("disabled", false);
+
+                        $("#CertificationSpecificId_chosen").attr('disabled', false).trigger("chosen:updated")
+                        $("#CertificationSpecificId").trigger('chosen:updated');
+                    }
+                });
+
+            }
+
+
+        });
+        //Second
+        $("#CertificationSpecificId").change(function () {
+
+            var ID = $("#CertificationSpecificId").val();
+            if (ID == undefined || ID == "") {
+                $("#CertificationSpecDepartId").attr("disabled", "disabled");
+                $("#CertificationSpecDepartId").val("")
+                $("#CertificationSpecDepartId_chosen").attr('disabled', true).trigger("chosen:updated")
+                $("#CertificationSpecDepartId").trigger('chosen:updated');
+            }
+            else {
+                $.ajax({
+                    url: "@Url.Action("FetchCertificationspecDepart","CertificationSpecDepart")",
+                    data: { ID: ID },
+                    type: "GET",
+                    success: function (res) {
+
+
+                        $("#CertificationSpecDepartId option[value!='']").remove();
+                        $.each(res.data, function (i, Value) {
+                            var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                            $("#CertificationSpecDepartId").append(OP);
+                        });
+                        $("#CertificationSpecDepartId").attr("disabled", false);
+
+                        $("#CertificationSpecDepartId_chosen").attr('disabled', false).trigger("chosen:updated")
+                        $("#CertificationSpecDepartId").trigger('chosen:updated');
+
+                    }
+                });
+            }
+        });
+
+    });
+</script>

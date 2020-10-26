@@ -1,0 +1,71 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeHoursSettingVM
+    <form enctype="multipart/form-data" id="WrokingHoursForm" action="@Url.Action("Save","EmployeeHoursSetting")">
+        <div class="form-horizontal">
+
+            @Html.HiddenFor(m => m.ID)
+            @Html.HiddenFor(m=>m.EmployeeId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.WorkingHoursSettingHRId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.WorkingHoursSettingHRId, ViewBag.WorkingHours as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%", @onchange = "WorkingHoursChange()" })
+                    @Html.ValidationMessageFor(model => model.WorkingHoursSettingHRId, "", new { @class = "text-danger" })
+                </div>
+           
+                @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-1", @id = "FromDateLB" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+                </div>
+
+
+
+                @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-1", @id = "ToDateLB" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </form>
+<script>
+    function WorkingHoursChange() {
+        let id;
+        if ($("#WorkingHoursSettingHRId").val() == "") {
+            id = 0
+        } else {
+            id = $("#WorkingHoursSettingHRId").val();
+        }
+        $.ajax({
+            type: "post",
+            url: "/EmployeeHoursSetting/checkWorkingHours?WorkingHoursId=" + id,
+            async : false,
+            success: function (response) {
+                if (response.data == false) {
+                    $("#ToDate").val("");
+                    $("#ToDate").hide();
+                    $("#FromDate").val("");
+                    $("#FromDate").hide()
+                    $("#FromDateLB").hide();
+                    $("#ToDateLB").hide();
+                } else {
+                    $("#ToDate").show();
+                    $("#FromDate").show()
+                    $("#FromDateLB").show();
+                    $("#ToDateLB").show();
+                    $("#ToDate").val("");
+                    $("#FromDate").val("");
+                }
+            }
+        });
+            }
+    $(document).ready(function () {
+        $("[data-val-date]").datepicker({
+        });
+        $("[data-val-date]").attr("ReadOnly", "ReadOnly")
+            $("#ToDate").datepicker("option", "minDate", $("#FromDate").val());
+        $("#FromDate").change(function () {
+            $("#ToDate").val("");
+            $("#ToDate").datepicker("option", "minDate", $(this).val());
+        });
+    });
+</script>

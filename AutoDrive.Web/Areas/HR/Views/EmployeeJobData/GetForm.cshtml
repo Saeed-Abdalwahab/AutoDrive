@@ -1,0 +1,138 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeJobDataVM
+    <style>
+        #JobLevelId_chosen .chosen-drop {
+    border-bottom: 0;
+    border-top: 1px solid #aaa;
+    top: auto;
+    bottom: 40px;
+    z-index:20000;
+}
+    </style>
+    <form enctype="multipart/form-data" action="@Url.Action("Save","EmployeeJobData")">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.HiddenFor(x => x.ID)
+                @Html.HiddenFor(x => x.EmployeeId)
+                @Html.LabelFor(x => x.StartDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.EditorFor(x => x.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(x => x.StartDate, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(x => x.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.EndDate, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.JobNameId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(x => x.JobNameId, ViewBag.JobNames as SelectList, Messages.JobNameDropDown, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.JobNameId, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(x => x.JobFunctionId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(x => x.JobFunctionId, ViewBag.JobFunctions as SelectList, Messages.JobFunctionDropDown, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.JobFunctionId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.CarrerFieldId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(x => x.CarrerFieldId, ViewBag.CarrerFields as SelectList, Messages.CarrerFieldDropDown, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.CarrerFieldId, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(x => x.JobDegreeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(x => x.JobDegreeId, ViewBag.JobDegrees as SelectList, Messages.JobDegreeDropDown, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.JobDegreeId, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.JobLevelId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(x => x.JobLevelId, ViewBag.JobLevels as SelectList, Messages.JobLevelDropDown, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.JobLevelId, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>
+
+        </div>
+    </form>
+<script>
+    $(document).ready(function () {
+
+        $("select").chosen({
+            width: '100%',
+            no_results_text: '',
+            search_contains: true,
+        });
+        $("select").css({ "visibility": "hidden", "position": "absolute", "display": "" });
+        $("[data-val-date]").datepicker({
+        });
+            $("#EndDate").datepicker("option", "minDate", $("#StartDate").val());
+        $("#StartDate").change(function () {
+            $("#EndDate").val("");
+            $("#EndDate").datepicker("option", "minDate", $(this).val());
+        });
+
+           /// Emloyee JobData
+
+             $("#JobNameId").change(function () {
+
+                 var Jobname = $("#JobNameId").val();
+                 if (Jobname == undefined || Jobname == "") {
+
+                     $("#JobFunctionId option[value!='']").remove();
+                     $.each(AllJobFunctions, function (i, Value) {
+                                var OP = '<option value="' + Value.Value + '">' + Value.Text + '</option>';
+                                $("#JobFunctionId").append(OP);
+                            });
+                    $("#JobFunctionId").val("")
+
+                    $("#JobFunctionId").trigger('chosen:updated');
+
+                }
+                  else {
+                     $.ajax({
+                         url: "@Url.Action("FetchJobFunctions","JobFunction")" + "?ID=" + Jobname,
+
+                        type: "GET",
+                        success: function (res) {
+
+
+                            $("#JobFunctionId option[value!='']").remove();
+                            $.each(res, function (i, Value) {
+                                var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                                $("#JobFunctionId").append(OP);
+                            });
+                            $("#JobFunctionId").trigger('chosen:updated');
+
+                        }
+                    })
+
+                }
+            });
+            $("#JobFunctionId").change(function () {
+                var JobFunctionID = $("#JobFunctionId").val();
+                if (parseInt(JobFunctionID) > 0) {
+                    $.ajax({
+                        url: "@Url.Action("FetchJobNameId","JobFunction")" + "?ID=" + JobFunctionID,
+
+                        type: "GET",
+                        success: function (res) {
+                            $("#JobNameId").val(res);
+                            $("#JobNameId").trigger('chosen:updated');
+
+                        }
+                    })
+                }
+            })
+
+    });
+</script>

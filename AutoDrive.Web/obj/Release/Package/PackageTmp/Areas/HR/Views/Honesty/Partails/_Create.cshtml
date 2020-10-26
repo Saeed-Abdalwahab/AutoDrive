@@ -1,0 +1,105 @@
+﻿@model AutoDrive.VM.AutoDriveHR.HonestyVM
+
+
+
+
+
+@Html.HiddenFor(model => model.ID)
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.ItemId, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.DropDownList("ItemId",null,Resources.PleaseSelect,new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ItemId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(model => model.HonestyDate, htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-9">
+        @Html.EditorFor(model => model.HonestyDatestring, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off"  } })
+        @Html.ValidationMessageFor(model => model.HonestyDatestring, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+           $("select").chosen({
+                width: '100%',
+                no_results_text: '',
+                search_contains: true,
+           });
+       
+        var honestyEndDate = $('#honestyEndDate').datepicker({
+           dateFormat: 'dd/mm/yy'
+        });
+        var HonestyDate = $('#HonestyDatestring').datepicker({
+           dateFormat: 'dd/mm/yy'
+        });
+
+
+        $("#ItemId").change(function () {
+            debugger
+            var selectedItem = $(this).children("option:selected").val()
+            $.ajax({
+
+                url: "@Url.Action("ItemDetails","Honesty")",
+                data: { ID: selectedItem },
+                type: "Get",
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+                        $("#ItemDetails").html(rs.View)                     
+                    }
+                    else {
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+
+
+
+
+        })
+        
+        
+
+
+    })
+
+     function before() {
+        $(".x_panel").preloader({ // loading text
+            text: 'جارى التحميل',
+            zIndex: '99999999999',
+
+        });
+     }
+        
+    function Success(rs) {
+
+        if (rs.data.Type == "Success") {
+            debugger
+            $("#Honesty").DataTable().ajax.reload();
+            $("body").preloader('remove');
+            $("#MyModal").modal("hide")
+            toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+        }
+         else if (rs.data.Type == "NotValid") {
+            $("body").preloader('remove')
+            $("#CreateData").html(rs.View)
+            $("#MyModal").modal("show")
+        }
+        else {
+            $("body").preloader('remove')
+            $("#MyModal").modal("show")
+            toastr.error(rs.data.Message, " ", { timeOut: 1500 })
+        }
+    }
+
+</script>

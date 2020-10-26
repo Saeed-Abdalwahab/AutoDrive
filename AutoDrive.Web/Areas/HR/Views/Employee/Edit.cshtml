@@ -1,0 +1,1193 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeDepartMentQulificationsVM
+
+@{
+    ViewBag.Title = Messages.EmployeeEditInfo;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1111;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+
+        .ImgCustomCss {
+            width: 21%;
+            height: 10%;
+            max-width: 49%;
+            max-height: 86%;
+            border-radius: 138px;
+        }
+
+        .profileimgcontainer {
+            text-align: center;
+        }
+
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #aad4ff;
+    border: 1px solid #ddd;
+    border-bottom-color: #1b191900;
+}
+    </style>
+}
+
+
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="image-upload profileimgcontainer" id="LableChangPicparnt">
+                    <img alt="@Resources.ProfileImge" class="ImgCustomCss" src=@string.Format("/images/EmployeeImges/{0}/{1}",Model.employeeVM.ID.ToString(), Model.employeeVM.ProfileImge.ToString()) />
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(x => x.employeeVM.ID)
+        <div class="form-group">
+            @Html.LabelFor(x => x.employeeVM.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.Name, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.EnName, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.EnName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.EnName, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.NationalityId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.NationalityId, ViewBag.Nationalties as SelectList, Messages.NationalityDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.employeeVM.NationalityId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.employeeVM.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.DateOfBirth, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.Gender, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EnumDropDownListFor(x => x.employeeVM.Gender, Messages.GenderDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.employeeVM.Gender, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.BloodGroupId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.BloodGroupId, ViewBag.BloodGroups as SelectList, Messages.BloodGroupsDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.employeeVM.BloodGroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.employeeVM.BirthPlaceCountryId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.BirthPlaceCountryId, ViewBag.countries as SelectList, Messages.CountryDropDown, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(x => x.employeeVM.BirthPlaceCountryId, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.BirthPlaceAreaId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.BirthPlaceAreaId, ViewBag.areas as SelectList, Messages.areasDropDown, new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(x => x.employeeVM.BirthPlaceAreaId, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.MaritalStatusId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.MaritalStatusId, ViewBag.maritalStatus as SelectList, Messages.MaritalStatuDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.employeeVM.MaritalStatusId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.employeeVM.Residence, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.Residence, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.Residence, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.Code, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.Code, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.MobileNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.employeeVM.HousePhone, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.HousePhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.HousePhone, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.EMail, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(x => x.employeeVM.EMail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.employeeVM.EMail, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.employeeVM.ReligionId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.employeeVM.ReligionId, ViewBag.Religions as SelectList, Messages.ReligionDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.employeeVM.ReligionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="image-upload">
+                @Html.LabelFor(x => x.employeeVM.ProfileImge, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                <div class="col-md-3">
+                    @Html.TextBox("Img", null, new { type = "file", id = "file-input", @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.employeeVM.ProfileImge, "", new { @class = "text-danger" })
+                    @Html.EditorFor(x => x.employeeVM.ProfileImge, new { htmlAttributes = new { @class = "form-control", style = "visibility: hidden" } })
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div style="width:100%; text-align:end">
+            <input type="submit" value="@Messages.Edit" class="btn btn-info" />
+            @Html.ActionLink(Messages.BackBtn,"Index","Employee",null,new { @class="btn btn-info"})
+        </div>
+    </div>
+}
+<ul class="nav nav-tabs">
+    <li><a data-toggle="tab" href="#EmployeeJobData">@Messages.EmployeeForm7</a></li>
+
+    <li><a data-toggle="tab" aria-expanded="true" href="#EmployeeDepartment"> @Messages.EmployeeForm2</a></li>
+    <li><a data-toggle="tab" href="#EmployeeLicenceData">@Messages.EmployeeForm3</a></li>
+    <li><a data-toggle="tab" href="#employeequalification">@Messages.EmployeeForm4</a></li>
+    <li><a data-toggle="tab" href="#EmployeeContractDuration">@Messages.EmployeeForm5</a></li>
+    <li><a data-toggle="tab" href="#EmployeeExperience">@Messages.EmployeeForm6</a></li>
+    <li><a data-toggle="tab" href="#Honesty">@Resources.Honesty</a></li>
+    <li><a data-toggle="tab" href="#EmployeeArchive">@Messages.Document</a></li>
+    <li><a data-toggle="tab" href="#EmployeeHoursSetting">@Resources.EmployeeWorkingHours</a></li>
+    <li><a data-toggle="tab" href="#EmployeeFamily">@Resources.Family</a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content navbar-right" id="AllTablesContainer" style="width:100%">
+    <div id="EmployeeDepartment" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+            <table id="EmployeeDepartmentTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeDepartmentVM.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeDepartmentVM.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeDepartmentVM.DepartmentName)
+                        </th>
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="EmployeeLicenceData" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+            <table id="EmployeeLicenceDataTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.LicenceKindHRName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.LicenceTypeHRName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.SourceAreaName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.LicenseNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.ReleaseDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeLicenceDataVM.EndDate)
+                        </th>
+
+
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="employeequalification" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+            <table id="employeequalificationTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.CertificationGradeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.CertificationSpecDepartName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.CertificationSpecificName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.CertificationTypeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.QualificationDiscribtion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.GraduationMonth)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeQualificationVM.GraduationYear)
+                        </th>
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="EmployeeContractDuration" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+            <table id="EmployeeContractDurationTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeContractDurationVM.FromDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeContractDurationVM.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeContractDurationVM.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeContractDurationVM.EmployeeStatusName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeContractDurationVM.EmployeeStatusKindName)
+                        </th>
+
+
+
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="EmployeeExperience" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+            <table id="EmployeeExperienceTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.CompanyName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.CompanyAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.JobSpecification)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.FromYear)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.ToYear)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.FromMonth)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.employeeExperienceVM.ToMonth)
+                        </th>
+
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="EmployeeJobData" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+            <table id="EmployeeJobDataTable" class="table table-striped jambo_table bulk-action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            م
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.JobNameName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.JobFunctionName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.CarrerFieldName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.JobDegreeName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(x => x.EmployeeJobDataVM.JobLevelName)
+                        </th>
+
+
+
+
+
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="EmployeeHoursSetting" class="tab-pane fade">
+        <div class="container" style="margin-top:3%">
+            <button class="btn btn-primary btn-lg btn-round" onclick="AddNew()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+            <table id="EmployeeHoursSettingTable" class="table table-striped jambo_table bulk_action" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>@Resources.SerialNumber</th>
+                        <th>@Resources.WorkingHours</th>
+                        <th>@Resources.FromDate</th>
+                        <th>@Resources.ToDate</th>
+                        <th style="width:80px"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="Honesty" class="tab-pane fade" style="padding-top:30px">
+        @Html.Action("EmployeeHonesty", "Employee", new { ID = Model.employeeVM.ID })
+    </div>
+
+    <div id="EmployeeArchive" class="tab-pane fade" style="padding-top:30px">
+
+        @Html.Partial("~/Areas/HR/Views/Employee/Partails/_EmployeeArchive.cshtml")
+    </div>
+    <div id="EmployeeFamily" class="tab-pane fade" style="padding-top:30px">
+
+        @Html.Partial("~/Areas/HR/Views/Employee/Partails/_EmployeeFamily.cshtml")
+
+    </div>
+</div>
+
+    
+
+@section scripts{
+    <script>
+        var DATATABLEEmployeDepartment;
+        
+        var Loader = '<div style="width: auto;height:auto;text-align: center;"><i class="fa fa-spinner fa-spin" style="font-size: 200px;"></i></div>';
+        //Funvtions 
+        function SaveInDB() {
+            debugger
+            var Form = $("#ModalBody form");
+            var url = Form.attr("action");
+            var data = Form.serialize();
+
+            var Table = $("#AllTablesContainer .active").find("table");
+            Form.removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
+            $.validator.unobtrusive.parse(Form);//add the form validation
+
+            if (Form.valid()) {
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    data: data,
+
+                    success: function (response) {
+                        if (response.status == true) {
+                            Table.DataTable().ajax.reload();
+                            toastr.success(response.msg, '', { timeOut: 4000 });
+                            $("#MyModal").modal("hide");
+
+                        } else if (response.status=="Employee Working Hours is existed in the same period") {
+                             toastr.error(response.msg, response.Msg, { timeOut: 3000 });
+                        }
+                        else {
+                            toastr.error(response.msg, response.Msg, { timeOut: 3000 });
+
+                        }
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+       function DeleteConfirmation(id) {
+        bootbox.confirm({
+            title:"@Messages.Delete.ToString()",
+            message: "@Messages.ConfirmDeleteMsg",
+            size: 'small',
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> @Messages.BackBtn',
+                    className: 'btn-info'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> @Messages.ConfirmBtn',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result == true) {
+                   
+                    deleteRecord(id)
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+
+        }
+
+        function deleteRecord(id) {
+            debugger
+            var DeleteController = $("#AllTablesContainer .active").attr("id");
+            var Table = $("#AllTablesContainer .active").find("table");
+            var DeleteUrl = "/" + DeleteController + "/Delete?ID=" + id;
+               $.ajax({
+
+                type: "post",
+                url: DeleteUrl,
+
+                success: function (respons) {
+                    
+                    if (respons.status) {
+                        toastr.success("", respons.msg, { timeOut: 3000 });
+                                                    Table.DataTable().ajax.reload();
+
+                    }
+                    else {
+                    toastr.error("",respons.msg ,{ timeOut: 1000 });
+
+                    }
+
+                },
+
+                fail: function (xhr, msg, errorThrown) {
+                    toastr.error("@Messages.DeleteErr", msg, { timeOut: 1000 });
+
+                },
+                error: function (xhr, statusText, errorThrown) {
+                    toastr.error("@Messages.DeleteErr",'' ,{ timeOut: 1000 });
+                }
+            });
+
+        }
+        function Edit(id) {
+            var Controller = $("#AllTablesContainer .active").attr("id");
+            
+            var Url = "/hr/" + Controller + "/GetForm?ID=" + id;
+            $("#ModalBody").html(Loader);
+            $("#ModalBody").load(Url);
+            $("#MyModal").modal("show");
+        }
+        function AddNew() {
+        debugger;
+            var Controller = $("#AllTablesContainer .active").attr("id");
+            var Url = "/hr/" + Controller + "/GetForm?EmployeeID="+@Model.employeeVM.ID;
+            $("#ModalBody").html(Loader);
+                @*$("#ModalBody").load("@Url.Action("GetForm","EmployeeDepartment",new { EmployeeID=Model.employeeVM.ID})");*@
+                $("#ModalBody").load(Url);
+                $("#MyModal").modal("show");
+        }
+        $(document).ready(function () {
+
+            //Edit SlidBar To Be Open
+            $("#LiHumanResourceSetings").addClass("active");
+            $("#ulHumenResourceSetings").css("display", "block");
+            $("#liEmployeeEdit").addClass("current-page");
+
+             $('input[type="datetime"]').change(function () {
+                var name = $(this).attr("name");
+                $('span[data-valmsg-for="' + name + '"]').text("")
+            })
+            $('select').change(function () {
+                var name = $(this).attr("name");
+                $('span[data-valmsg-for="' + name + '"]').text("")
+            });
+
+                 $("select").chosen({
+                width: '100%',
+                no_results_text: '',
+                search_contains: true,
+            });
+            $("select").css({ "visibility": "hidden", "position": "absolute", "display": "" });
+           // ......................................................................................... Employee Basic Information 
+            var NotificationMsg = "@TempData["msg"]"
+
+            if (NotificationMsg == "@Messages.SaveSucc") {
+                toastr.success(NotificationMsg, '', { timeOut: 4000 });
+
+            }
+            else if (NotificationMsg == "@Messages.SaveErr") {
+                toastr.error(NotificationMsg, '', { timeOut: 1000 });
+
+            }
+            //BasciInfromation img
+            $("input[type='File']").change(function () {
+                      if (parseFloat(this.files[0].size / 1024 / 1024) > .1) {
+                    toastr.error("@Messages.InvalidImgSize", '', { timeOut: 3000 });
+                          $('#LableChangPicparnt img').attr('src', "");
+                    $("#employeeVM_ProfileImge").val("")
+                    return false
+
+                }
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#LableChangPicparnt img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                    $("#employeeVM_ProfileImge").val(url)
+                }
+                else {
+                    $('#LableChangPicparnt img').attr('src', "");
+                    $("#employeeVM_ProfileImge").val("")
+
+                }
+            });
+            //Basic Information Date
+             $("[data-val-date]").datepicker({
+                
+            });
+            //$("#employeeVM_DateOfBirth").datepicker({
+            //    dateFormat: 'dd/MM/yyyy',
+            //    minDate: 2,
+            //    changeMonth: true,
+            //    changeYear: true,
+            //    showButtonPanel: true,
+            //});
+           // ......................................................................................... Employee Department 
+
+            DATATABLEEmployeDepartment = $('#EmployeeDepartmentTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","EmployeeDepartment",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    {
+                        "data": "StartDate",
+                        "render": function (data) {
+                            debugger
+                            var date = new Date(parseInt(data.substr(6)));
+                            var month = date.getMonth() + 1
+                            return date.getFullYear() + "/" + month + "/" + date.getDate();
+                        }
+                    },
+                    {
+                        "data": "EndDate",
+                        "render": function (data) {
+                            debugger
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },
+                    { "data": "Name" },
+
+
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+            });
+           // ......................................................................................... Employee LicenceData 
+
+               $('#EmployeeLicenceDataTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","EmployeeLicenceData",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { "data": "LicenceKindHRName" },
+                    { "data": "LicenceTypeHRName" },
+                    { "data": "SourceAreaName" },
+                    { "data": "LicenseNumber" },
+
+                    {
+                        "data": "ReleaseDate",
+                        "render": function (data) {
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+
+                            }
+                        }
+                    },
+                    {
+                        "data": "EndDate",
+                        "render": function (data) {
+                            
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },
+                   
+                   
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+            })
+                         // ......................................................................................... Employee Qulifications 
+
+               $('#employeequalificationTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","employeequalification",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { "data": "CertificationGradeName" },
+                    { "data": "CertificationSpecDepartName" },
+                    { "data": "CertificationSpecific" },
+                    { "data": "CertificationType" },
+                    { "data": "QualificationDiscribtion" },
+                    { "data": "GraduationMonth" },
+                    { "data": "GraduationYear" },
+                   
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+            })
+                   // ......................................................................................... Employee ContractDuration 
+
+               $('#EmployeeContractDurationTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","EmployeeContractDuration",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    
+                    {
+                        "data": "FromDate",
+                        "render": function (data) {
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+
+                            }
+                        }
+                    },
+                    {
+                        "data": "EndDate",
+                        "render": function (data) {
+                            
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },
+                    { "data": "Duration" },
+                    { "data": "EmployeeStatusName" },
+                    { "data": "EmployeeStatusKindName" },
+
+
+                   
+                   
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+               })
+                     // ......................................................................................... Employee Experince 
+
+               $('#EmployeeExperienceTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","EmployeeExperience",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { "data": "CompanyName" },
+                    { "data": "CompanyAddress" },
+                    { "data": "JobSpecification" },
+                    { "data": "FromYear" },
+                    { "data": "ToYear" },
+                    { "data": "FromMonth" },
+                    { "data": "ToMonth" },
+      
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+               })
+              // ......................................................................................... Employee JobData 
+
+               $('#EmployeeJobDataTable').DataTable({
+                "ajax": {
+                    'url': "@Url.Action("Getall","EmployeeJobData",new  {ID=Model.employeeVM.ID })",
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    {
+                        "data": "StartDate",
+                        "render": function (data) {
+                            
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },         
+                    {
+                        "data": "EndDate",
+                        "render": function (data) {
+                            
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    }, 
+                    { "data": "JobNameName" },       
+                    { "data": "JobFunctionName" },   
+                    { "data": "CarrerFieldName" },    
+                    { "data": "JobDegreeName" },     
+                    { "data": "JobLevelName" },      
+                              
+      
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+            })
+
+        });
+   // --------------------------------------------------------------------------------- EmployeeHoursSetting-------------------------------------
+     $('#EmployeeHoursSettingTable').DataTable({
+            "ajax": {
+                'url': "@Url.Action("GetEmployeeHoursSettings","EmployeeHoursSetting",new  {ID=Model.employeeVM.ID })",
+                'type': "GET"
+            }, "columns": [
+                 {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                },
+                { "data": "WorkingHoursName" },
+                { "data": "from" },
+                { "data": "to" },
+               {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    }
+            ],  "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+        });
+    </script>
+    <div class="modal fade bd-example-modal-sm" id="MyModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="Modaltitle"></h4>
+                </div>
+                <div class="modal-body" style="height:240px;overflow-y:hidden" id="ModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <button  class="btn btn-primary" onclick="SaveInDB()">@Messages.SaveBTN</button>
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

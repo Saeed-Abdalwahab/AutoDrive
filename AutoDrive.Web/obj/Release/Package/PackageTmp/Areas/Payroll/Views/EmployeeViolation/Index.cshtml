@@ -1,0 +1,581 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDrivePayroll.EmployeeViolationVM
+@using AutoDrive.Static.Enums
+@{
+    ViewBag.Title = Resources.EmployeeViolation;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+
+}
+
+
+        <style>
+
+            .ui-autocomplete {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 2000 !important;
+                float: left;
+                display: none;
+                min-width: 160px;
+                padding: 4px 0;
+                margin: 0 0 10px 25px;
+                list-style: none;
+                background-color: #ffffff;
+                border-color: #ccc;
+                border-color: rgba(0, 0, 0, 0.2);
+                border-style: solid;
+                border-width: 1px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                -webkit-background-clip: padding-box;
+                -moz-background-clip: padding;
+                background-clip: padding-box;
+                *border-right-width: 2px;
+                *border-bottom-width: 2px;
+                color: black;
+                padding-right: 2%;
+            }
+
+            .ui-menu-item > a.ui-corner-all {
+                display: block;
+                padding: 3px 15px;
+                clear: both;
+                font-weight: normal;
+                line-height: 18px;
+                color: #555555;
+                white-space: nowrap;
+                text-decoration: none;
+            }
+
+            .ui-state-hover, .ui-state-active {
+                color: #ffffff;
+                text-decoration: none;
+                background-color: #0088cc;
+                border-radius: 0px;
+                -webkit-border-radius: 0px;
+                -moz-border-radius: 0px;
+                background-image: none;
+            }
+
+            .page-header {
+                padding-bottom: 9px;
+                margin: 40px 0 20px;
+                border-bottom: 1px solid #0c0c0c;
+            }
+        </style>
+
+        <div class="x_content">
+            <h2>@Resources.EmployeeViolation</h2>
+
+            <div class="modal" id="myModel" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="#" class="close" onclick="cancel()" data-dismiss="modal">&times;</a>
+                            <h4 id="modalTitle"></h4>
+                        </div>
+                        <div class="modal-body" id="create">
+                            <form id="form">
+                                <div class="form-horizontal">
+                                    @Html.HiddenFor(m => m.ID, new { @id = "EmployeeViolationID" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" />
+                                            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ViolationTypeId, htmlAttributes: new { @class = "control-label col-md-2"})
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(model => model.ViolationTypeId, ViewBag.ViolationTypes as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;",@onchange="ViolationTypeIdChange()" })
+                                            @Html.ValidationMessageFor(model => model.ViolationTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ViolationValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ViolationValue, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ViolationValue, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "ViolationValueValidation" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FromMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.FromMonth, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;",@onchange="FromMonthChange()" })
+                                            @Html.ValidationMessageFor(model => model.FromMonth, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "FromMonthValidation" })
+                                        </div>
+
+
+                                        @Html.LabelFor(model => model.FromYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(model => model.FromYear, ViewBag.YearsLst as SelectList,Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;" ,@onchange="FromYearChange()"})
+                                            @Html.ValidationMessageFor(model => model.FromYear, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "FromYearValidation" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ViolationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ViolationDate, new { htmlAttributes = new { @class = "form-control",@onchnage="DateChange()", @style = "text-align: right;padding-right: 5%;" } })
+                                            @Html.ValidationMessageFor(model => model.ViolationDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ViolationStatus, htmlAttributes: new { @class = "control-label col-md-2",@style="display:none;",@id="Statuslb" })
+                                        <div class="col-md-10">
+                                            @Html.EnumDropDownListFor(model => model.ViolationStatus, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;display:none;",@onchange="ViolationStatusChange()" })
+                                            @Html.ValidationMessageFor(model => model.ViolationStatus, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "ViolationStatusValidation" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-primary" id="SaveEmployeeViolation"></a>
+                            <a href="#" class="btn btn-primary" onclick="cancel()" data-dismiss="modal">@Resources.Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal" id="myModelDelete" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="#" class="close" data-dismiss="modal">&times;</a>
+                            <h4>@Resources.DeleteViolation</h4>
+                        </div>
+                        <div class="modal-body text-center" id="Delete">
+                            <h2>@Resources.DeleteMessage</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-danger" id="DeleteViolation">@Resources.Delete</a>
+                            <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12" id="con">
+                <table id="ViolationEmployeeTB" class="table table-striped jambo_table bulk_action">
+                    <thead>
+                        <tr>
+                            <th>@Resources.SerialNumber</th>
+                            <th>@Resources.Employee</th>
+                            <th>@Resources.ViolationsType</th>
+                            <th>@Resources.Value</th>
+                            <th>@Resources.FromMonth</th>
+                            <th>@Resources.FromYear</th>
+                            <th>@Resources.ViolationDate</th>
+                            <th>@Resources.MotivationStatus</th>
+                            <th>@Resources.Edit</th>
+                            <th>@Resources.Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.EmployeeViolationAdd" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+
+        </div>
+        @section scripts{
+            <script>
+        let DeleteID;
+            function Create() {
+                $("span[class*='error']").text("")
+                $("#form")[0].reset();
+                ViolationTypeIdChange();
+                $("#modalTitle").html("@Resources.EmployeeViolationAdd");
+                $("#SaveEmployeeViolation").html("@Resources.Add");
+                $("#EmployeeViolationID").val(0);
+                $("#myModel").modal();
+                $("#ViolationStatus").hide();
+                $("#Statuslb").hide();
+            }
+          $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../hr/Employee/EmployeesSearch",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+          });
+    $(document).ready(function () {
+        $("#ViolationDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function() {
+            $("#ViolationDate-error").hide();
+        });
+             $('#ViolationEmployeeTB').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("GetViolationEmployee","EmployeeViolation")",
+                        'type': "GET"
+                    }, "columns": [
+                        {
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+                       
+                        { "data": "EmpName",width:"10%" },
+                        { "data": "ViolationTypeName" ,width:"10%"},
+                        { "data": "Val" ,width:"10%"},
+                        { "data": "FromMonthName" ,width:"10%"},
+                     { "data": "FromYearName", width: "10%" },
+                        
+                        {
+                            "data": "ViolationDate", "render": function (data, type, row) {
+                                return moment(data).format('DD/MM/YYYY');
+                            },width:"10%"
+                        },
+                        { "data": "Status" ,width:"10%"}, {
+                            "data": "ID", "render": function (data, type, row) {
+                                if (!row.check) {
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditEmployeeViolation(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+
+                                }
+                                else {
+                                    return "";
+                                }
+
+                            },"width": "10%"
+                        },
+                        {
+                            "data": "ID", "render": function (data, type, row) {
+                                if (!row.check) {
+                                    return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteEmployeeViolation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                                } else {
+                                    return "";
+                                }
+                            },"width": "10%"
+                        }
+                    ], "language": GetLanguage()
+                });
+    });
+             function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+            }
+     $("#SaveEmployeeViolation").click(function () {
+                Save();
+     });
+    $("#EmpID").keypress(function (event) {
+            $("#EmployeeId-error").hide();
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        $(".input-validation-error").focus();
+                    }
+                }
+            });
+    $("#ViolationValue").keypress(function (event) {
+             $("#ViolationValueValidation").hide();
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        $(".input-validation-error").focus();
+                    }
+                }
+    });
+    function FromMonthChange() {
+            $("#FromMonthValidation").hide();
+    }
+    function ViolationStatusChange() {
+            $("#ViolationStatusValidation").hide();
+    }
+             let value;
+    function GetMonayORMoral(id) {
+       
+         $.ajax({
+                    type: "Get",
+                    url: "/EmployeeViolation/GetMonayORMoral?id=" + id,
+                    async: false,
+             success: function (response) {
+                        
+                 value =response.data; 
+                 
+                    }
+         });
+         
+        return value;
+    }
+    function FromYearChange() {
+$("#FromYearValidation").hide();
+    }
+    function formValidation() {
+        debugger;
+        let fromMoneyORMoral;
+        if ($("#ViolationTypeId").val()!="") {
+           fromMoneyORMoral = GetMonayORMoral($("#ViolationTypeId").val());
+        }
+        else
+           fromMoneyORMoral =0;
+              
+                if (!($("#form").valid()) || ($("#ViolationStatus").val() == "0" && $("#EmployeeViolationID").val()!="0")||(fromMoneyORMoral==@((int)ViolationType.FromMoney) &&$("#FromMonth").val()=="0")||(fromMoneyORMoral==@((int)ViolationType.FromMoney)&&$("#ViolationValue").val()=="")||(($("#FromYear").val()=="" && fromMoneyORMoral==@((int)ViolationType.FromMoney))) ) {
+                    if (($("#ViolationStatus").val() == "0" && $("#EmployeeViolationID").val()!="0")) {
+                        $("#ViolationStatusValidation").show();
+                    }
+                     if (fromMoneyORMoral==@((int)ViolationType.FromMoney) &&$("#FromMonth").val()=="0") {
+                        $("#FromMonthValidation").show();
+                    }
+                    if (fromMoneyORMoral ==@((int)ViolationType.FromMoney)&& $("#ViolationValue").val() == "") {
+                         debugger;
+                        $("#ViolationValueValidation").show();
+                    }
+                    if ($("#FromYear").val() == "" && fromMoneyORMoral ==@((int)ViolationType.FromMoney)) {
+                         $("#FromYearValidation").show();
+                    }
+                    return false;
+                } else {
+                    return true;
+                }
+
+            }
+            function Save() {
+                if (!formValidation()) {
+                    return true;
+                }
+                var data = $("#form").serialize();
+                $.ajax({
+                    type: "post",
+                    url: "/EmployeeViolation/Save",
+                    data: data,
+                    success: function (response) {
+                        if (response.msg != "Model is null") {
+                           $("#ViolationStatusValidation").hide();
+                            $("#FromMonthValidation").hide();
+                            $("#ViolationValueValidation").hide();
+                            $("#FromYearValidation").hide();
+                            if (response.msg == "adopted") {
+
+                                toastr.error('@Messages.RewardAdopted', '', { timeOut: 4000 });
+                            } else if (response.msg == "canceled") {
+                                toastr.error('@Messages.RewardCanceled', '', { timeOut: 4000 });
+                            } else if (response.msg == "received") {
+                                toastr.error('@Messages.RewardReceived', '', { timeOut: 4000 });
+                            }
+                            else if (response.msg == "true") {
+
+                              $("#ViolationEmployeeTB").DataTable().ajax.reload();
+                                $("#form")[0].reset();
+                                ViolationTypeIdChange()
+                                if (data.split("&")[0] == "ID=0") {
+                                    toastr.success('@Messages.ViolationSaved ', '', { timeOut: 4000 });
+
+                                }
+                                else {
+                                    debugger;
+                                    $("#myModel").modal("hide");
+                                    toastr.success('@Messages.ViolationEdited ', '', { timeOut: 4000 });
+                                }
+                            }
+
+                        }
+                        else {
+
+                           let fromMoneyORMoral = GetMonayORMoral($("#ViolationTypeId").val());
+                            if (($("#ViolationStatus").val() == "0" && $("#EmployeeViolationID").val()!="0")){
+                                $("#ViolationStatusValidation").show();
+                            }
+                             if (fromMoneyORMoral==@((int)ViolationType.FromMoney) &&$("#FromMonth").val()=="0") {
+                                $("#FromMonthValidation").show();
+                            }
+                             if (fromMoneyORMoral==@((int)ViolationType.FromMoney)&&$("#ViolationValue")=="") {
+                                $("#ViolationValueValidation").show();
+                            }
+                             if ($("#FromYear").val() == "" && fromMoneyORMoral ==@((int)ViolationType.FromMoney)) {
+                         $("#FromYearValidation").show();
+                    }
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                        }
+
+
+                    },
+                    error: function () {
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                        }
+                        else {
+                            toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                        }
+
+                    }
+                });
+
+    }
+    function DateChange() {
+$("#ViolationDate-error").hide();
+    }
+            function cancel() {
+                            $("#ViolationStatusValidation").hide();
+                            $("#FromMonthValidation").hide();
+                            $("#ViolationValueValidation").hide();
+                            $("#FromYearValidation").hide();
+                $("#form")[0].reset();
+                 $("#ViolationTypeId-error").hide();
+                $("#EmployeeId-error").hide();
+                 $("#ViolationDate-error").hide();
+
+                    }
+    function DeleteEmployeeViolation(id) {
+        $("#myModelDelete").modal('show');
+                DeleteID = id;
+                    }
+                $("#DeleteViolation").click(function () {
+                debugger;
+                $.ajax({
+                    type: "post",
+                    url: "/EmployeeViolation/delete?id=" + DeleteID,
+
+                    success: function (response) {
+                        $("#myModelDelete").modal("hide");
+                        $("#ViolationEmployeeTB").DataTable().ajax.reload();
+                        toastr.success('@Messages.ViolationDeleted', '', { timeOut: 4000 })
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                    }
+                });
+                });
+    function EditEmployeeViolation(id) {
+             var url = "/EmployeeViolation/getEmployeeViolationByID?id=" + id;
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (rs) {
+                        $("#modalTitle").html("@Resources.editViolation");
+                        $("#SaveEmployeeViolation").html("@Resources.Edit");
+                        $("#myModel").modal('show');
+                        $("span[class*='error']").text("")
+                        $("#form")[0].reset();
+                        $("#EmployeeViolationID").val(rs.data.ID)
+                        $("#ViolationDate").val(dateFormat(new Date(parseInt((rs.data.ViolationDate).match(/\d+/)[0]))));
+                        $("#ViolationTypeId").val(rs.data.ViolationTypeId);
+                        $("#EmployeeId").val(rs.data.EmployeeId);
+                        $("#ViolationValue").val(rs.data.Val);
+                        $("#FromMonth").val(rs.data.FromMonth);
+                        $("#FromYear").val(rs.data.FromYearName);
+                        $("#ViolationStatus").val(rs.data.ViolationStatus);
+                        $("#EmpID").val(rs.data.EmpName)
+                        $("#ViolationStatus").show();
+                        $("#Statuslb").show();
+                        ViolationTypeIdChange();
+                    }
+                });
+                    }
+           function dateFormat(d) {
+                return  (d.getDate() + "").padStart(2, "0")
+                    + "/" +((d.getMonth() + 1) + "").padStart(2, "0")
+                    + "/" + d.getFullYear();
+    }
+
+    function ViolationTypeIdChange() {
+            $("#ViolationValueValidation").hide()
+         let fromMoneyORMoral;
+        if ($("#ViolationTypeId").val()!="") {
+           fromMoneyORMoral = GetMonayORMoral($("#ViolationTypeId").val());
+        }
+        else
+           fromMoneyORMoral =0;
+        if ($("#ViolationTypeId").val()=="") {
+            $('#ViolationValue').prop("disabled", false);
+             $("#ViolationValue").val("")
+        } else if (fromMoneyORMoral ==@((int)ViolationType.FromMoney)) {
+            $('#ViolationValue').prop("disabled",false);
+        } else {
+            $('#ViolationValue').prop("disabled", true);
+            $("#ViolationValue").val("")
+        }
+    }
+            </script>
+
+        }
+

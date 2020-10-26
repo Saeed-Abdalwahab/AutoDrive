@@ -1,0 +1,196 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDrivePayroll.InquiryEmployeeSalaryVM
+@{
+    ViewBag.Title = Resources.EmployeeSalary;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <style>
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2000 !important;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+            color: black;
+            padding-right: 2%;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+    </style>
+    <style>
+        .RightClass {
+            width: 100%;
+            position: relative;
+            left: 21%;
+        }
+
+        .YearLeftClass {
+            position: relative;
+            right: 21%;
+        }
+
+        .MonthLeftClass {
+            position: relative;
+            right: 14%;
+        }
+    </style>
+<div class="x_content" style="color:black;">
+    <h2>@Resources.EmployeeSalary</h2>
+    <div class="col-sm-12" id="con">
+        <form id="form">
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+
+                </div>
+
+                @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.EnumDropDownListFor(model => model.Month, Resources.Choose, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "form-control RightClass" : "form-control MonthLeftClass", @onchange = "MonthChange()" })
+                    @Html.ValidationMessageFor(model => model.Month, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "MonthValidation" })
+                </div>
+
+
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.Year, ViewBag.YearsLst as SelectList, htmlAttributes: new { @class = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "form-control RightClass" : "form-control YearLeftClass" })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    <a href="#" class="btn btn-primary" id="SearchBtn">@Resources.Search</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row" id="table">
+
+    </div>
+
+</div>
+@section scripts{
+    <script>
+         $("#SearchBtn").click(function () {
+                Search();
+         });
+    function MonthChange() {   
+        $("#MonthValidation").hide();
+    }
+    function formVaildation() {
+        if (!($("#form").valid()) || $("#Month").val() == "0") {
+            if ( $("#Month").val() == "0") {
+                $("#MonthValidation").show()
+            }
+            return false;
+        }
+        return true
+    }
+    function Search() {
+        if (!formVaildation()) {
+            return false;
+        }
+        var data = $("#form").serialize();
+        $.ajax({
+                    type: "post",
+                    url: "/payroll/Salaries/Search",
+                   // dataType: "html",
+                    data:data,
+            success: function (response) {
+                debugger;
+                $('#table').html(response);
+               //  $('#EmployeeSalaryInquire').DataTable({"language": GetLanguage()})
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+                    }
+                });
+    }
+         $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../hr/EmployeeVacation/SearchEmployee",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeID').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeID').val(ui.item.ss);
+                },
+
+
+         });
+    function EmpChange() {
+        $("#EmployeeID-error").hide();
+        if ($("#EmpID").val()=="") {
+            $("#EmployeeID").val("")
+        }
+         
+            }
+
+    </script>
+    }
+

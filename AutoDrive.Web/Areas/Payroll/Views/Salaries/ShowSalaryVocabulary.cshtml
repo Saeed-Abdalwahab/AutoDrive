@@ -1,0 +1,80 @@
+﻿@using AutoDriveResources
+@model IEnumerable<AutoDrive.DAL.AutoDriveDB.EmployeeMoneyDetail>
+@using AutoDrive.Static.Enums
+
+
+
+@foreach (var employeeMoneyDetail in Model)
+{
+    if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Changed)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.ChangedSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Basic)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Violation)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.Violation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Reward)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.Reward, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Loan)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.Loan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.EmployeeMoneyTypeDetailsId == (int)EmployeeMoneyTypeDetials.Holiday)
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            @Html.Label(Resources.Holiday, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+        </div>
+    }
+    else if (employeeMoneyDetail.IncreasesDeductionsSettingId != null)
+    {
+        if (ViewBag.Language == "en-US")
+        {
+            <div class="row">
+                <div class="col-md-4"></div>
+
+                @Html.Label(employeeMoneyDetail.IncreasesDeductionsSetting.EnName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-4"></div>
+
+                @Html.Label(employeeMoneyDetail.IncreasesDeductionsSetting.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">@Html.DisplayFor(m => employeeMoneyDetail.Value)</div>
+            </div>
+        }
+
+    }
+}
+

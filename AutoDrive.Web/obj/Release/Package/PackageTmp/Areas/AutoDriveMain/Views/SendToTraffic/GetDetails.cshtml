@@ -1,0 +1,533 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.SendToTrafficVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333%;
+    }
+
+    .col-md-8 {
+        width: 71.66666666%;
+    }
+</style>
+
+<div class="text-center">
+    <h3 class="center info"> @Messages.SendToTraffic </h3>
+</div>
+
+@*@using(Html.BeginForm("Index", "SendToTraffic", FormMethod.Get))
+{
+    <div class="col-md-12" style="margin-bottom:17px;">
+
+        <div class="col-md-6" style="margin-bottom:17px;">
+            @Html.Label(Messages.Trainee, htmlAttributes: new { @class = "col-md-4" })
+            <div class="col-md-8">
+                <div class="col-md-10">
+                    @Html.DropDownList("TraineeGuid", (SelectList)ViewBag.TraineeGuid, Messages.ChooseTrainee, new { @class = "form-control", @id = "TraineeGuid", Name = "TraineeGuid" })
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+
+        </div>
+    </div>
+}*@
+
+
+    @*Creat apopup Modal For Create*@
+    <div id="MyModalCreate">
+        <div>
+            <div @*class="modal-content"*@>
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal"></a>
+                    <h4 id="ModaltitleCreate"></h4>
+                </div>
+                <div class="modal-body" @*style="height:auto;overflow-y:hidden"*@>
+                    <form id="formCreate">
+                        <div class="form-horizontal">
+
+
+
+                            <input value="@Model.TraineeId" id="TraineeId" name="TraineeId" style="display:none" />
+                            <input value="@Model.TraineeGuid" id="TraineeGuid" name="TraineeGuid" style="display:none" />
+
+                            <input value="@Model.TraineeEvaluationId" id="TraineeEvaluationId" name="TraineeEvaluationId" style="display:none" />
+
+                            <div class="row ">
+                                <div>
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.Name, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.ArName, new { @class = "form-control", @placeholder = Resources.Name, @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.EnName, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(x => x.EnName, new { @class = "form-control", @placeholder = Resources.EnName, @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @placeholder = Resources.Code, @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.FileNo, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.FileNo, new { @class = "form-control", @placeholder = Resources.FileNo, @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.FileNo, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.SendDate, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.SendDate, new { @class = "form-control", @placeholder = Resources.SendDate })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.SendDate, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.SenderEmployeeId, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.DropDownList("SenderEmployeeId", (SelectList)ViewBag.SenderEmployeeId, Messages.ChooseEmployee, new { @class = "form-control", @id = "SenderEmployeeId", @name = "SenderEmployeeId" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.SenderEmployeeId, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <a href="#" class="btn btn-primary" id="ESAVEREC">@Messages.SaveBTN</a>
+                        @*<a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*Creat apopup Modal For Edit*@
+    <div class="modal fade bd-example-modal-sm" id="MyModalEdit">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModaltitleEdit"></h4>
+                </div>
+                <div class="modal-body" style="height:auto;overflow-y:hidden">
+                    <form id="formEdit">
+                        <div class="form-horizontal">
+
+                            @*@Html.HiddenFor(m => m.ID, new { htmlAttributes = new { @class = "form-control", @id = "_ID" } })
+                                @Html.HiddenFor(m => m.TraineeId, new { htmlAttributes = new { @class = "form-control", @id = "_TraineeId" } })
+                                @Html.HiddenFor(m => m.TraineeEvaluationId, new { htmlAttributes = new { @class = "form-control", @id = "_TraineeEvaluationId" } })
+                                @Html.HiddenFor(m => m.TraineeGuid, new { htmlAttributes = new { @class = "form-control", @id = "_TraineeGuid" } })*@
+                            <input value="@Model.ID" id="_ID" name="ID" style="display:none" />
+                            <input value="@Model.TraineeId" id="_TraineeId" name="TraineeId" style="display:none" />
+
+                            <input value="@Model.TraineeEvaluationId" id="_TraineeEvaluationId" name="TraineeEvaluationId" style="display:none" />
+
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.TraineeId, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                                @if (ViewBag.CheckUS == "En-Us")
+                                {
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.EnName, new { htmlAttributes = new { @class = "form-control", @id = "_EnName" , @readonly="readonly"} })
+
+                                        @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.ArName, new { htmlAttributes = new { @class = "form-control", @id = "_ArName" , @readonly="readonly" } })
+
+                                        @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.SendDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.SendDate, new { htmlAttributes = new { @class = "form-control", @id = "_SendDate" } })
+
+                                    @Html.ValidationMessageFor(model => model.SendDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.SenderEmployeeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                <div class="col-md-12">
+                                    @Html.DropDownList("SenderEmployeeId", (SelectList)ViewBag.SenderEmployeeId, Messages.ChooseEmployee, new { @class = "form-control", @id = "_SenderEmployeeId", @name = "SenderEmployeeId" })
+
+                                    @Html.ValidationMessageFor(model => model.SenderEmployeeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <a href="#" class="btn btn-primary" id="_SAVEREC">@Messages.SaveBTN</a>
+                        <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-top:3%">
+
+        <table class="table table-striped" id="SendToTrafficTable">
+            <thead>
+                <tr>
+                    <th>م</th>
+                    <th>@Resources.TraineeId</th>
+                    <th>@Resources.SendDate</th>
+                    <th>@Resources.SenderEmployeeId</th>
+
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+
+        </table>
+    </div>
+
+
+
+
+
+    @section scripts
+{
+
+        <script>
+        $(function () {
+            $('#SendDate').datepicker({
+                dateFormat: 'dd/mm/yy',
+            });
+            $('#_SendDate').datepicker({
+                dateFormat: 'dd/mm/yy',
+            });
+
+            $("#SenderEmployeeId").chosen();
+            //$("#_SenderEmployeeId").chosen();
+
+
+
+
+        });
+
+        function MapJson(Obj, form) {
+            debugger
+            $.each(Obj,function(key,value) {
+          form.find("input[name='"+key+"']").val(value);
+      });
+        }
+        var DATATABLE = "";
+                //Show Delet Msg Confirmation
+    function DeleteConfirmation(id) {
+        bootbox.confirm({
+            title:"@Messages.Delete.ToString()",
+            message: "@Messages.ConfirmDeleteMsg",
+            size: 'small',
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> @Messages.BackBtn',
+                    className: 'btn-info'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> @Messages.ConfirmBtn',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result == true) {
+                    deleteRecord(id)
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+
+    }
+         function deleteRecord(id) {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Delete","SendToTraffic")' + '?ID=' + id,
+
+                success: function (respons) {
+                    debugger
+                    if (respons.status) {
+                        toastr.success("", respons.Msg, { timeOut: 3000 });
+                        DATATABLE.ajax.reload();
+
+                    }
+                    else {
+                    toastr.error("",respons.Msg ,{ timeOut: 1000 });
+
+                    }
+
+                },
+
+                fail: function (xhr, msg, errorThrown) {
+                    toastr.error("@Messages.DeleteErr", msg, { timeOut: 1000 });
+
+                },
+                error: function (xhr, statusText, errorThrown) {
+                    toastr.error("@Messages.DeleteErr",'' ,{ timeOut: 1000 });
+                }
+            });
+
+        }
+
+        function SaveEdit() {
+            if ($("#formEdit").valid()) {
+
+                var dataEdit = $("#formEdit").serialize();
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("Edit","SendToTraffic")",
+                    data: dataEdit,
+                    success: function (response) {
+                        if (response.status == true) {
+
+                            DATATABLE.ajax.reload();
+                            toastr.success("@Messages.SaveSucc", '', { timeOut: 4000 });
+                            $("#MyModalEdit").modal("hide");
+                        }
+                        else {
+                            toastr.error("@Messages.SaveErr", response.Msg, { timeOut: 3000 });
+
+                        }
+                    }
+
+
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+        function SaveCreate() {
+
+            if ($("#formCreate").valid()) {
+
+                var dataCreate = $("#formCreate").serialize();
+                $.ajax({
+                    type: "post",
+                    url: "@Url.Action("Create","SendToTraffic")",
+                    data: dataCreate,
+                    success: function (response) {
+                        if (response.status == true) {
+
+                            DATATABLE.ajax.reload();
+                            toastr.success("@Messages.SaveSucc", '', { timeOut: 4000 });
+                            //$("#MyModalCreate").modal("hide");
+                        }
+                        else {
+                            toastr.error("@Messages.SaveErr", response.Msg, { timeOut: 3000 });
+
+                        }
+                    }
+
+
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+
+
+        @*function AddNew(ID) {
+            $("#formCreate")[0].reset();
+            $("#ModaltitleCreate").html("@Messages.AddNationality");
+            $("#ID").val("0");
+            $("#MyModalCreate").modal();
+        }*@
+
+        function Edit(id) {
+            $("#ModaltitleEdit").html("@Messages.Edit");
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetbyID","SendToTraffic")"+"/"+id,
+                success: function (res) {
+                    debugger
+                    MapJson(res, $("formEdit"));
+                    $("#MyModalEdit").modal();
+
+                    $("#_ID").val(res.ID);
+                    $("#_TraineeId").val(res.TraineeId);
+                    $("#_TraineeEvaluationId").val(res.TraineeEvaluationId);
+                    $("#_SendDate").val(res.SendDate);
+                    $("#_SenderEmployeeId").val(res.SenderEmployeeId);
+
+
+
+                }
+            })
+        }
+
+
+    $(document).ready(function () {
+
+        $("#ADDNEWREC").click(function () {
+            AddNew(0);
+        });
+
+             DATATABLE = $('table').DataTable({
+                 "ajax": {
+                     'url': "@Url.Action("Getall","SendToTraffic")" + '?_TraineeId=' + $("#TraineeId").val(),
+                    'type': "GET"
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+
+                    { "data": "@ViewBag.CheckUS" == "En-Us"? "EnName": "ArName"},
+                    { "data": "SendDate" },
+                    { "data": "@ViewBag.CheckUS" == "En-Us"? "EnEmpName": "ArEmpName"},
+
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" + "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+
+                ],
+                "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+                info: false,
+
+            })
+            DATATABLE.on('order.dt search.dt', function () {
+                DATATABLE.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        $("#ESAVEREC").click(function () {
+
+
+            SaveCreate();
+                });
+          $("#_SAVEREC").click(function () {
+            SaveEdit();
+                });
+
+
+    });
+
+
+        </script>
+    }

@@ -1,0 +1,855 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeArchiveVM
+@{
+    ViewBag.Title = Messages.TraineeArchive;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <style>
+        .modal-body {
+            height: auto !important;
+        }
+
+        .col-md-4 {
+            width: 28.33333333%;
+        }
+
+        .col-md-8 {
+            width: 71.66666666%;
+        }
+    </style>
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+
+}
+
+<div class="text-center">
+    <h3 class="center info"> @Messages.TraineeArchive</h3>
+</div>
+
+
+
+<div class="form-horizontal">
+    @* ----------------------------------------------------------------------------- *@
+    <div class="col-md-3">
+        <div class="text-center">
+            <h3 id="HeaderOdPage" class="center info">@Messages.Selected_Item ( @*@Messages.MainSelected_Item*@ )</h3>
+        </div>
+        <div class="modal fade bd-example-modal-sm">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="Modaltitle"></h4>
+                    </div>
+                    <div class="modal-body" style="height:auto;overflow-y:hidden">
+                        <form>
+                            <div class="form-horizontal">
+
+                                @Html.HiddenFor(m => m.ID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.EnName, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.EnName, new { htmlAttributes = new { @class = "form-control" } })
+
+                                        @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.ParentId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(x => x.ParentId, ViewBag.Departments as SelectList, Messages.ItemDropDown, new { @class = "form-control" })
+
+                                        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-top:3%">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="Tree"></div>
+                </div>
+                <div class="col-md-9" id="DivTableContainer">
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    @* ----------------------------------------------------------------------------- *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @using (Html.BeginForm("CreateTraineeArchive", "TraineeArchive", FormMethod.Post, new { Id = "myForm", enctype = "multipart/form-data" }))
+    {
+        <div class="col-md-9">
+
+
+            @if (Model != null)
+            {
+                @*<input value="@Model.ID" id="ID" name="ID" style="display:none" />*@
+                <input value="@Model.TraineeId" id="TraineeId" name="TraineeId" style="display:none" />
+                <input value="@Model.TraineeGuid" id="TraineeGuid" name="TraineeGuid" style="display:none" />
+                <input value="@Model.ArchiveSettingDriveId" id="ArchiveSettingDriveId" name="ArchiveSettingDriveId" style="display:none" />
+
+
+
+            }
+
+            <div class="row ">
+                <div>
+                    <div class="col-md-12">
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.TraineeCode, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.TraineeName, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @if (@ViewBag.LangEn == true)
+                                    {
+                                        @Html.TextBoxFor(a => a.En_Name, new { @class = "form-control", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(a => a.Ar_Name, new { @class = "form-control", @readonly = "readonly" })
+                                    }
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.FileNo, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(a => a.FileNo, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.FileNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.Number, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(a => a.Number, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @*@Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.Date, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(a => a.Date, new { @class = "form-control" ,@id="Date" , @readonly="readonly"})
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            @Html.Label(Resources.Notes, htmlAttributes: new { @class = "col-md-4" })
+                            <div class="col-md-8">
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(a => a.Note, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @*@Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6" style="margin-bottom:17px;">
+                            <div>
+                                <div class="col-md-3">
+                                    <div class="col-md-12">
+                                        <input type="file" name="f1" id="fileChooser"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                       
+                                        <img src="E:/test/New folder/@Model.ImageName" id="Photopath" title="Photo" width="110" height="110" hidden="hidden"/>
+                                      
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="text-left">
+                            <input type="submit" value="@Messages.SaveBTN" class="btn btn-primary" id="SAVEREC" disabled="disabled">
+                            @*<a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* ----------------------------------------------------------------------------- *@
+    }
+</div>
+
+
+
+<div class="modal fade bd-example-modal-sm" id="MyModal2">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="Modaltitle2"></h4>
+            </div>
+            <div class="modal-body" style="height:auto;overflow-y:hidden">
+                <form id="form2">
+                    <div class="form-horizontal">
+                        <input value="@Model.ID" id="_ID" name="ID" style="display:none" />
+                        <input value="@Model.TraineeId" id="_TraineeId" name="TraineeId" style="display:none" />
+                        <input value="@Model.TraineeGuid" id="_TraineeGuid" name="TraineeGuid" style="display:none" />
+                        <input value="@Model.ArchiveSettingDriveId" id="_ArchiveSettingDriveId" name="ArchiveSettingDriveId" style="display:none" />
+
+                        @*@Html.HiddenFor(m => m.ID)*@
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Number, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", id = "_Number", Name = "Number" } })
+
+                                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Date, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", id = "_Date", Name = "Date" } })
+
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Note, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", id = "_Note", Name = "Note" } })
+
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                @Html.LabelFor(x => x.ImageName, htmlAttributes: new { @class = "control-label col-md-1" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.ImageName, new { htmlAttributes = new { @class = "form-control", id = "_ImageName", Name = "ImageName" } })
+
+                                    @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ImageName, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="col-md-12">
+                                <input type="file" name="_fileChooser" id="_fileChooser" />
+
+                                @*<img src="" id="_Photopath" name="ImageName" width="96" height="96" />
+
+                                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    @*<div class="col-md-3">
+                            <div class="col-md-12">
+                                <input type="file" name="f1" id="_fileChooser" />
+                            </div>
+                            <div class="col-md-12">
+                                <img src="~/Upload/@Model.ImageName" id="_Photopath" title="Photo" width="110" height="110" />
+                            </div>
+                        </div>*@
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="SAVEREC2">@Messages.SaveBTN</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.Cancel</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="container" style="margin-top:3%">
+
+    <table class="table table-striped jambo_table bulk-action">
+        <thead>
+            <tr>
+                <th>
+                    م
+                </th>
+                <th>
+                    @Html.DisplayNameFor(x => x.ImageName)
+                </th>
+                <th>@Html.DisplayNameFor(x => x.Number)</th>
+                <th>@Html.DisplayNameFor(x => x.Date)</th>
+                <th>@Html.DisplayNameFor(x => x.Note)</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+@section scripts
+{
+    <link href="~/Content/jsTree/themes/default/style.css" rel="stylesheet" />
+    <script src="~/Scripts/jsTree3/jstree.js"></script>
+    @*<script src="~/Scripts/gijgo/modular/datetimepicker.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>*@
+    <script>
+            function MapJson(Obj, form) {
+            debugger
+            $.each(Obj,function(key,value) {
+          form.find("input[name='"+key+"']").val(value);
+      });
+            }
+             function MapJson(Obj, form2) {
+            debugger
+            $.each(Obj,function(key,value) {
+          form2.find("input[name='"+key+"']").val(value);
+      });
+            }
+
+        $("#Date").datepicker({
+                   dateFormat: 'dd/mm/yy',
+              });
+
+        $("#_Date").datepicker({
+                        dateFormat: 'dd/mm/yy',
+
+        });
+
+
+
+
+
+
+            var DATATABLE = "";
+            //Show Delet Msg Confirmation
+    function DeleteConfirmation(id) {
+        bootbox.confirm({
+            title:"@Messages.Delete.ToString()",
+            message: "@Messages.ConfirmDeleteMsg",
+            size: 'small',
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> @Messages.BackBtn',
+                    className: 'btn-info'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> @Messages.ConfirmBtn',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result == true) {
+                    deleteRecord(id)
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+
+    }
+         function deleteRecord(id) {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Delete","TraineeArchive")' + '?ID=' + id,
+
+                success: function (respons) {
+                    debugger
+                    if (respons.status) {
+                        toastr.success("", respons.Msg, { timeOut: 3000 });
+                        DATATABLE.ajax.reload();
+
+                    }
+                    else {
+                    toastr.error("",respons.Msg ,{ timeOut: 1000 });
+
+                    }
+
+                },
+
+                fail: function (xhr, msg, errorThrown) {
+                    toastr.error("@Messages.DeleteErr", msg, { timeOut: 1000 });
+
+                },
+                error: function (xhr, statusText, errorThrown) {
+                    toastr.error("@Messages.DeleteErr",'' ,{ timeOut: 1000 });
+                }
+            });
+
+        }
+
+            function Save() {
+
+
+                if ($("#form2").valid()) {
+
+
+                    var data = $("#form2").serialize();
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("Save","TraineeArchive")",
+                        data: data,
+                        success: function (response) {
+                            if (response.status == true) {
+                                var fileUpload = document.getElementById("_fileChooser");
+                                if (fileUpload.value != null) {
+                                    var uploadFile = new FormData();
+                                    var files = $("#_fileChooser").get(0).files;
+                                    // Add the uploaded file content to the form data collection
+                                    if (files.length > 0) {
+                                        uploadFile.append("_File", files[0]);
+                                        $.ajax({
+                                            url: "@Url.Action("Upload_File","TraineeArchive")",
+                                            contentType: false,
+                                            processData: false,
+                                            data: uploadFile,
+                                            dataType: "json",
+
+                                            type: 'POST',
+                                            success: function () {
+                                                //    alert("Successfully Added & processed");
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                DATATABLE.ajax.reload();
+                                toastr.success("@Messages.SaveSucc", '', { timeOut: 4000 });
+                                $("#MyModal2").modal("hide");
+
+
+
+
+                            }
+                            else {
+                                toastr.error("@Messages.SaveErr", response.Msg, { timeOut: 3000 });
+
+                            }
+                        }
+
+
+                    });
+                }
+                else {
+                    return false;
+
+                }
+            }
+
+
+            function AddNew(ID) {
+            $("#form")[0].reset();
+            $("#Modaltitle").html("@Messages.AddNationality");
+                $("#ID").val("0");
+            $("#MyModal").modal()
+        }
+
+            function Edit(id) {
+
+
+            $("#Modaltitle2").html("@Messages.Edit");
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetbyID","TraineeArchive")"+"/"+id,
+                success: function (res) {
+
+
+                    MapJson(res, $("form2"));
+                    $("#MyModal2").modal();
+                    $("#_ID").val(res.data.ID);
+                    $("#_Number").val(res.data.Number);
+                    $("#_Note").val(res.data.Note);
+                    $("#_Date").val(res.data.Date);
+                    $("#_ArchiveSettingDriveId").val(res.data.ArchiveSettingDriveId);
+                    $("#_TraineeId").val(res.data.TraineeId);
+
+
+                     $("#_Photopath").val(res.data.ImgVirtualPath);
+                    //var _srcimg = "/Upload/" + res.data.ImageName;
+
+                    var _srcimg = res.data.ImgVirtualPath;
+                    $("#_Photopath").attr('src', _srcimg);
+                }
+            })
+        }
+
+
+
+
+
+
+
+            $(document).ready(function () {
+
+             
+
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+        $(function () {
+            
+            $("#SAVEREC").hover(function () {
+
+           
+
+                if ($("#ArchiveSettingDriveId").val() == 0 || $("#ArchiveSettingDriveId").val() == null) {
+                    $("#SAVEREC").attr("disabled", "disabled");
+                    var fo = '@ViewBag.CheckUS';
+                    if (fo == "En-Us") {
+                        alert("Choose Item from tree");
+                    }
+                    else {
+                        alert(" اختار عنصر من الارشيف ");
+                    }
+
+                }
+                else {
+                    $("#SAVEREC").prop('disabled', false);
+                }
+         });
+            $("#fileChooser").bind("change", function () {
+
+                var fileImageSize = this.files[0].size;
+                //function ValidateFileUpload() {
+                var fuData = document.getElementById('fileChooser');
+                var FileUploadPath = fuData.value;
+
+                //To check if user upload any file
+                if (FileUploadPath == '') {
+
+                    alert("Please upload an image");
+
+                } else {
+                    var Extension = FileUploadPath.substring(
+                        FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                    //The file uploaded is an image
+                    if ((Extension == "png" || Extension == "jpeg" || Extension == "jpg") && fileImageSize < 3000000) {
+
+                        //// To Display
+                        if (fuData.files && fuData.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('#Photopath').attr('src', e.target.result);
+                                $('#Photopath').prop('hidden', false);
+                                
+                            }
+
+                            reader.readAsDataURL(fuData.files[0]);
+                        }
+
+
+                        $("#SAVEREC").prop('disabled', false);
+                        // $("#btnEdit").prop('disabled', false);
+                    }
+
+                    //The file upload is NOT an image
+                    else {
+                        var fo = '@ViewBag.CheckUS'
+                        if (fo == "En-Us") {
+                            alert("Photo only allows file types of  PNG, JPG and JPEG. and Should be <=3Mg");
+                        }
+                        else {
+                            alert("الصوره يجب ان تكون PNG او JPG او JPEG واقل من 3 ميجا");
+                        }
+                        $("#SAVEREC").attr("disabled", "disabled");
+                        // $("#btnEdit").attr("disabled", "disabled");
+
+                    }
+                }
+                // }
+            });
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            var selectedNodeValue = 0;
+
+        function MapJson(Obj, form) {
+            $.each(Obj, function (key, value) {
+                form.find("input[name='" + key + "']").val(value);
+                form.find("select[name='" + key + "']").val(value);
+            });
+        }
+
+
+
+        $(document).ready(function () {
+
+
+
+                $("input").keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        Save();
+                        $("[class*='input-validation-error']").focus();
+
+                    }
+                });
+
+                //Tree
+                var tree = $('#Tree').jstree({
+                    'core': {
+                        'data': {
+                            'url': '@Url.Action("TreeData","TraineeArchive")',
+                            'dataType': 'json'
+                        }
+                    }
+                });
+                $('#Tree').on("changed.jstree", function (e, data) {
+
+                    selectedNodeValue = data.selected[0];
+                    
+                    $("#ArchiveSettingDriveId").val(selectedNodeValue);
+                  
+                    $("#DivTableContainer").css("display", "block");
+                    $("#DivTableContainer table").css("width", "100%");
+
+                    if (selectedNodeValue == undefined) {
+                      
+                        DATATABLE.ajax.reload();
+                    }
+                    else if (selectedNodeValue == 0) {
+                       
+                        @*$("#HeaderOdPage").text("@Messages.Selected_Item" + " (  @Messages.MainSelected_Item   )")*@
+                        DATATABLE.ajax.url("@Url.Action("Getall","TraineeArchive")" + "?ID=" + parseInt(selectedNodeValue)).load();
+                                                DATATABLE.ajax.reload(); 
+
+                    }
+                    else {
+                   
+                        $("#HeaderOdPage").text("@Messages.Selected_Item" + " ( " + $('#Tree').jstree('get_selected', true)[0].text + " )")
+                        DATATABLE.ajax.url("@Url.Action("Getall22","TraineeArchive")" + "?ID=" + parseInt(selectedNodeValue)).load();
+                                               // DATATABLE.ajax.reload(); 
+
+                    }
+
+
+
+                });
+
+
+               $("#ADDNEWREC").click(function () {
+                    AddNew(0);
+                });
+
+                DATATABLE = $('table').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("Getall22","TraineeArchive")",
+                        'type': "GET"
+                    },
+                    "columns": [
+                        {
+                            "data": null, "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+
+                        {
+                            "data": "ImgVirtualPath", "aTargets": [0],
+                            "render": function (data) {
+                                return '<img src="' +data + '" width="160" height="110"/>';
+
+                            }
+                        },
+                        { "data": "Number" },
+                        { "data": "Date" },
+                        { "data": "Note" },
+
+                        {
+                            "data": "ID", "render": function (data) {
+
+                                return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Edit(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                            }
+                        },
+
+                         {
+                            "data": "ID", "render": function (data) {
+
+                                return "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='DeleteConfirmation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+
+                            }
+                        },
+                    ],
+                    "language": {
+                        "sEmptyTable": "@Messages.sEmptyTable",
+                        "sLoadingRecords": "@Messages.sLoadingRecords",
+                        "sProcessing": "@Messages.sProcessing",
+                        "sLengthMenu": "@Messages.sLengthMenu",
+                        "sZeroRecords": "@Messages.sZeroRecords",
+                        "sInfo": "@Messages.sInfo",
+                        "sInfoEmpty": "@Messages.sInfoEmpty",
+                        "sInfoFiltered": "@Messages.sInfoFiltered",
+                        "sInfoPostFix": "",
+                        "sSearch": "@Messages.sSearch",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "@Messages.sFirst",
+                            "sPrevious": "@Messages.sPrevious",
+                            "sNext": "@Messages.sNext",
+                            "sLast": "@Messages.sLast"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": @Messages.sSortAscending",
+                            "sSortDescending": ": @Messages.sSortDescending"
+                        }
+                    },
+                    info: false,
+
+                })
+                DATATABLE.on('order.dt search.dt', function () {
+                    DATATABLE.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+
+            $("#SAVEREC2").click(function () {
+                Save();
+            });
+
+            });
+
+    </script>
+}

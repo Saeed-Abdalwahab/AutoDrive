@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewBag.Title = Messages.Item;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/jsTree/themes/default/style.css" rel="stylesheet" />
+    <style>
+        .modal-body {
+            height: auto;
+        }
+    </style>
+}
+<div class="text-center">
+    <h3 id="HeaderOdPage" class="center info">@Messages.Itemto ( @Messages.MainItem )</h3>
+</div>
+
+
+<form method="post" action="" enctype="multipart/form-data" onsubmit="return ajaxpost(this)">
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="clearfix"></div>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle"></h4>
+                </div>
+                @Html.Hidden("ItemParentId", 0)
+                <div class="modal-body" style="min-height:200px;" id="CreateData">
+
+                </div>
+                <div class="modal-footer">
+                    <div class="text-left">
+                        <input type="submit" value="@Messages.SaveBTN" class="btn btn-default" id="save" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@Messages.Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade modal-sm" style="margin:auto!important" id="Img">
+    <div class="modal-dialog">
+        <div class="clearfix"></div>
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="ModalTitle"></h4>
+            </div>
+            @Html.Hidden("ItemParentId", 0)
+            <div class="modal-body" style="min-height:200px;" id="ImgData">
+
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages.Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("Delete", "Item", new AjaxOptions { OnSuccess = "DeleteSuccess" }))
+{
+<div class="modal fade modal-sm" style="margin:auto!important" id="Delete">
+    <div class="modal-dialog">
+        <div class="clearfix"></div>
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="ModalTitle"></h4>
+            </div>
+            @Html.Hidden("ItemParentId", 0)
+            <div class="modal-body" style="min-height:200px;" id="DeleteData">
+
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages.Cancel</button>
+                    <input type="submit" value="@Messages.Delete" class="btn btn-default" id="save" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+
+
+
+<div class="container" style="margin-top:3%">
+    <div class="row">
+        <div class="col-md-2">
+            <div id="Tree"></div>
+        </div>
+        <div class="col-md-10" id="DivTableContainer">
+            <button class="btn btn-primary btn-lg btn-round navbar-fixed-bottom" onclick="AddNew(0)" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Messages.AddNew" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+            <table class="table table-striped jambo_table bulk-action" id="item">
+                <thead>
+                    <tr>
+                        <th>@Messages.No</th>
+                        <th>@Resources.ArName </th>
+                        <th>@Resources.EnName </th>
+                        <th>@Messages.Type</th>
+                        <th>@Messages.ItemCode</th>
+                        <th>@Messages.SerialNumber</th>
+                        <th>@Messages.Image</th>
+                        <th>@Messages.Edit</th>
+                        <th>@Messages.Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jsTree3/jstree.js"></script>
+    <script>
+
+        $(document).ready(function () {
+                $("input").keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        Save();
+                        $("[class*='input-validation-error']").focus();
+
+                    }
+                });
+
+                DATATABLE = $('table').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("Getall","Item")" + '?ID=0',
+                        'type': "GET"
+                    },
+                    "columns": [
+                        {
+                            "data": null, "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+
+                        { "data": "Name" },
+                        { "data": "EnName" },
+                        { "data": "ItemType" },
+                        { "data": "ItemCode" },
+                        { "data": "SerialNumber" },
+                        {
+                            "data": "ID", "render": function (data) {
+
+                                return "<botton class='btn btn-default ED' style='margin-top:3px' onclick='ShowImg(" + data + ")'><span class='glyphicon glyphicon-eye-open'></span></botton>"
+                            }
+                        },
+                        {
+                            "data": "ID", "render": function (data) {
+
+                                return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='AddNew(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                            }
+                        },
+                        {
+                            "data": "ID", "render": function (data) {
+
+                                return "<botton class='btn btn-danger ED' style='margin-topitem.BankName):3px' onclick='Delete(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                            }
+                        }
+
+
+
+                    ],
+                    "language": {
+                        "sEmptyTable": "@Messages.sEmptyTable",
+                        "sLoadingRecords": "@Messages.sLoadingRecords",
+                        "sProcessing": "@Messages.sProcessing",
+                        "sLengthMenu": "@Messages.sLengthMenu",
+                        "sZeroRecords": "@Messages.sZeroRecords",
+                        "sInfo": "@Messages.sInfo",
+                        "sInfoEmpty": "@Messages.sInfoEmpty",
+                        "sInfoFiltered": "@Messages.sInfoFiltered",
+                        "sInfoPostFix": "",
+                        "sSearch": "@Messages.sSearch",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "@Messages.sFirst",
+                            "sPrevious": "@Messages.sPrevious",
+                            "sNext": "@Messages.sNext",
+                            "sLast": "@Messages.sLast"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": @Messages.sSortAscending",
+                            "sSortDescending": ": @Messages.sSortDescending"
+                        }
+                    },
+                    info: false,
+
+                })
+                DATATABLE.on('order.dt search.dt', function () {
+                    DATATABLE.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+
+                //Tree
+                var tree = $('#Tree').jstree({
+                    'core': {
+                        'data': {
+                            'url': '@Url.Action("TreeData","Item")',
+                            'dataType': 'json'
+                        }
+                    }
+                });
+                $('#Tree').on("changed.jstree", function (e, data) {
+
+                    selectedNodeValue = data.selected[0];
+                    $("#ItemParentId").val(selectedNodeValue);
+                    $("#DivTableContainer").css("display", "block");
+                    $("#DivTableContainer table").css("width", "100%");
+                    //DATATABLE.ajax.reload();
+                    if (selectedNodeValue == undefined) {
+
+                        DATATABLE.ajax.reload();
+                    }
+                    else if (selectedNodeValue == 0) {
+
+                        $("#HeaderOdPage").text("@Messages.Itemto" + " (  @Messages.MainItem )")
+                        DATATABLE.ajax.url("@Url.Action("Getall","Item")" + "?ID=" + parseInt(selectedNodeValue)).load();
+
+                    }
+                    else {
+
+                        $("#HeaderOdPage").text("@Messages.Itemto" + " ( " + $('#Tree').jstree('get_selected', true)[0].text + " )")
+                        DATATABLE.ajax.url("@Url.Action("Getall","Item")" + "?ID=" + parseInt(selectedNodeValue)).load();
+                    }
+
+
+                });
+
+        });
+
+        function AddNew(id) {
+            $.ajax({
+
+                url: "@Url.Action("Create","Item")",
+                data: { ID: id },
+                type: "Get",
+                beforeSend: function () {
+
+                    $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+
+                        if (id == 0) {
+                            $("#ModalTitle").text("@Messages.AddItem")
+                        }
+                        else {
+                            $("#ModalTitle").text("@Messages.EditItem")
+                        }
+                        $("#CreateData").html(rs.View)
+                        $("body").preloader('remove')                                              
+                        $("#Delete").css("z-index", "-1")
+                        $("#Img").css("z-index", "-1")
+                        $("#MyModal").css("z-index","99999") 
+                        $("#MyModal").modal("show")
+
+                    }
+                    else {
+                        $("body").preloader('remove')
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+
+        function ShowImg(id) {
+            $.ajax({
+
+                url: "@Url.Action("ShowImage","Item")",
+                data: { ID: id },
+                type: "Get",
+                beforeSend: function () {
+
+                    $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+                        $("#ImgData").html(rs.View)
+                        $("body").preloader('remove')
+                        $("#MyModal").css("z-index","-1")                       
+                        $("#Delete").css("z-index", "-1")
+                         $("#Img").css("z-index","99999")
+                        $("#Img").modal("show")
+
+                    }
+                    else {
+                        $("body").preloader('remove')
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+
+        function Delete(id) {
+             debugger
+            $.ajax({
+
+                url: "@Url.Action("Delete","Item")",
+                data: { ID: id },
+                type: "Get",
+                beforeSend: function () {
+
+                    $("body").preloader({ text: 'جارى التحميل', zIndex: '99999999999' });
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+
+                        $("#DeleteData").html(rs.View)
+                        $("body").preloader('remove')
+                        $("#MyModal").css("z-index","-1")
+                        $("#Img").css("z-index","-1")
+                        $("#Delete").css("z-index","99999")
+                        $("#Delete").modal("show")
+
+                    }
+                    else {
+                        $("body").preloader('remove')
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+
+    </script>
+}

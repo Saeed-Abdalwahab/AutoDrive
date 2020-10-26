@@ -1,0 +1,128 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeContractDurationVM
+
+<form enctype="multipart/form-data" action="@Url.Action("Save","EmployeeContractDuration")">
+    <div class="form-horizontal">
+        @Html.HiddenFor(x=>x.ID)
+        @Html.HiddenFor(x=>x.EmployeeId)
+        <div class="form-group">
+            @Html.LabelFor(x => x.FromDate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.EditorFor(x => x.FromDate,  new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.FromDate, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.EditorFor(x => x.EndDate,  new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Duration, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.EditorFor(x => x.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.Duration, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(x => x.EmployeeStatusId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(x => x.EmployeeStatusId, ViewBag.employeeStatus as SelectList, Messages.EmployeeStatusDropDown, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.EmployeeStatusId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+                @Html.DropDownListFor(x => x.EmployeeStatusKindId, Enumerable.Empty<SelectListItem>(), Messages.EmployeeStatusDropDown, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(x => x.EmployeeStatusKindId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+<script>
+          function DateTimeNow() {
+            var fullDate = new Date()
+
+            var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? (fullDate.getMonth() + 1) : '0' + (fullDate.getMonth() + 1);
+
+            var currentDate =   twoDigitMonth+ "/" +   fullDate.getDate()+ "/" + fullDate.getFullYear();
+            return currentDate;
+        }
+    $(document).ready(function () {
+           $("select").chosen({
+            width: '100%',
+            no_results_text: '@Messages.NoResultFounded',
+            search_contains: true,
+             });
+            $("select").css({ "visibility":"hidden", "position":"absolute","display":""});
+         
+     
+         $("[data-val-date]").datepicker({
+                
+         });
+                $("#EndDate").datepicker("option", "minDate", $("#FromDate").val());
+
+          $("#FromDate").change(function () {
+                $("#EndDate").val("");
+                $("#EndDate").datepicker("option", "minDate", $(this).val());
+            });
+       
+        if (parseInt($("#EmployeeStatusId").val()) > 0) {
+                   $("#EmployeeStatusKindId").attr("disabled", false);
+
+                $("#EmployeeStatusKindId_chosen").attr('disabled', false).trigger("chosen:updated")
+               $.ajax({
+                    url: "@Url.Action("fetchemployestatuskinds","employeeStatusKinds")",
+                    data: { ID: $("#EmployeeStatusId").val() },
+                    type: "GET",
+                    success: function (res) {
+
+
+                        $("#EmployeeStatusKindId option[value!='']").remove();
+                        $.each(res.data, function (i, Value) {
+                            var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                            $("#EmployeeStatusKindId").append(OP);
+                        });
+                          $("#EmployeeStatusKindId").val("@Model.EmployeeStatusKindId");
+         
+                $("#EmployeeStatusKindId").trigger('chosen:updated');
+                    }
+               });
+
+          
+        }
+        $("#EmployeeStatusId").change(function () {
+
+            var ID = $("#EmployeeStatusId").val();
+            if (ID == undefined || ID == "") {
+                $("#EmployeeStatusKindId").attr("disabled", "disabled");
+                $("#EmployeeStatusKindId").val("")
+                $("#EmployeeStatusKindId_chosen").attr('disabled', true).trigger("chosen:updated")
+                $("#EmployeeStatusKindId").trigger('chosen:updated');
+            }
+            else {
+                $.ajax({
+                    url: "@Url.Action("fetchemployestatuskinds","employeeStatusKinds")",
+                    data: { ID: ID },
+                    type: "GET",
+                    success: function (res) {
+
+
+                        $("#EmployeeStatusKindId option[value!='']").remove();
+                        $.each(res.data, function (i, Value) {
+                            var OP = '<option value="' + Value.ID + '">' + Value.Name + '</option>';
+                            $("#EmployeeStatusKindId").append(OP);
+                        });
+                         $("#EmployeeStatusKindId").attr("disabled", false);
+
+                $("#EmployeeStatusKindId_chosen").attr('disabled', false).trigger("chosen:updated")
+                $("#EmployeeStatusKindId").trigger('chosen:updated');
+                    }
+                });
+               
+
+            }
+
+        });
+
+    });
+
+</script>

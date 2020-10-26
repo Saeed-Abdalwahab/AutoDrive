@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+@{
+
+    string direct;
+    string contentdir;
+
+    Session["MenuID"] = Session["MenuID"] != null ? (int)Session["MenuID"] : 0;
+}
+@if (Request.Cookies["Language"] != null && Request.Cookies["Language"].Value.ToLower() == "En-Us".ToLower())
+{
+    @Styles.Render("~/Contenten/css")
+
+
+    direct = "left_col";
+
+    contentdir = "right_col";
+}
+else
+{
+    @Styles.Render("~/Content/css")
+
+
+
+    direct = "right_col";
+
+    contentdir = "left_col";
+}
+
+@*<link href="~/Content/gijgo/combined/gijgo.min.css" rel="stylesheet" />*@
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@RenderSection("Styles", required: false)
+<html lang="fa">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title </title>
+
+    <!-- Bootstrap -->
+    <style>
+
+        #mainmenu a:hover {
+            background: #eef5f9 !important;
+        }
+
+        #mainmenu a {
+            margin-right: 10px;
+            padding-top: 10px;
+        }
+
+        a {
+            color: #000;
+            cursor: pointer !important;
+        }
+
+        .side-menu img {
+            width: 34px;
+        }
+
+        .nav-sm .nav.side-menu li a span {
+            display: block;
+            margin-right: 22px;
+        }
+
+        .nav-sm .nav.side-menu li a img {
+            width: 39px;
+        }
+
+        /*.dataTable thead .sorting {
+            background-image: url("../../images/sort_both.png") !important;
+        }*/
+
+        .nav li li.current-page a {
+            color: #000 !important;
+        }
+
+        .nav li.current-page {
+            background: #eef5f9 !important;
+        }
+
+        .chosen-container .chosen-drop {
+            display: none;
+        }
+
+        .chosen-with-drop .chosen-drop {
+            display: block !important;
+        }
+
+        .x_panel {
+            padding-bottom: 0px;
+        }
+
+        .profile_info h2 {
+            color: #000;
+            font-size: 24px;
+            display: inline-block;
+        }
+
+        .profile_info span {
+            color: #000;
+            display: inline-block;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 @direct">
+                <div class="@direct scroll-view" style="width:100%!important">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Auto Drive</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br />
+                    <div class="profile clearfix" style="width:100%;">
+                        <div class="profile_info" style="width:100%;padding-top:0px;">
+                            <h1 style="width:100%;text-align:center">@Messages.Welcome</h1>
+                            <h2 style="width:100%;text-align:center">@User.Identity.Name</h2>
+                        </div>
+                    </div>
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="/Home/Index">
+                                            <i><img src="~/Images/home.png" /></i> <span>الرائيسية</span>
+                                        </a>
+                                    </li>
+
+                                }
+
+
+                                @if ((int)Session["MenuID"] == (int)@AutoDrive.Static.Enums.Menu.HumanResource)
+                                {
+                                    @Html.Partial("~/Views/Shared/Partial/_HumanResourceMenu.cshtml");
+                                }
+                                @if ((int)Session["MenuID"] == (int)@AutoDrive.Static.Enums.Menu.AutoDriveMain)
+                                {
+                                    @Html.Partial("~/Views/Shared/Partial/_AutoDriveMainMenu.cshtml");
+                                }
+                                @if ((int)Session["MenuID"] == (int)@AutoDrive.Static.Enums.Menu.Payroll)
+                                {
+                                    @Html.Partial("~/Views/Shared/Partial/_PayrollMenu.cshtml");
+                                }
+                                @if ((int)Session["MenuID"] == (int)@AutoDrive.Static.Enums.Menu.Accounting)
+                                {
+                                    @Html.Partial("~/Views/Shared/Partial/_AccountingMenu.cshtml");
+                                }
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+
+
+
+
+
+
+                        @*<div class="nav toggle" style="padding-top:10px;width:168px;">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                                <select id="LanguageMenue" class="" style="display:inline-block">
+                                    <option value="ar-EG">العربيه</option>
+                                    <option value="en-US">English</option>
+                                </select>
+                            </div>*@
+                        @Html.Partial("_LoginPartial")
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="@contentdir" role="main">
+                <div class="">
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                            <div style="background:#fff;height:70px" id="mainmenu">
+
+                                <a href="~/Home/LoadMenu/@((int)AutoDrive.Static.Enums.Menu.AutoDriveMain)" class="col-xs-2 center-block" style="text-align:center">
+                                    <img src="~/Images/امر شغل.png" class="center-block" style="width:30px;height:30px;" />
+                                    @Messages.AutoDriveMain
+                                </a>
+                                <a class="col-xs-2 center-block" style="text-align:center " href="~/Home/LoadMenu/@((int)AutoDrive.Static.Enums.Menu.HumanResource)">
+                                    <img src="~/Images/امر شغل.png" class="center-block" style="width:30px;height:30px;" />
+                                    @Messages.HumanResource
+                                </a>
+                                <a class="col-xs-2 center-block" style="text-align:center" href="~/Home/LoadMenu/@((int)AutoDrive.Static.Enums.Menu.Payroll)">
+                                    <img src="~/Images/امر شغل.png" class="center-block" style="width:30px;height:30px;" />
+                                    @Resources.Payroll
+                                </a>
+                                <a class="col-xs-2 center-block" style="text-align:center" href="~/Home/LoadMenu/@((int)AutoDrive.Static.Enums.Menu.Accounting)">
+                                    <img src="~/Images/امر شغل.png" class="center-block" style="width:30px;height:30px;" />
+                                    @Messages.accounting
+                                </a>
+
+                            </div>
+                            <div id="searchbox" style="display:none">
+                                <label> بحث</label>
+                                <input type="text" name="name" value="" id="search" />
+                            </div>
+
+                            <div class="x_panel" id="content">
+
+                                @RenderBody()
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer class="hidden-print right">
+                <div class="row">
+                    <div class="col-md-1 col-xs-1" style="float:right;text-align:left;padding-top:5px;"><img src="~/Images/Army Tech Logo.png" /></div>
+                    <div class="col-md-2 col-sm-3 col-xs-11" style="float:right;text-align:left;padding-left:0px;padding-right:0px"><a target="_blank" href="http://armytechgroup.com/">WebSite</a> <img src="~/Images/site.png" /></div>
+                    <div class="col-md-3 col-sm-3 col-xs-12" style="float:right;text-align:left;padding-left:0px;padding-right:0px"><a target="_blank" href="support@armytechgroup.com">support@armytechgroup.com</a> <img src="~/Images/mail.png" /></div>
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="float:right;text-align:left;padding-left:0px;padding-right:0px">01033100144 <img src="~/Images/phone.png" /></div>
+                    <div class="col-md-4 col-sm-3 col-xs-12" style="float:left;text-align:left;padding-top:20px!important;">ArmyTech 2019. All Rights Reserved &copy;</div>
+
+                </div>
+
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+
+
+    @Scripts.Render("~/test/Gentelella")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.cookie-1.4.1.min.js"></script>
+    <script src="~/Scripts/gijgo/combined/gijgo.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script>
+
+        function GetLanguage() {
+            var Language = $.cookie('Language');
+            if (Language == undefined) {
+                return "ar-EG";
+            }
+            else {
+                return Language;
+            }
+        }
+        $(document).ready(function () {
+            // Edit Validation In Any Date
+            $(function () {
+                $.validator.methods.date = function (value, element) {
+
+
+                    return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+                }
+            });
+
+            $(".x_panel").preloader({
+                text: 'جارى التحميل',
+                zIndex: '99999999999',
+            });
+            $("#LanguageMenue").change(function () {
+
+                $.ajax({
+                    url: "/Language/ChangeLanguage",
+                    type: "post",
+                    data: { SelectedLanguage: $("#LanguageMenue").val() },
+                    success: function (data) {
+                        if (data.statues) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
+
+            $("#LanguageMenue").val(GetLanguage());
+            if (GetLanguage() == "ar-EG") {
+                $.datepicker.setDefaults({
+                    dateFormat: "dd/mm/yy",
+                    autoSize: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1910:" + new Date().getFullYear.toString(),
+                    closeText: "إغلاق",
+                    prevText: "&#x3C;السابق",
+                    nextText: "التالي&#x3E;",
+                    currentText: "اليوم",
+                    monthNamesShort: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+
+                    dayNamesMin: ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"],
+
+                    isRTL: true,
+
+                });
+            }
+            else {
+                $.datepicker.setDefaults({
+                    constrainInput: true,
+                    dateFormat: "dd/mm/yy",
+                    autoSize: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1910:" + new Date().getFullYear.toString(),
+                    firstDay: 0,
+                    isRTL: true,
+                    showMonthAfterYear: false,
+                    yearSuffix: ""
+
+                });
+            }
+
+        });
+
+
+        $(window).load(function () {
+            setTimeout(function () {
+                $(".x_panel").preloader("remove");
+
+            }, 500);
+        });
+
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

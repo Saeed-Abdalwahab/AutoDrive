@@ -1,0 +1,437 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.EmployeeAttendanceVM
+@{
+    ViewBag.Title = Resources.AttendanceDeparture;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 2000 !important;
+        float: left;
+        display: none;
+        min-width: 160px;
+        padding: 4px 0;
+        margin: 0 0 10px 25px;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+        color: black;
+        padding-right: 2%;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    .page-header {
+        padding-bottom: 9px;
+        margin: 40px 0 20px;
+        border-bottom: 1px solid #0c0c0c;
+    }
+</style>
+<style>
+    .bootstrap-timepicker-widget {
+        width: 20%;
+        margin-right: 30%;
+    }
+
+    .separator {
+        border-top: none;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+</style>
+<link href="~/Content/custom/bootstrap-timepicker.css" rel="stylesheet" />
+<link href="~/Content/custom/bootstrap-timepicker.min.css" rel="stylesheet" />
+<div class="x_content">
+    <h2>@Resources.AttendanceDeparture</h2>
+
+    <div class="modal topclass" id="myModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="create">
+                    <form id="form">
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(m => m.ID, new { @id = "EmployeeAttendanceID" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                                @Html.LabelFor(model => model.DeptartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.DeptartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.DeptartmentName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AttendanceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.AttendanceDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AttendanceDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AttendanceTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(m => m.AttendanceTime, new { id = "AttendanceTime", @readonly = "readonly", @class = "form-control" })
+                                    <input id="AttendanceTimeId" type='text' class="form-control text-center" readonly="readonly" />
+                                    @Html.ValidationMessageFor(model => model.AttendanceTime, "", new { @class = "text-danger" })
+                                    <span id="AttendanceTimeValdiation" style="color:#a94442;display:none;">@Messages.Required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AttendanceType, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.AttendanceType,Resources.Choose, htmlAttributes: new { @class = "form-control",@onchange="AttendanceTypeChange()" })
+                                    @Html.ValidationMessageFor(model => model.AttendanceType, "", new { @class = "text-danger" })
+                                    <span id="AttendanceTypeValdiation" style="color:#a94442;display:none;">@Messages.Required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="SaveEmployeeAttendance"></a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.DeleteEmployeeAttendanceDeparture</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteEmployeeAttendanceDeparture">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" id="con">
+        <table id="EmployeeAttendanceTB" class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.Employee</th>
+                    <th>@Resources.AttendDate</th>
+                    <th>@Resources.AttendanceTime</th>
+                    <th>@Resources.AttendanceType</th>
+                    <th>@Resources.Edit</th>
+                    <th>@Resources.Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.AddWorkingHoursSettingHR" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+
+</div>
+@section scripts{
+    <script src="~/Scripts/custom/bootstrap-timepicker.min.js"></script>
+    <script src="~/Scripts/custom/bootstrap-timepicker.js"></script>
+    <script src="~/Scripts/custom/script-custom-timepicker.js"></script>
+    <script>
+         var timerVal = moment().format('hh:mm A');
+         function Create() {
+        $("span[class*='error']").text("")
+        $("#form")[0].reset();
+        $("#modalTitle").html("@Resources.AddAttendance");
+        $("#SaveEmployeeAttendance").html("@Resources.Add");
+        $("#EmployeeAttendanceID").val(0);
+        $("#myModel").modal("show");
+        $('#AttendanceTimeId').timepicker('setTime', timerVal);
+        $("#AttendanceTime").val(timerVal);
+    }
+        $("#EmpID").autocomplete({
+
+            source: function (request, response) {
+                $.ajax({
+                    url: "/EmployeeAttendance/SearchEmployee",
+                    dataType: "json",
+                    data: { Text: request.term },
+                    success: function (data) {
+                        if (!data.length) {
+                            $('#EmployeeId').val("")
+                            $('#EmpID').val("")
+                            $("#Code").val("")
+                            $("#DeptartmentName").val("")
+                        }
+                        else {
+
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name, ss: item.ID, code: item.code, DeptName: item.DeptName };
+                            }));
+                        }
+                    }
+                });
+            },
+
+            select: function (event, ui) {
+                $('#EmployeeId').val(ui.item.ss);
+                $("#Code").val(ui.item.code)
+                $("#DeptartmentName").val(ui.item.DeptName)
+            },
+
+
+        });
+        function EmpChange() {
+            $("#EmployeeId-error").hide();
+            if ($("#EmpID").val() == "") {
+                $('#EmployeeId').val("")
+                $("#Code").val("")
+                $("#DeptartmentName").val("")
+            }
+
+        }
+        $(document).ready(function () {
+            $("#AttendanceDate").datepicker({
+                dateFormat: 'dd/mm/yy'
+            }).on('change', function () {
+                $("#AttendanceDate-error").hide();
+            });
+        });
+     $(document).ready(function () {
+
+        $('#EmployeeAttendanceTB').DataTable({
+            "ajax": {
+                'url': "GetEmployeeAttendances",
+                'type': "GET"
+            }, "columns": [
+                 {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                },
+                { "data": "EmployeeName" },
+                { "data": "Date" },
+                { "data": "AttendanceTime" },
+                { "data": "Type" },
+               {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditEmployeeAttendance(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteEmployeeAttendance(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+            ],
+                 "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                }
+        });
+     });
+     $("#SaveEmployeeAttendance").click(function () {
+        Save();
+     });
+     $("#EmpID").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#EmpID").val()=="") {
+                            $("#EmpID").focus();
+                        }
+                    }
+                }
+     });
+    function AttendanceTypeChange() {
+        debugger;
+        $("#AttendanceTypeValdiation").hide();
+    }
+    function formValidation() {
+        if (!($("#form").valid()) || $("#AttendanceType").val() == "0") {
+            if ($("#AttendanceType").val() == "0") {
+                $("#AttendanceTypeValdiation").show();
+            }
+            return false;
+        }
+        return true;
+    }
+     function Save() {
+     if (!formValidation()) {
+            return false;
+        }
+         var data = $("#form").serialize();
+         console.log(data)
+        $.ajax({
+            type: "post",
+            url: "/EmployeeAttendance/Save",
+            data: data,
+            success: function (response) {
+                if (response.msg != "Model is null") {
+                    if (response.msg == "true") {
+                        $("#EmployeeAttendanceTB").DataTable().ajax.reload();
+                        $("#form")[0].reset();
+                        $("#EmpID").focus();
+                        $('#AttendanceTimeId').timepicker('setTime', timerVal);
+                        $("#AttendanceTime").val(timerVal);
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.success('@Resources.EmployeeAttendanceAdded', '', { timeOut: 4000 });
+                        }
+                        else {
+                            $("#myModel").modal("hide");
+                            toastr.success('@Messages.EmployeeAttendanceDepartureEdited ', '', { timeOut: 4000 });
+                        }
+                    }
+                    else if(response.msg=="Employee Attendance is existed") {
+                        toastr.error('@Messages.ExistedEmployeeAttendance', '', { timeOut: 3000 });
+                    }
+                }
+                else {
+
+                        toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+
+                }
+
+
+            },
+            error: function () {
+
+                      if (data.split("&")[0] == "ID=0") {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                    }
+                    else {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                    }
+            }
+        });
+
+    }
+    let DeleteID;
+    function DeleteEmployeeAttendance(id) {
+         $("#myModelDelete").modal('show');
+           DeleteID = id;
+            }
+     $("#DeleteEmployeeAttendanceDeparture").click(function () {
+        debugger;
+         $.ajax({
+                type: "post",
+                url: "/EmployeeAttendance/delete?id="+DeleteID,
+
+                success: function (response) {
+                    $("#myModelDelete").modal("hide");
+                    $("#EmployeeAttendanceTB").DataTable().ajax.reload();
+                    toastr.success('@Messages.EmployeeAttendanceDepartureDeleted', '', { timeOut: 4000 })
+                },
+                error: function () {
+                   toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+                }
+            });
+     })
+    function EditEmployeeAttendance(id) {
+          var url = "/EmployeeAttendance/getEmployeeAttendanceByID?id=" + id;
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (rs) {
+                debugger;
+                $("#modalTitle").html("@Resources.EditEmployeeAttendanceDeparture");
+                $("#SaveEmployeeAttendance").html("@Resources.Edit");
+                $("#myModel").modal('show');
+                $("span[class*='error']").text("")
+                $("#form")[0].reset();
+                $("#EmployeeAttendanceID").val(rs.data.ID)
+                $("#EmpID").val(rs.data.EmployeeName);
+                $("#EmployeeId").val(rs.data.EmployeeId);
+                $("#Code").val(rs.data.Code);
+                $("#DeptartmentName").val(rs.data.DeptartmentName);
+                $("#AttendanceType").val(rs.data.AttendanceType);
+                $("#AttendanceDate").val(rs.data.Date);
+                $("#AttendanceTime").val(rs.data.AttendanceTime);
+                $('#AttendanceTimeId').timepicker('setTime', rs.data.AttendanceTime);
+            }
+        });
+    }
+    </script>
+}
+

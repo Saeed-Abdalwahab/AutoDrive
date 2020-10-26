@@ -1,0 +1,290 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeFileVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333%;
+    }
+
+    .col-md-8 {
+        width: 71.66666666%;
+    }
+</style>
+<div class="text-center">
+    <h3 class="center info">@Messages.Files</h3>
+</div>
+
+@*Creat apopup Modal For Add And Edit*@
+<div class="col-md-12">
+    <div class="col-md-6" style="margin-bottom:17px;">
+        @Html.Label(Resources.CodeSearch, htmlAttributes: new { @class = "col-md-4" })
+        <div class="col-md-8">
+            <div class="col-md-10">
+                @Html.DropDownList("ViewBag.CodeId", (SelectList)ViewBag.CodeId, Messages.ChooseTraineeCode , new { @class = "form-control", @id = "CodeId" , @Name="Code" })
+            </div>
+            <div class="col-md-2">
+                @Html.ValidationMessage("مطلوب", "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@using (Html.BeginForm("EditTraineeFile", "TraineeFile", FormMethod.Post, new { Id = "myForm", enctype = "multipart/form-data" }))
+{
+<div class="form-horizontal">
+
+
+    @if (Model != null)
+    {
+        <input value="@Model.ID" id="ID" name="ID" style="display:none" />
+        <input value="@Model.TraineeGuid" id="TraineeGuid" name="TraineeGuid" style="display:none" />
+        <input value="@Model.objAlreadyFound" id="objAlreadyFound" name="objAlreadyFound" style="display:none" />
+
+
+    }
+
+    <div class="row ">
+        <div>
+            <div class="col-md-12">
+
+                @*<div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @placeholder = "كود المتدرب" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>*@
+
+
+
+
+
+
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.Name, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ArName, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.EnName, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(x => x.EnName, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.LicenceType, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @if (@ViewBag.LangEn == true)
+                            {
+                                @Html.TextBoxFor(m => m.LicenceTypeEnName, new { @class = "form-control", @placeholder = "LicenceCategory", @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.LicenceTypeName, new { @class = "form-control", @readonly = "readonly" })
+
+                            }
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.LicenceCategory, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @if (@ViewBag.LangEn == true)
+                            {
+                                @Html.TextBoxFor(m => m.LicenceCategoryEnName, new { @class = "form-control", @placeholder = "LicenceCategory", @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.LicenceCategoryName, new { @class = "form-control", @readonly = "readonly" })
+
+                            }
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.FileNo, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.FileNo, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.FileNo, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.FileOpenDate, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.EditorFor(x => x.FileOpenDate, new { htmlAttributes = new { @class = "form-control", Name = "FileOpenDate" } })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.FileOpenDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="modal-footer">
+        <div class="text-left">
+
+            @if (Model.FileNo == null)
+            {
+                <input type="submit" value="@Messages.SaveBTN" id="btnSave" />
+                <input type="submit" value="@Messages.Edit" id="btnEdit" hidden="hidden" />
+                <input type="submit" value="@Messages.Delete" id="btnDelete" hidden="hidden" />
+            }
+            else
+            {
+                <input type="submit" value="@Messages.SaveBTN" id="btnSave" hidden="hidden"/>
+                <input type="submit" value="@Messages.Edit" id="btnEdit" />
+                <input type="submit" value="@Messages.Delete" id="btnDelete" />
+            }
+
+
+
+
+
+
+        </div>
+    </div>
+}
+
+@section scripts
+{
+
+    <script>
+        $(function () {
+            var f = $("#objAlreadyFound").val();
+            if (f != "") {
+
+                toastr.success(f, 'اشعار', { timeOut: 4000 });
+
+            }
+          
+            $('#FileOpenDate').datepicker({
+                dateFormat: 'mm/dd/yy'
+            });
+
+
+
+            $("#btnDelete").click(function () {
+                $("#myForm").attr("action", "/AutoDriveMain/TraineeFile/DeleteTraineeFile");
+            });
+
+
+
+            $("#CodeId").chosen();
+
+            $("#CodeId").change(function () {
+                if ($("#CodeId").val() == "") {
+                    $("#ID").val("");
+                    //$("#Code").val(res.Code);
+                    $("#ArName").val("");
+                    $("#EnName").val("");
+                    $("#LicenceTypeName").val("");
+                    $("#LicenceTypeEnName").val("");
+                    $("#LicenceCategoryName").val("");
+                    $("#LicenceCategoryEnName").val("");
+                    $("#FileNo").val("");
+                    $("#FileOpenDate").val("");
+
+                    $("#btnEdit").hide();
+                    $("#btnDelete").hide();
+                    $("#btnSave").show();
+                           
+                }
+
+              
+                else {
+                    $.ajax({
+                        url: "@Url.Action("GetTraineeFileByCode","TraineeFile")",
+
+                        data: { NCode: $("#CodeId").val() },
+                        success: function (res) {
+                            $("#ID").val(res.ID);
+                            $("#TraineeGuid").val(res.TraineeGuid);
+                            //$("#Code").val(res.Code);
+                            $("#ArName").val(res.ArName);
+                            $("#EnName").val(res.EnName);
+                            $("#LicenceTypeName").val(res.LicenceTypeName);
+                            $("#LicenceTypeEnName").val(res.LicenceTypeEnName);
+                            $("#LicenceCategoryName").val(res.LicenceCategoryName);
+                            $("#LicenceCategoryEnName").val(res.LicenceCategoryEnName);
+                            $("#FileNo").val(res.FileNo);
+                            $("#FileOpenDate").val(res.FileOpenDate);
+                            
+                            if ($("#FileNo").val() != "") {
+                                
+                                $("#btnEdit").show();
+                                $("#btnDelete").show();
+                                $("#btnSave").hide();
+                            }
+                            else {
+                            
+                                $("#btnSave").show();
+                                $("#btnEdit").hide();
+                                $("#btnDelete").hide();
+                            }
+                        }
+                    
+                    });
+                    }
+            });
+        });
+    </script>
+}

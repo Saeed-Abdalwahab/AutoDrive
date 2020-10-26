@@ -1,0 +1,188 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeAttendingFollowupVM
+
+@{
+    ViewBag.Title = "TraineeAttendance_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333%;
+    }
+
+    .col-md-8 {
+        width: 71.66666666%;
+    }
+
+    .timePicker {
+        border: 1px solid gray;
+        overflow-y: scroll;
+        height: 120px;
+        width: 180px;
+        position: absolute;
+        background-color: #fff;
+    }
+
+        .timePicker ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .timePicker ul li p {
+                padding: 3px;
+                margin: 0;
+            }
+
+            .timePicker ul li:hover, .timePicker-selected {
+                background-color: gray;
+                color: #fff;
+            }
+
+    .timePicker {
+        z-index: 999;
+    }
+</style>
+<link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+@*<link href="~/Content/gijgo/modular/timepicker.min.css" rel="stylesheet" />*@
+<div class="text-center">
+    <h3 class="center info"> @Messages.TraineeAttendance_Absence</h3>
+</div>
+
+
+
+@*<input value="@Model.ID" id="ID" name="ID" style="display:none" />*@
+
+
+
+
+<div class="container" style="margin-top:3%">
+    <input id="TraineeId" name="TraineeId" value="@Model.TraineeId" style="display:none" />
+
+    @if( ViewBag.CheckUS == "En-Us")
+    {
+    <input type="text" id="ArName" name="ArName" value="@Model.EnName" readonly="readonly" />
+    }
+    else{
+    <input type="text" id="EnName" name="EnName" value="@Model.ArName" readonly="readonly"/>
+    }
+
+
+    <button id="ADDNEWREC" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>
+
+    <table class="table table-striped jambo_table bulk-action">
+        <thead>
+            <tr>
+                <th>
+                    م
+                </th>
+                <th>
+                    @Messages.Day_ofWeek
+                </th>
+                <th>
+                    @Messages.AttendanceDate
+                </th>
+                <th>
+
+                </th>
+
+
+
+            </tr>
+        </thead>
+
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+
+    <script>
+
+
+
+        function MapJson(Obj, form) {
+
+            $.each(Obj,function(key,value) {
+          form.find("input[name='"+key+"']").val(value);
+      });
+        }
+        var DATATABLE = "";
+
+     $(document).ready(function () {
+
+
+         //$("#ADDNEWREC").click(function () {
+
+             var tId = $("#TraineeId").val();
+
+
+             DATATABLE = $('table').DataTable({
+                 "ajax": {
+                     'url': '@Url.Action("Getall","TraineeAttendance_Absence")'+ '?TraineeId=' + tId,
+                     'type': "GET"
+                 },
+                 "columns": [
+                     {
+                         "data": null, "render": function (data, type, full, meta) {
+                             return meta.row + 1;
+                         }
+                     },
+
+                     { "data": "Day_ofWeek" },
+
+                     { "data": '@ViewBag.CheckUS' == "En-Us" ? "EnTraineeAttendance" : "ArTraineeAttendance" },
+
+                     { "data": '@ViewBag.CheckUS' == "En-Us" ? "EnAttendanceOrAbsence" : "ArAttendanceOrAbsence" },
+
+                 ],
+                 "language": {
+                     "sEmptyTable": "@Messages.sEmptyTable",
+                     "sLoadingRecords": "@Messages.sLoadingRecords",
+                     "sProcessing": "@Messages.sProcessing",
+                     "sLengthMenu": "@Messages.sLengthMenu",
+                     "sZeroRecords": "@Messages.sZeroRecords",
+                     "sInfo": "@Messages.sInfo",
+                     "sInfoEmpty": "@Messages.sInfoEmpty",
+                     "sInfoFiltered": "@Messages.sInfoFiltered",
+                     "sInfoPostFix": "",
+                     "sSearch": "@Messages.sSearch",
+                     "sUrl": "",
+                     "oPaginate": {
+                         "sFirst": "@Messages.sFirst",
+                         "sPrevious": "@Messages.sPrevious",
+                         "sNext": "@Messages.sNext",
+                         "sLast": "@Messages.sLast"
+                     },
+                     "oAria": {
+                         "sSortAscending": ": @Messages.sSortAscending",
+                         "sSortDescending": ": @Messages.sSortDescending"
+                     }
+                 },
+                 info: false,
+
+             })
+             DATATABLE.on('order.dt search.dt', function () {
+                 DATATABLE.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                     cell.innerHTML = i + 1;
+                 });
+             }).draw();
+
+             $("#SAVEREC").click(function () {
+                 Save();
+             });
+
+
+         });
+    //});
+
+
+
+    </script>
+}

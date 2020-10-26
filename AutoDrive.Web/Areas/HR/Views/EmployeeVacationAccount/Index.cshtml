@@ -1,0 +1,485 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveHR.EmployeeVacationAccountVM
+@{
+    ViewBag.Title = Resources.EmployeeVacationAccount;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .LoanDateRight {
+        text-align: right;
+        padding-right: 5%;
+    }
+
+    .LoanDateLeft {
+        text-align: left;
+        padding-left: 5%;
+    }
+</style>
+<style>
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 2000 !important;
+        float: left;
+        display: none;
+        min-width: 160px;
+        padding: 4px 0;
+        margin: 0 0 10px 25px;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+        color: black;
+        padding-right: 2%;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    .page-header {
+        padding-bottom: 9px;
+        margin: 40px 0 20px;
+        border-bottom: 1px solid #0c0c0c;
+    }
+</style>
+
+<div class="x_content">
+    <h2>@Resources.EmployeeVacationAccount</h2>
+    <div class="modal" id="myModel" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="create">
+                    <form id="form">
+
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(m => m.ID, new { @id = "EmployeeVacationAccountID" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HolidayTypeId, htmlAttributes: new { @class = "control-label col-md-2",@style="" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.HolidayTypeId, ViewBag.HolidayTypes as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                                    @Html.ValidationMessageFor(model => model.HolidayTypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DaysNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.DaysNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.DaysNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.Year,ViewBag.YearsLst as SelectList,Resources.Choose,htmlAttributes:new { @class = "form-control" ,@style="width:100%"} )
+                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                </div>
+                           
+                                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="SaveEmployeeVacationAccount"></a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.deleteEmployeeVacationAccount</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteEmployeeVacation">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" id="con">
+
+        <table id="EmployeeVacationAccountTB" class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.Employee</th>
+                    <th>@Resources.HolidayType</th>
+                    <th>@Resources.DaysNumberVacations </th>
+                    <th>@Resources.TheYear</th>
+                    <th>@Resources.FromDate</th>
+                    <th>@Resources.ToDate</th>
+                    <th>@Resources.Edit</th>
+                    <th>@Resources.Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <button type="button" class="btn btn-primary btn-lg btn-round navbar-fixed-bottom " onclick="Create()" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="@Resources.AddDeduction" style="left:74%;bottom:15%"><span class="glyphicon glyphicon-plus"></span></button>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        var DeleteID;
+    function Create() {
+        $("span[class*='error']").text("")
+        $("#form")[0].reset();
+        $("#modalTitle").html("@Resources.AddEmployeeVacationBalance");
+        $("#SaveEmployeeVacationAccount").html("@Resources.Add");
+        $("#EmployeeVacationAccountID").val(0);
+        $("#myModel").modal();
+        $("#EmpID").focus();
+            }
+     $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../payroll/EmployeeLoan/SearchEmployee",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+     });
+    function EmpChange() {
+        $("#EmployeeId-error").hide();
+        if ($("#EmpID").val()=="") {
+               $('#EmployeeId').val("")
+
+        }
+         
+    }
+    $("#EmpID").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#EmpID").val()=="") {
+                            $("#EmpID").focus();
+                        } else if ($("#DaysNumber").val() == "") {
+                            $("#DaysNumber").focus();
+                        }
+                    }
+                }
+    });
+     $("#DaysNumber").keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    if (formValidation()) {
+                        Save()
+                    }
+                    else {
+                        if ($("#EmpID").val()=="") {
+                            $("#EmpID").focus();
+                        } else if ($("#DaysNumber").val() == "") {
+                            $("#DaysNumber").focus();
+                        }
+                    }
+                }
+     });
+    $(document).ready(function () {
+        $("#StartDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            $("#StartDate-error").hide();
+        });
+          $("#EndDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            $("#EndDate-error").hide();
+        });
+        $('#EmployeeVacationAccountTB').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("GetEmployeeVacationAccount","EmployeeVacationAccount")",
+                        'type': "GET"
+                    }, "columns": [
+                        {
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+                       
+                        { "data": "EmpName",width:"10%" },
+                        { "data": "HolidayTypeName" ,width:"10%"},
+                        { "data": "DaysNumber" ,width:"10%"},
+                        { "data": "Year" ,width:"10%"},
+                        {
+                            "data": "StartDate", "render": function (data, type, row) {
+                                       return moment(data).format('DD/MM/YYYY');
+                                
+                            },width:"10%"
+                        },
+                        
+                        {
+                            "data": "EndDate", "render": function (data, type, row) {
+                                      return moment(data).format('DD/MM/YYYY');
+                                
+                            },width:"10%"
+                        },
+                 
+                  {
+                            "data": "ID", "render": function (data, type, row) {
+                               
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='EditEmployeeVacationAccount(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                            },"width": "10%"
+                        },
+                        {
+                            "data": "ID", "render": function (data, type, row) {
+                                 return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteEmployeeVacationAccount(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                                    
+                            },"width": "10%"
+                        }
+                    ], "language": GetLanguage()
+                });
+
+    });
+    $("#SaveEmployeeVacationAccount").click(function () {
+        Save();
+    });
+    function formValidation() {
+        debugger;
+        if ($("#form").valid()) {
+            
+            return true;
+        }
+        return false;
+    }
+    function Save() {
+     if (!formValidation()) {
+            return false;
+        }
+        var data = $("#form").serialize();
+        $.ajax({
+            type: "post",
+            url: "/EmployeeVacationAccount/Save",
+            data: data,
+            success: function (response) {
+                if (response.msg != "Model is null") {
+                    if (response.msg == true) {
+                        $("#EmployeeVacationAccountTB").DataTable().ajax.reload();
+                        $("#form")[0].reset();
+                        $("#EmpID").focus();
+                        if (data.split("&")[0] == "ID=0") {
+                            toastr.success('@Resources.EmployeeVacationBalanceAdded', '', { timeOut: 4000 });
+
+                        }
+                        else {
+                            $("#myModel").modal("hide");
+                            toastr.success('@Messages.EmployeeVacationBalanceEdited ', '', { timeOut: 4000 });
+                        }
+                    }
+                    else {
+                        toastr.error('@Messages.ExistedBalance', '', { timeOut: 3000 });
+
+                    }
+
+                }
+                else {
+                  
+                        toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+
+                }
+
+
+            },
+            error: function () {
+
+                      if (data.split("&")[0] == "ID=0") {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorAdding ', { timeOut: 3000 });
+
+                    }
+                    else {
+                        toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorModification ', { timeOut: 3000 });
+                    }
+            }
+        });
+
+            }
+    function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+            }
+    function EditEmployeeVacationAccount(EditedID) {
+             var url = "/EmployeeVacationAccount/getEmployeeVacationAccountByID?id=" + EditedID;
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (rs) {
+                $("#modalTitle").html("@Resources.editEmployeeVactionAccount");
+                $("#SaveEmployeeVacationAccount").html("@Resources.Edit");
+                $("#myModel").modal('show');
+                 $("span[class*='error']").text("")
+                 $("#form")[0].reset();
+                $("#EmployeeVacationAccountID").val(rs.data.ID)
+                $("#EmployeeId").val(rs.data.EmployeeId);
+                $("#EmpID").val(rs.data.EmpName);
+                $("#HolidayTypeId").val(rs.data.HolidayTypeId);
+                $("#DaysNumber").val(rs.data.DaysNumber);
+                $("#Year").val(rs.data.Year);
+                $("#StartDate").val(dateFormat(new Date(parseInt((rs.data.StartDate).match(/\d+/)[0]))));
+                $("#EndDate").val(dateFormat(new Date(parseInt((rs.data.EndDate).match(/\d+/)[0]))));
+            }
+        });
+            }
+    function dateFormat(d) {
+                return  (d.getDate() + "").padStart(2, "0")
+                    + "/" +((d.getMonth() + 1) + "").padStart(2, "0")
+                    + "/" + d.getFullYear();
+    }
+    function DeleteEmployeeVacationAccount(id) {
+        $("#myModelDelete").modal('show');
+        DeleteID = id;
+            }
+     $("#DeleteEmployeeVacation").click(function () {
+
+        $.ajax({
+            type: "post",
+            url: "/EmployeeVacationAccount/deleteEmployeeVacationAccount?id=" + DeleteID,
+
+            success: function (response) {
+                $("#myModelDelete").modal("hide");
+                $("#EmployeeVacationAccountTB").DataTable().ajax.reload();
+                toastr.success('@Messages.EmployeeVacationBalanceDeleted ', '', { timeOut: 4000 })
+            },
+            error: function () {
+               
+                toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+            }
+        });
+    });
+    </script>
+}
+
+

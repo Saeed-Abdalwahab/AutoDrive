@@ -1,0 +1,1217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddJobDegree" xml:space="preserve">
+    <value>AddJobDegree</value>
+  </data>
+  <data name="ArName" xml:space="preserve">
+    <value>Name(AR)</value>
+    <comment>Saeed</comment>
+  </data>
+  <data name="BirthPlaceArea" xml:space="preserve">
+    <value>BirthplaceArea</value>
+  </data>
+  <data name="BirthPlaceCountry" xml:space="preserve">
+    <value>Birthplace</value>
+  </data>
+  <data name="BloodGroup" xml:space="preserve">
+    <value>BloodGroup</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteJobDegree" xml:space="preserve">
+    <value>Delete Job Degree</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Are sure of the deleting process ?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Enddate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="EnName" xml:space="preserve">
+    <value>Name(EN)</value>
+    <comment>Saeed</comment>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="HousePhone" xml:space="preserve">
+    <value>Housephone</value>
+  </data>
+  <data name="JobDegree" xml:space="preserve">
+    <value>Job Degree</value>
+  </data>
+  <data name="JobDegreeEdit" xml:space="preserve">
+    <value>Edit Job Degree</value>
+  </data>
+  <data name="MaritalStatus" xml:space="preserve">
+    <value>Maritalstatus</value>
+  </data>
+  <data name="MobileNumber" xml:space="preserve">
+    <value>Mobilenumber</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name(AR)</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="Religion" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="Residence" xml:space="preserve">
+    <value>Residence</value>
+  </data>
+  <data name="Startdate" xml:space="preserve">
+    <value>Startdate</value>
+  </data>
+  <data name="AddJobLevel" xml:space="preserve">
+    <value>Add Job Level</value>
+  </data>
+  <data name="DeleteJobLevel" xml:space="preserve">
+    <value>Delete Job Level</value>
+  </data>
+  <data name="JobLevel" xml:space="preserve">
+    <value>Job Level</value>
+  </data>
+  <data name="JobLeveledit" xml:space="preserve">
+    <value>Edit Job Level</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="BasicORChangedSalary" xml:space="preserve">
+    <value>Basic and Changed Salary</value>
+  </data>
+  <data name="AddIncreasingAndDeductionType" xml:space="preserve">
+    <value>Add Increasing And Deduction Type</value>
+  </data>
+  <data name="IncreasingDeductionType" xml:space="preserve">
+    <value>Increasing and Deduction Type</value>
+  </data>
+  <data name="IncreasingORdeduction" xml:space="preserve">
+    <value>Increasing/Deduction</value>
+  </data>
+  <data name="ChangedSalary" xml:space="preserve">
+    <value>Changed Salary</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="DeleteSalary" xml:space="preserve">
+    <value>DeleteSalary</value>
+  </data>
+  <data name="AddDeduction" xml:space="preserve">
+    <value>Add Increases and Deduction</value>
+  </data>
+  <data name="AddSalary" xml:space="preserve">
+    <value>Add Salary</value>
+  </data>
+  <data name="BasicSalary" xml:space="preserve">
+    <value>Basic Salary/All</value>
+  </data>
+  <data name="Deduction" xml:space="preserve">
+    <value>Deduction</value>
+  </data>
+  <data name="DeductionSetting" xml:space="preserve">
+    <value>Increases and Deductions</value>
+  </data>
+  <data name="DelteDeduction" xml:space="preserve">
+    <value>Delete Increases and Deduction</value>
+  </data>
+  <data name="EditDeduction" xml:space="preserve">
+    <value>Edit Increases and Deduction</value>
+  </data>
+  <data name="EditSalary" xml:space="preserve">
+    <value>Edit Salary</value>
+  </data>
+  <data name="Name1" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Ratio" xml:space="preserve">
+    <value>Ratio/Value</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="DeleteIncreasesDeductionType" xml:space="preserve">
+    <value>Delete Increases and Deductions Type</value>
+  </data>
+  <data name="EditIncreasesDeductionType" xml:space="preserve">
+    <value>Edit Increases and Deduction Type</value>
+  </data>
+  <data name="AddingIncreasesDeductionsToJob" xml:space="preserve">
+    <value>Adding Increases and Deductions To Job Degree and Job Level</value>
+  </data>
+  <data name="DeductionsShow" xml:space="preserve">
+    <value>Show Deductions</value>
+  </data>
+  <data name="IncreasesShow" xml:space="preserve">
+    <value>Show Increases</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MotivationEmployee" xml:space="preserve">
+    <value>Motivation Employee</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="InMonth" xml:space="preserve">
+    <value>In Month</value>
+  </data>
+  <data name="InYear" xml:space="preserve">
+    <value>In Year</value>
+  </data>
+  <data name="MotivationDate" xml:space="preserve">
+    <value>Motivation Date</value>
+  </data>
+  <data name="MotivationType" xml:space="preserve">
+    <value>Motivation Type</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="MotivationStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="RewardAdd" xml:space="preserve">
+    <value>Add Reward</value>
+  </data>
+  <data name="WithSalaryOrForm" xml:space="preserve">
+    <value>With Salary/Form</value>
+  </data>
+  <data name="LicenceKind" xml:space="preserve">
+    <value>Licence Kind</value>
+  </data>
+  <data name="LicenceType" xml:space="preserve">
+    <value>Licence Type</value>
+  </data>
+  <data name="LicenseNumber" xml:space="preserve">
+    <value>License Number</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Release Date</value>
+  </data>
+  <data name="SourceArea" xml:space="preserve">
+    <value>Source Area</value>
+  </data>
+  <data name="CertificationGrade" xml:space="preserve">
+    <value>Certification Grade</value>
+  </data>
+  <data name="CertificationSpecDepart" xml:space="preserve">
+    <value>Certification Department</value>
+  </data>
+  <data name="CertificationSpecific" xml:space="preserve">
+    <value>Certification Specific</value>
+  </data>
+  <data name="CetificationType" xml:space="preserve">
+    <value>Cetification Type</value>
+  </data>
+  <data name="GraduationMonth" xml:space="preserve">
+    <value>Graduation Month</value>
+  </data>
+  <data name="GraduationYear" xml:space="preserve">
+    <value>Graduation Year</value>
+  </data>
+  <data name="QualificationDiscribtion" xml:space="preserve">
+    <value>Qualification Describtion</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="EmployeeStatus" xml:space="preserve">
+    <value>Employee Status</value>
+  </data>
+  <data name="DeleteReward" xml:space="preserve">
+    <value>Delete Reward</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Company Address</value>
+  </data>
+  <data name="TraineeCode" xml:space="preserve">
+    <value>Trainee Code</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="RewardDeleted" xml:space="preserve">
+    <value>Reward has been deleted</value>
+  </data>
+  <data name="FromMonth" xml:space="preserve">
+    <value>From Month</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="FromYear" xml:space="preserve">
+    <value>From Year</value>
+  </data>
+  <data name="FileNo" xml:space="preserve">
+    <value>FileNo</value>
+  </data>
+  <data name="JobSpecification" xml:space="preserve">
+    <value>Job Specification</value>
+  </data>
+  <data name="ToMonth" xml:space="preserve">
+    <value>To Month</value>
+  </data>
+  <data name="EditReward" xml:space="preserve">
+    <value>Edit Reward</value>
+  </data>
+  <data name="FileOpenDate" xml:space="preserve">
+    <value>FileOpenDate</value>
+  </data>
+  <data name="ApprovalAmount" xml:space="preserve">
+    <value>Approval Of Salary</value>
+  </data>
+  <data name="CancelEvent" xml:space="preserve">
+    <value>Cancel Event</value>
+  </data>
+  <data name="NationalId" xml:space="preserve">
+    <value>NationalId</value>
+  </data>
+  <data name="ReceivableReceived" xml:space="preserve">
+    <value>Receivable Received</value>
+  </data>
+  <data name="NationalType" xml:space="preserve">
+    <value>National Type</value>
+  </data>
+  <data name="Photopath" xml:space="preserve">
+    <value>Photopath</value>
+  </data>
+  <data name="underRevision" xml:space="preserve">
+    <value>Under Revision</value>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="WithSalary" xml:space="preserve">
+    <value>With Salary</value>
+  </data>
+  <data name="ApprovalReward" xml:space="preserve">
+    <value>Approval Of Reward</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>April</value>
+  </data>
+  <data name="Augst" xml:space="preserve">
+    <value>August</value>
+  </data>
+  <data name="Dec" xml:space="preserve">
+    <value>Decmeber</value>
+  </data>
+  <data name="Feb" xml:space="preserve">
+    <value>February</value>
+  </data>
+  <data name="Jan" xml:space="preserve">
+    <value>January</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>July</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>June</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="Nov" xml:space="preserve">
+    <value>Novmeber</value>
+  </data>
+  <data name="Oct" xml:space="preserve">
+    <value>October</value>
+  </data>
+  <data name="Sept" xml:space="preserve">
+    <value>Septmber</value>
+  </data>
+  <data name="WithSalaryOrForm1" xml:space="preserve">
+    <value>Salary Or Form</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Basic" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="TheRatio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="TheValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="SpeechLanguageId" xml:space="preserve">
+    <value>SpeechLanguage</value>
+  </data>
+  <data name="ViolationType" xml:space="preserve">
+    <value>Violation Settings</value>
+  </data>
+  <data name="DaysNumber" xml:space="preserve">
+    <value>Days Number</value>
+  </data>
+  <data name="FromBaseSalaryOrOverall" xml:space="preserve">
+    <value>Basic Salary Or Overall</value>
+  </data>
+  <data name="FromMoney" xml:space="preserve">
+    <value>From Money</value>
+  </data>
+  <data name="FromMoneyOrMoral" xml:space="preserve">
+    <value>From Money Or Moral</value>
+  </data>
+  <data name="Moral" xml:space="preserve">
+    <value>Moral</value>
+  </data>
+  <data name="AddViolationType" xml:space="preserve">
+    <value>Add Violation Setting</value>
+  </data>
+  <data name="EvaluationEmployee" xml:space="preserve">
+    <value>EvaluationEmployee</value>
+  </data>
+  <data name="LicenceCategory" xml:space="preserve">
+    <value>LicenceCategory</value>
+  </data>
+  <data name="StudyPeriodSetting" xml:space="preserve">
+    <value>Study Level</value>
+  </data>
+  <data name="Trainee" xml:space="preserve">
+    <value>Trainee</value>
+  </data>
+  <data name="EvaluationDate" xml:space="preserve">
+    <value>EvaluationDate</value>
+  </data>
+  <data name="TraineePhotopath" xml:space="preserve">
+    <value>Trainee Photo</value>
+  </data>
+  <data name="ToYear" xml:space="preserve">
+    <value>To Year</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CountryEnName" xml:space="preserve">
+    <value>Country Name(En)</value>
+  </data>
+  <data name="CountryName" xml:space="preserve">
+    <value>Country Name(ar)</value>
+  </data>
+  <data name="TraineeAge" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="ManagementEnName" xml:space="preserve">
+    <value>Managment Name(en)</value>
+  </data>
+  <data name="ManagementName" xml:space="preserve">
+    <value>Managment Name(ar)</value>
+  </data>
+  <data name="EditViolationType" xml:space="preserve">
+    <value>Edit Violation Settings</value>
+  </data>
+  <data name="DeleteViolationType" xml:space="preserve">
+    <value>Delete Violations Settings</value>
+  </data>
+  <data name="violationTypeDeleted" xml:space="preserve">
+    <value>Violation Setting has been deleted</value>
+  </data>
+  <data name="EmployeeViolation" xml:space="preserve">
+    <value>Violations</value>
+  </data>
+  <data name="ViolationDate" xml:space="preserve">
+    <value>Violation Date</value>
+  </data>
+  <data name="ViolationsType" xml:space="preserve">
+    <value>Violation Type</value>
+  </data>
+  <data name="EmployeeViolationAdd" xml:space="preserve">
+    <value>Add Violations</value>
+  </data>
+  <data name="ApprovalViolation" xml:space="preserve">
+    <value>Violation Approval</value>
+  </data>
+  <data name="DeleteViolation" xml:space="preserve">
+    <value>Delete Violation</value>
+  </data>
+  <data name="editViolation" xml:space="preserve">
+    <value>Edit Violation</value>
+  </data>
+  <data name="ProfileImge" xml:space="preserve">
+    <value>Profile Image</value>
+  </data>
+  <data name="BasicSalaryAndChanged" xml:space="preserve">
+    <value>Basic Salary And Changed Salary</value>
+  </data>
+  <data name="IncreasesAndDeductions" xml:space="preserve">
+    <value>Increases And Deductions</value>
+  </data>
+  <data name="Payroll" xml:space="preserve">
+    <value>Payroll</value>
+  </data>
+  <data name="Deduction1" xml:space="preserve">
+    <value>Deduction</value>
+  </data>
+  <data name="Increase" xml:space="preserve">
+    <value>Increase</value>
+  </data>
+  <data name="CertificationTypeEnName" xml:space="preserve">
+    <value>CertificationTypeName(En)</value>
+  </data>
+  <data name="CertificationTypeName" xml:space="preserve">
+    <value>CertificationType(Ar)</value>
+  </data>
+  <data name="CertificationSpecificeEnName" xml:space="preserve">
+    <value>CertificationSpecifice(En)</value>
+  </data>
+  <data name="CertificationSpecificeName" xml:space="preserve">
+    <value>CertificationSpecifice(Ar)</value>
+  </data>
+  <data name="EmployeesSalaries" xml:space="preserve">
+    <value>Salaries Of Employees</value>
+  </data>
+  <data name="MonthSalary" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="YearSalary" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="CalculateSalary" xml:space="preserve">
+    <value>Calculate Salaries</value>
+  </data>
+  <data name="CodeSearch" xml:space="preserve">
+    <value>Search by TraineeCode</value>
+  </data>
+  <data name="CourseCost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="CourseEndDate" xml:space="preserve">
+    <value>Course EndDate</value>
+  </data>
+  <data name="CourseStartDate" xml:space="preserve">
+    <value>Course StartDate</value>
+  </data>
+  <data name="PracticalCount" xml:space="preserve">
+    <value>Practical Count</value>
+  </data>
+  <data name="VisualStudyCount" xml:space="preserve">
+    <value>Visual Count</value>
+  </data>
+  <data name="SalaryApproval" xml:space="preserve">
+    <value>Salaries Approval</value>
+  </data>
+  <data name="AllStatus" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ApprovalSalary" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="SalaryStatus" xml:space="preserve">
+    <value>Salary Status</value>
+  </data>
+  <data name="ViewSalaries" xml:space="preserve">
+    <value>View Salaries</value>
+  </data>
+  <data name="CheckedEmployeesSalariesApproval" xml:space="preserve">
+    <value>Approving Salaries Of Selected Employees</value>
+  </data>
+  <data name="CheckToApproveSalary" xml:space="preserve">
+    <value>Check To Approve Salary</value>
+  </data>
+  <data name="AffiliateManagement" xml:space="preserve">
+    <value>Affiliate Management</value>
+  </data>
+  <data name="Approval" xml:space="preserve">
+    <value>Approval</value>
+  </data>
+  <data name="ShowSalaryVocabulary" xml:space="preserve">
+    <value>Show Salary Vocabulary</value>
+  </data>
+  <data name="ApprovalBtn" xml:space="preserve">
+    <value>Approval</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Net salary Of Month</value>
+  </data>
+  <data name="ShowBtn" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="MinimalAge" xml:space="preserve">
+    <value>Minimal Age</value>
+  </data>
+  <data name="LicenceTypeId" xml:space="preserve">
+    <value>Licence TypeName</value>
+  </data>
+  <data name="LicenceTypeName" xml:space="preserve">
+    <value>Licence TypeName</value>
+  </data>
+  <data name="employeeSalaryApproval" xml:space="preserve">
+    <value>Salary is approved</value>
+  </data>
+  <data name="ReturnToSalaryApproval" xml:space="preserve">
+    <value>Back To Salary Approval</value>
+  </data>
+  <data name="Reward" xml:space="preserve">
+    <value>Reward</value>
+  </data>
+  <data name="Violation" xml:space="preserve">
+    <value>Violation</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="CarrerField" xml:space="preserve">
+    <value>Carrer Field</value>
+  </data>
+  <data name="JobFunction" xml:space="preserve">
+    <value>Job Function</value>
+  </data>
+  <data name="JobName" xml:space="preserve">
+    <value>Job Name</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="SpaceName" xml:space="preserve">
+    <value>This name cannot be a space. Please enter another name</value>
+  </data>
+  <data name="DriveLevelEnName" xml:space="preserve">
+    <value>Drive Level</value>
+  </data>
+  <data name="DriveLevelId" xml:space="preserve">
+    <value>Drive Level</value>
+  </data>
+  <data name="DriveLevelName" xml:space="preserve">
+    <value>Drive Level</value>
+  </data>
+  <data name="LevelStatus" xml:space="preserve">
+    <value>Level Status</value>
+  </data>
+  <data name="LevelStatusEnName" xml:space="preserve">
+    <value>Level Status</value>
+  </data>
+  <data name="LevelStatusName" xml:space="preserve">
+    <value>Level Status</value>
+  </data>
+  <data name="LevelTotal" xml:space="preserve">
+    <value>Level Total</value>
+  </data>
+  <data name="Practical" xml:space="preserve">
+    <value>Practical</value>
+  </data>
+  <data name="PracticalCost" xml:space="preserve">
+    <value>Practical Cost</value>
+  </data>
+  <data name="PracticalTotal" xml:space="preserve">
+    <value>Practical Total</value>
+  </data>
+  <data name="VisualStudyCost" xml:space="preserve">
+    <value>Visual Study Cost</value>
+  </data>
+  <data name="VisualStudyTotal" xml:space="preserve">
+    <value>Visual Study Total</value>
+  </data>
+  <data name="CourseReservationId" xml:space="preserve">
+    <value>Course Reservation</value>
+  </data>
+  <data name="PaidDate" xml:space="preserve">
+    <value>Paid Date</value>
+  </data>
+  <data name="PaidValue" xml:space="preserve">
+    <value>Paid Value</value>
+  </data>
+  <data name="ReceiptVoucher" xml:space="preserve">
+    <value>Receipt Voucher</value>
+  </data>
+  <data name="ReceiptVoucherCode" xml:space="preserve">
+    <value>ReceiptVoucher Code</value>
+  </data>
+  <data name="ReceiptVoucherDate" xml:space="preserve">
+    <value>ReceiptVoucherDate</value>
+  </data>
+  <data name="TraineeId" xml:space="preserve">
+    <value>Trainee</value>
+  </data>
+  <data name="DayName" xml:space="preserve">
+    <value>Day Name</value>
+  </data>
+  <data name="DisplayDayName" xml:space="preserve">
+    <value>DisplayDay Name</value>
+  </data>
+  <data name="DisplayDayNameEn" xml:space="preserve">
+    <value>DisplayDay NameEn</value>
+  </data>
+  <data name="FromHour" xml:space="preserve">
+    <value>From Hour</value>
+  </data>
+  <data name="NOWorkHours" xml:space="preserve">
+    <value>NOWork Hours</value>
+  </data>
+  <data name="ToHour" xml:space="preserve">
+    <value>To Hour</value>
+  </data>
+  <data name="EmployeeLoan" xml:space="preserve">
+    <value>Monthly Advances and Loans</value>
+  </data>
+  <data name="ApprovalLoan" xml:space="preserve">
+    <value>Loan Approval</value>
+  </data>
+  <data name="LoanDate" xml:space="preserve">
+    <value>Loan Date</value>
+  </data>
+  <data name="LoanStatus" xml:space="preserve">
+    <value>Loan Status</value>
+  </data>
+  <data name="LoanValue" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="MonthlyValue" xml:space="preserve">
+    <value>Monthly Value</value>
+  </data>
+  <data name="PaymentDateFrom" xml:space="preserve">
+    <value>Payment Date From</value>
+  </data>
+  <data name="PaymentDateTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="UnderPaymentOrPaid" xml:space="preserve">
+    <value>Under Payment/ Paid</value>
+  </data>
+  <data name="EmployeeLoanAdd" xml:space="preserve">
+    <value>Add Loan</value>
+  </data>
+  <data name="editLoan" xml:space="preserve">
+    <value>Edit Loan</value>
+  </data>
+  <data name="EndOfService" xml:space="preserve">
+    <value>End Of Service</value>
+  </data>
+  <data name="Inservice" xml:space="preserve">
+    <value>In Service</value>
+  </data>
+  <data name="LoanPayment" xml:space="preserve">
+    <value>Loan Payment</value>
+  </data>
+  <data name="ConvertToPayment" xml:space="preserve">
+    <value>Convert To Payment</value>
+  </data>
+  <data name="TotalPaid" xml:space="preserve">
+    <value>Total Paid</value>
+  </data>
+  <data name="ValueLoan" xml:space="preserve">
+    <value>Loan Value</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="CurrentManagement" xml:space="preserve">
+    <value>Current Management</value>
+  </data>
+  <data name="StatusLoan" xml:space="preserve">
+    <value>Loan Status</value>
+  </data>
+  <data name="DaysNumberVacations" xml:space="preserve">
+    <value>Owed Days</value>
+  </data>
+  <data name="EmployeeVacationAccount" xml:space="preserve">
+    <value>Add Employee Vacations Balance</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="HolidayType" xml:space="preserve">
+    <value>Holiday Type</value>
+  </data>
+  <data name="TheYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="AddEmployeeVacationBalance" xml:space="preserve">
+    <value>Add Employee Vacation Balance</value>
+  </data>
+  <data name="EmployeeVacationBalanceAdded" xml:space="preserve">
+    <value>Employee Vacation Balance has been Added</value>
+  </data>
+  <data name="StudyPeriodSettingEnName" xml:space="preserve">
+    <value>Study Level</value>
+  </data>
+  <data name="StudyPeriodSettingName" xml:space="preserve">
+    <value>Study Level</value>
+  </data>
+  <data name="TraineeGuid" xml:space="preserve">
+    <value>Trainee Guid</value>
+  </data>
+  <data name="AttendanceDate" xml:space="preserve">
+    <value>Attendance Date</value>
+  </data>
+  <data name="PracticalOrVisual" xml:space="preserve">
+    <value>Practical or Visual</value>
+  </data>
+  <data name="PracticalStudy" xml:space="preserve">
+    <value>Practical Study</value>
+  </data>
+  <data name="VisualStudy" xml:space="preserve">
+    <value>Visual Study</value>
+  </data>
+  <data name="TraineeEvaluationId" xml:space="preserve">
+    <value>TraineeEvaluationId</value>
+  </data>
+  <data name="editEmployeeVactionAccount" xml:space="preserve">
+    <value>Edit Employee Vacation Balance</value>
+  </data>
+  <data name="deleteEmployeeVacationAccount" xml:space="preserve">
+    <value>Delete Employee Vacation Account</value>
+  </data>
+  <data name="Loan" xml:space="preserve">
+    <value>Loan</value>
+  </data>
+  <data name="DaysWork" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="EmployeeVacation" xml:space="preserve">
+    <value>Vacations</value>
+  </data>
+  <data name="NODays" xml:space="preserve">
+    <value>Number Of Days</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="AddEmployeeVacation" xml:space="preserve">
+    <value>Add Vacations</value>
+  </data>
+  <data name="DateToValidation" xml:space="preserve">
+    <value>Date To is less than Date From </value>
+  </data>
+  <data name="deleteEmployeeVacation" xml:space="preserve">
+    <value>Delete Vacation</value>
+  </data>
+  <data name="editEmployeeVaction" xml:space="preserve">
+    <value>Edit Vacation</value>
+  </data>
+  <data name="VacationDeductions" xml:space="preserve">
+    <value>Vacation Deductions</value>
+  </data>
+  <data name="ViewVacation" xml:space="preserve">
+    <value>Displayed Vacations</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="DaysNo" xml:space="preserve">
+    <value>Days Number</value>
+  </data>
+  <data name="deductionMonth" xml:space="preserve">
+    <value>Deduction From Month</value>
+  </data>
+  <data name="deductionYear" xml:space="preserve">
+    <value>Deduction From Year</value>
+  </data>
+  <data name="DeleteVacationDeduction" xml:space="preserve">
+    <value>Delete Vacations Deduction</value>
+  </data>
+  <data name="AttendanceDatetime" xml:space="preserve">
+    <value>Attendance Datetime</value>
+  </data>
+  <data name="LeaveDateTime" xml:space="preserve">
+    <value>Leave DateTime</value>
+  </data>
+  <data name="TraineeAttendanceId" xml:space="preserve">
+    <value>Course day</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemName" xml:space="preserve">
+    <value>ItemName</value>
+  </data>
+  <data name="ItemEnName" xml:space="preserve">
+    <value>Item EnName</value>
+  </data>
+  <data name="EmployeeSalary" xml:space="preserve">
+    <value>Inquiry about the salary of employee</value>
+  </data>
+  <data name="Holiday" xml:space="preserve">
+    <value>Holiday Violation</value>
+  </data>
+  <data name="Benefits" xml:space="preserve">
+    <value>Benefits</value>
+  </data>
+  <data name="Deductions" xml:space="preserve">
+    <value>Deductions</value>
+  </data>
+  <data name="EmployeeCode" xml:space="preserve">
+    <value>Employee Code</value>
+  </data>
+  <data name="ForYear" xml:space="preserve">
+    <value>For Year</value>
+  </data>
+  <data name="Net" xml:space="preserve">
+    <value>Net Salary</value>
+  </data>
+  <data name="SalaryMonth" xml:space="preserve">
+    <value>Salary Of </value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="EmployeeDepartment" xml:space="preserve">
+    <value>Employee Department</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Employee Name</value>
+  </data>
+  <data name="Honesty" xml:space="preserve">
+    <value>Honesty</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>Please Select</value>
+  </data>
+  <data name="HonestyDate" xml:space="preserve">
+    <value>Honesty Date</value>
+  </data>
+  <data name="AddEmployeeHonesty" xml:space="preserve">
+    <value>Add Employee Honesty</value>
+  </data>
+  <data name="EmployeeSafeId" xml:space="preserve">
+    <value>Employee Safe</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ImageName" xml:space="preserve">
+    <value>photo</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Class" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="ClassMain" xml:space="preserve">
+    <value>Class Main</value>
+  </data>
+  <data name="VacationAccountInquiry" xml:space="preserve">
+    <value>Inquiry About Employee's Vacation Balance</value>
+  </data>
+  <data name="NotExistedBalanceForEmployee" xml:space="preserve">
+    <value>There is no balance for this employee in this period</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="continuityNames" xml:space="preserve">
+    <value>Working Hour Names</value>
+  </data>
+  <data name="AddWorkingHoursSettingHR" xml:space="preserve">
+    <value>Add Working Hour Name</value>
+  </data>
+  <data name="WorkingHoursSettingHRAdded" xml:space="preserve">
+    <value>Working Hour Name has been added</value>
+  </data>
+  <data name="DeleteWorkingHour" xml:space="preserve">
+    <value>Delete Working Hour Name</value>
+  </data>
+  <data name="WorkingHourNameEdit" xml:space="preserve">
+    <value>Edit Working Hour Name</value>
+  </data>
+  <data name="AddWorkingHourSDetials" xml:space="preserve">
+    <value>Add Working Hours Detials</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>From Time</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>To Time</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="WorkingHourDetials" xml:space="preserve">
+    <value>Working Hour Detials</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Working Hours</value>
+  </data>
+  <data name="SendDate" xml:space="preserve">
+    <value>Send Date</value>
+  </data>
+  <data name="SenderEmployeeId" xml:space="preserve">
+    <value>Sender Employee</value>
+  </data>
+  <data name="TraineeName" xml:space="preserve">
+    <value>Trainee Name</value>
+  </data>
+  <data name="EmployeeWorkingHours" xml:space="preserve">
+    <value>Employee Working Hours</value>
+  </data>
+  <data name="AddEmployeeHoursSetting" xml:space="preserve">
+    <value>Add Employee Working Hours</value>
+  </data>
+  <data name="ChooseTestId" xml:space="preserve">
+    <value>Choose Test Name</value>
+  </data>
+  <data name="ChooseTestResultId" xml:space="preserve">
+    <value>Choose Test Result</value>
+  </data>
+  <data name="TestId" xml:space="preserve">
+    <value>Test Name</value>
+  </data>
+  <data name="TestResultId" xml:space="preserve">
+    <value>Test Result</value>
+  </data>
+  <data name="TestDate" xml:space="preserve">
+    <value>Test Date</value>
+  </data>
+  <data name="EmployeeWorkingHoursAdded" xml:space="preserve">
+    <value>Employee Working Hours have been added</value>
+  </data>
+  <data name="DeleteEmployeeWorkingHours" xml:space="preserve">
+    <value>Delete Employee Working Hours</value>
+  </data>
+  <data name="EditEmployeeWorkingHours" xml:space="preserve">
+    <value>Edit Employee Working Hours</value>
+  </data>
+  <data name="ChooseWorkingHours" xml:space="preserve">
+    <value>Choose Working Hours</value>
+  </data>
+  <data name="DeleteWorkingHourDetials" xml:space="preserve">
+    <value>Delete Working Hour Detials</value>
+  </data>
+  <data name="GreaterThanOREqualTime" xml:space="preserve">
+    <value>To Time should be greater than or equal From Time</value>
+  </data>
+  <data name="WorkingHourDetialsEdit" xml:space="preserve">
+    <value>Edit Working Hour Detials </value>
+  </data>
+  <data name="WorkingHoursSettingDetialsHREdited" xml:space="preserve">
+    <value>Working Hours Detials have been edited</value>
+  </data>
+  <data name="AttendanceDeparture" xml:space="preserve">
+    <value>Attendance and Departure</value>
+  </data>
+  <data name="AttendanceTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="AttendanceType" xml:space="preserve">
+    <value>Attendance\Departure</value>
+  </data>
+  <data name="AttendDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Attendance" xml:space="preserve">
+    <value>Attendance</value>
+  </data>
+  <data name="Departure" xml:space="preserve">
+    <value>Departure</value>
+  </data>
+  <data name="AddAttendance" xml:space="preserve">
+    <value>Add Attendance and Departure</value>
+  </data>
+  <data name="EmpCode" xml:space="preserve">
+    <value>Employee Code</value>
+  </data>
+  <data name="EmpDept" xml:space="preserve">
+    <value>Employee Department</value>
+  </data>
+  <data name="EmployeeAttendanceAdded" xml:space="preserve">
+    <value>Employee Attendance and Departure has been added</value>
+  </data>
+  <data name="husband" xml:space="preserve">
+    <value>husband / wife</value>
+  </data>
+  <data name="son" xml:space="preserve">
+    <value>son / daughter</value>
+  </data>
+  <data name="Family" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="DeleteEmployeeAttendanceDeparture" xml:space="preserve">
+    <value>Delete Employee Attendance and Departure</value>
+  </data>
+  <data name="EditEmployeeAttendanceDeparture" xml:space="preserve">
+    <value>Edit Employee Attendance and Departure</value>
+  </data>
+  <data name="DateRequired" xml:space="preserve">
+    <value>Date Required</value>
+  </data>
+</root>

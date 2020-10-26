@@ -1,0 +1,53 @@
+﻿@model AutoDrive.VM.IncreasingDeductionSettingVM
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RatioOrValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.RatioOrValue,"اختر", htmlAttributes:new { @class = "form-control",@style="width:100%" } )
+                @Html.ValidationMessageFor(model => model.RatioOrValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BasicSalaryOrAll, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.BasicSalaryOrAll,"اختر", htmlAttributes:new { @class = "form-control",@style="width:100%" })
+                @Html.ValidationMessageFor(model => model.BasicSalaryOrAll, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IncreasesDeductionsTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IncreasesDeductionsTypeId, ViewBag.Deductions as SelectList,"اختر",htmlAttributes:new { @class = "form-control",@style="width:100%" })
+                @Html.ValidationMessageFor(model => model.IncreasesDeductionsTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+    </div>
+}
+

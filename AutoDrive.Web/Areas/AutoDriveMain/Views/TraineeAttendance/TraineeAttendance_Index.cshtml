@@ -1,0 +1,227 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeAttendanceVM
+@{
+    ViewBag.Title = "TraineeAttendance_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333%;
+    }
+
+    .col-md-8 {
+        width: 71.66666666%;
+    }
+</style>
+<div class="text-center">
+    <h3 class="center info"> @Messages.TraineeAttendance</h3>
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+<div class="form-horizontal">
+
+
+    @if (Model != null)
+    {
+        <input value="@Model.ID" id="ID" name="ID" style="display:none" />
+
+        <input value="@Model.TraineeGuid" id="TraineeGuid" name="TraineeGuid" style="display:none" />
+
+
+    }
+
+    <div class="row ">
+        <div>
+            <div class="col-md-12">
+                <div class="col-md-6" style="margin-bottom:17px;">
+                    @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                    <div class="col-md-8">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.TraineeId, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @if (@ViewBag.LangEn == true)
+                                {
+                                    @Html.TextBoxFor(a => a.EnName, new { @class = "form-control", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(a => a.ArName, new { @class = "form-control", @readonly = "readonly" })
+                                }
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.FileNo, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(a => a.FileNo, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.FileNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.StudyPeriodSetting, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @if (@ViewBag.LangEn == true)
+                                {
+                                    @Html.TextBoxFor(m => m.StudyPeriodSettingEnName, new { @class = "form-control", @placeholder = "مستوى الدراسه", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(m => m.StudyPeriodSettingName, new { @class = "form-control", @placeholder = "مستوى الدراسه", @readonly = "readonly" })
+
+                                }
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.StudyPeriodSettingName, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.VisualStudyCount, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+
+                                @Html.TextBoxFor(m => m.VisualStudyCount, new { @class = "form-control", @readonly = "readonly" })
+
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.PracticalCount, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+
+                                @Html.TextBoxFor(m => m.PracticalCount, new { @class = "form-control", @placeholder = "LicenceCategory", @readonly = "readonly" })
+
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseStartDate, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(a => a.CourseStartDate, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(a => a.CourseStartDate, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseEndDate, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(a => a.CourseEndDate, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(a => a.CourseEndDate, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseStartDate, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CourseStartDate, new { @class = "form-control", @placeholder = "تاريخ بدايه الدراسه" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.CourseStartDate, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal-footer">
+        <div class="text-left">
+            @if (Model != null)
+            {
+                //if (Model.ID == 0)
+                //{
+                @*<button type="submit" class="btn btn-primary btn-lg btn-round " id="btnSave" data-placement="top" data-content="@Messages.AddNew" style="left:54%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>*@
+
+                <input type="submit" value="@Messages.SaveBTN" id="btnCreate" />
+
+
+            
+
+
+
+
+
+
+                @*}
+                    else
+                    {
+                        <input type="submit" value="تعديل" id="btnEdit" />
+                        <input type="submit" value="حذف" id="btnDelete" />
+                    }*@
+            }
+
+        </div>
+    </div>
+}

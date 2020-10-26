@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D1B51436-84F0-45BB-9832-AB1B08639DEB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoDrive.BLL</RootNamespace>
+    <AssemblyName>AutoDrive.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="NHibernate, Version=5.1.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.1.1\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.2\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.1.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoDriveMain\ArchiveSettingDriveBLL.cs" />
+    <Compile Include="AutoDriveMain\CourseReservationBLL.cs" />
+    <Compile Include="AutoDriveMain\JobNameBLL.cs" />
+    <Compile Include="AutoDriveMain\LicenceCategoryBLL.cs" />
+    <Compile Include="AutoDriveMain\LicenceTypeBLL.cs" />
+    <Compile Include="AutoDriveMain\LookUp_DriveLevelBLL.cs" />
+    <Compile Include="AutoDriveMain\NationalityBLL.cs" />
+    <Compile Include="AutoDriveMain\NationalTypeBLL.cs" />
+    <Compile Include="AutoDriveMain\ReceiptVoucherBLL.cs" />
+    <Compile Include="AutoDriveMain\ReligionBLL.cs" />
+    <Compile Include="AutoDriveMain\SendToTrafficBLL.cs" />
+    <Compile Include="AutoDriveMain\SpeechLanguageBLL.cs" />
+    <Compile Include="AutoDriveMain\StudyPeriodSettingBLL.cs" />
+    <Compile Include="AutoDriveMain\TestBLL.cs" />
+    <Compile Include="AutoDriveMain\TestResultBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeArchiveBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeAttendanceBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeAttendance_AbsenceBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeAttendingFollowupBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeEvaluationBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeFileBLL.cs" />
+    <Compile Include="AutoDriveMain\TraineeTestResultBLL.cs" />
+    <Compile Include="AutoDriveMain\WorkTimesSettingBLL.cs" />
+    <Compile Include="AutoDrivePayroll\BasicSalarySettingService.cs" />
+    <Compile Include="AutoDrivePayroll\EmployeeLoanService.cs" />
+    <Compile Include="AutoDrivePayroll\EmployeeViolationService.cs" />
+    <Compile Include="AutoDrivePayroll\IncreasesDeductionTypeService.cs" />
+    <Compile Include="AutoDrivePayroll\IncreasingDeductionSettingService.cs" />
+    <Compile Include="AutoDrivePayroll\MotivationEmployeeService.cs" />
+    <Compile Include="AutoDrivePayroll\SalariesService.cs" />
+    <Compile Include="AutoDrivePayroll\VacationDeductionsService.cs" />
+    <Compile Include="AutoDrivePayroll\ViolationTypeService.cs" />
+    <Compile Include="AutoMapperConfigration\AutomapperWebProfile.cs" />
+    <Compile Include="AutoDrivePayroll\JobDegreeService.cs" />
+    <Compile Include="AutoDrivePayroll\JobLevelService.cs" />
+    <Compile Include="HRAutoDrive\ArchiveDocumentService.cs" />
+    <Compile Include="HRAutoDrive\ArchiveSettingHRService.cs" />
+    <Compile Include="HRAutoDrive\AreaService.cs" />
+    <Compile Include="HRAutoDrive\BloodGroupService.cs" />
+    <Compile Include="HRAutoDrive\CarrerFieldService.cs" />
+    <Compile Include="HRAutoDrive\CertificationSpecDepartService.cs" />
+    <Compile Include="HRAutoDrive\CertificationSpecificService.cs" />
+    <Compile Include="HRAutoDrive\CertificationTypeService.cs" />
+    <Compile Include="HRAutoDrive\CountryService.cs" />
+    <Compile Include="HRAutoDrive\DepartmentService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeAttendanceService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeContractDurationService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeDepartmentService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeExperienceService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeFamilyService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeHoursSettingService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeJobDataService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeLicenceDataService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeQualificationService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeService.cs" />
+    <Compile Include="HRAutoDrive\employeeStatusKindservice.cs" />
+    <Compile Include="HRAutoDrive\HonestyService.cs" />
+    <Compile Include="HRAutoDrive\ItemService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeVacationAccountService.cs" />
+    <Compile Include="HRAutoDrive\EmployeeVacationService.cs" />
+    <Compile Include="HRAutoDrive\JobFunctionService.cs" />
+    <Compile Include="HRAutoDrive\JobNameService.cs" />
+    <Compile Include="HRAutoDrive\LicenceKindHRServices.cs" />
+    <Compile Include="HRAutoDrive\LicenceTypeHRService.cs" />
+    <Compile Include="HRAutoDrive\MaritalStatuService.cs" />
+    <Compile Include="HRAutoDrive\MotivationTypeService.cs" />
+    <Compile Include="HRAutoDrive\NationalityService.cs" />
+    <Compile Include="HRAutoDrive\ReligionService.cs" />
+    <Compile Include="HRAutoDrive\WorkingHoursSettingHRDetialsService.cs" />
+    <Compile Include="HRAutoDrive\WorkingHoursSettingHRService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoDrive.Core\AutoDrive.Core.csproj">
+      <Project>{26C6764F-1C9A-476C-9D32-0F0C06130005}</Project>
+      <Name>AutoDrive.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoDrive.DAL\AutoDrive.DAL.csproj">
+      <Project>{9D519014-DC4B-4C6B-A878-C162BB379262}</Project>
+      <Name>AutoDrive.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoDrive.Static\AutoDrive.Static.csproj">
+      <Project>{87e63881-7b38-436f-b276-7fc33f403be5}</Project>
+      <Name>AutoDrive.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoDrive.VM\AutoDrive.VM.csproj">
+      <Project>{73c4493e-61d0-43b8-89cb-9e86976f673f}</Project>
+      <Name>AutoDrive.VM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoDriveResources\AutoDriveResources.csproj">
+      <Project>{10B88062-0117-4E15-9491-78BBDF0467C8}</Project>
+      <Name>AutoDriveResources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\ar\AutoDriveResources.resources.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

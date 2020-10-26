@@ -1,0 +1,238 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveHR.EmployeeVacationAccountVM
+    @{
+        ViewBag.Title = Resources.VacationAccountInquiry;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <style>
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2000 !important;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+            color: black;
+            padding-right: 2%;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            margin: 40px 0 20px;
+            border-bottom: 1px solid #0c0c0c;
+        }
+    </style>
+    <div class="x_content" style="color:black;">
+        <h2>@Resources.VacationAccountInquiry</h2>
+        <div class="row" id="con">
+            <form id="form">
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+                        </div>
+                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-3">
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                            <span id="DateToValidation" style="color:#a94442;display:none;">@Resources.DateToValidation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HolidayTypeId, htmlAttributes: new { @class = "control-label col-md-1", @style = "" })
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.HolidayTypeId, ViewBag.HolidayTypes as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%;" })
+                            @Html.ValidationMessageFor(model => model.HolidayTypeId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" onclick="Search()">@Resources.Search</button>
+                        </div>
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+        <div class="row" id="table">
+
+        </div>
+
+    </div>
+    @section scripts{
+        <script>
+               $(document).ready(function () {
+        $("#StartDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            $("#StartDate-error").hide();
+             let DateFrom = $("#StartDate").val();
+            let DateTo =$("#EndDate").val()
+            if (checkDates(DateFrom, DateTo)) {
+                $("#DateToValidation").show();
+            } else {
+                $("#DateToValidation").hide();
+            }
+        });
+        $("#EndDate").datepicker({
+            dateFormat: 'dd/mm/yy'
+        }).on('change', function () {
+            $("#EndDate-error").hide();
+             let DateFrom = $("#StartDate").val();
+            let DateTo =$("#EndDate").val()
+            if (checkDates(DateFrom, DateTo)) {
+                $("#DateToValidation").show();
+            } else {
+                $("#DateToValidation").hide();
+            }
+        });
+             
+        });
+             $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../payroll/EmployeeLoan/SearchEmployee",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+             });
+             function EmpChange() {
+        $("#EmployeeId-error").hide();
+        if ($("#EmpID").val()=="") {
+               $('#EmployeeId').val("")
+
+        }
+         
+                }  
+          
+    function formValidation() {
+        debugger;
+        let DateFrom = $("#StartDate").val();
+        let DateTo =$("#EndDate").val()
+        let checkDate = checkDates(DateFrom, DateTo);
+                
+        if (!($("#form").valid())||(checkDate)) {
+            if (checkDate) {
+                $("#DateToValidation").show();
+            } else {
+                $("#DateToValidation").hide();
+
+            }
+            return false;
+        }
+        return true;
+    }
+        $("#form").submit(function(e) {
+    e.preventDefault();
+});
+    function Search() {
+        if (!formValidation()) {
+            return false;
+        }
+        var data = $("#form").serialize();
+          $.ajax({
+            type: "post",
+            url: "/hr/EmployeeVacationAccount/Search",
+            data:data,
+              success: function (response) {
+                  debugger;
+               $('#table').html(response);
+            },
+            error: function () {
+               
+                toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+            }
+        });
+        }
+         function checkDates(FromDate, ToDate) {
+        debugger;
+        if (FromDate == "" || ToDate == "") {
+            return false;
+        } else {
+            var match1 = /(\d+)\/(\d+)\/(\d+)/.exec(ToDate)
+            var end_date = new Date(match1[3], match1[2], match1[1]);
+            var match2 = /(\d+)\/(\d+)\/(\d+)/.exec(FromDate)
+            var start_date = new Date(match2[3], match2[2], match2[1]);
+            if (end_date < start_date) {
+                return true
+            }
+            return false;
+        }
+        
+    }
+        </script>
+        }

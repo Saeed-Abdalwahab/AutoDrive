@@ -1,0 +1,682 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDrivePayroll.VacationDeductionFiltersVM
+@using AutoDrive.Static.Enums
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = Resources.VacationDeductions;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 2000 !important;
+        float: left;
+        display: none;
+        min-width: 160px;
+        padding: 4px 0;
+        margin: 0 0 10px 25px;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+        color: black;
+        padding-right: 2%;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    .page-header {
+        padding-bottom: 9px;
+        margin: 40px 0 20px;
+        border-bottom: 1px solid #0c0c0c;
+    }
+</style>
+<div class="x_content">
+    <h2>@Resources.VacationDeductions</h2>
+    <div class="modal" id="myModelDelete" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>@Resources.DeleteVacationDeduction</h4>
+                </div>
+                <div class="modal-body text-center" id="Delete">
+                    <h2>@Resources.DeleteMessage</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" id="DeleteVacationDeductions">@Resources.Delete</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Resources.Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form id="form" onsubmit="return myFunction();">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.EnumDropDownListFor(model => model.Month, Resources.Choose, htmlAttributes: new { @class = "form-control", @onchange = "MonthChange()", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.Month, Messages.Required, new { @class = "text-danger", @style = "color:#a94442;display:none;", @id = "MonthValidation" })
+                    </div>
+                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.Year, ViewBag.YearsLst as SelectList, htmlAttributes: new { @class = "form-control", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.HolidayTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.HolidayTypeId, ViewBag.HolidayTypes as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.HolidayTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ViewVacationId, htmlAttributes: new { @class = "control-label col-md-2", @style = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "margin-right: -2%;" : "" })
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.ViewVacationId, ViewBag.DisplayedVacation as SelectList, Resources.Choose, htmlAttributes: new { @class = "form-control", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.ViewVacationId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmpID" onkeydown="EmpChange()" />
+                        @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", @style = "visibility: hidden" } })
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" onclick="Search()" style="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"margin-right: 87%;":"margin-left: 74%;")">@Resources.Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-sm-12" id="con">
+        <table id="VacationDeductionTB" class="table table-striped jambo_table bulk_action" style="display:none;"></table>
+
+    </div>
+
+</div>
+@section scripts{
+
+    <script>
+    var DeletedID;
+    let EmpStore, ValueStore, MonthStore, YearStore;
+    var rowNumber;
+         $("#EmpID").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url:"../../hr/EmployeeVacation/SearchEmployee",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#EmployeeId').val("")
+                                $('#EmpID').val("")
+
+                            }
+                            else {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#EmployeeId').val(ui.item.ss);
+                },
+
+
+         });
+     function EmpChange() {
+        $("#EmployeeId-error").hide();
+        if ($("#EmpID").val()=="") {
+               $('#EmployeeId').val("")
+
+        }
+
+    }
+    function MonthChange() {
+                 $("#MonthValidation").hide();
+    }
+    function formValidation() {
+        debugger;
+         if (!($("#form").valid()) || ($("#Month").val() == "0")) {
+             if ($("#Month").val()=="0") {
+                 $("#MonthValidation").show();
+             }
+
+            return false;
+        }
+        return true;
+    }
+    function myFunction(){
+   return false;
+    }
+     function GetLanguage() {
+        debugger;
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+    }
+    let index;
+  function Search() {
+        if (!formValidation()) {
+            return false;
+      }
+     
+         var data = $("#form").serialize();
+         $.ajax({
+            type: "get",
+            url: "/VacationDeductions/Search" ,
+            data: data,
+            success: function (response) {
+                if ($("#ViewVacationId").val() == "1") {
+                    $("#VacationDeductionTB").show()
+                    $('#VacationDeductionTB').DataTable({
+                         destroy: true,
+                    data: response.msg , "columns": [
+                        {"title":"@Resources.SerialNumber",
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                index = meta.row + 1;
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+
+                        {"title":"@Resources.Employee", "data": "EmpName",width:"10%" },
+                        { "title":"@Resources.Days","data": "DaysDate" ,width:"10%"},
+                            { "title":"@Resources.DaysNo", "data": "DaysNumber", width: "10%" },
+                        { "title":"@Resources.HolidayType","data": "HolidayName" ,width:"10%"},
+                        { "title":"@Resources.CurrentManagement","data": "DeptName" ,width:"10%"},
+
+                        {
+                            "title":"@Resources.Value",
+                            "data": "", "render": function (data, type, row) {
+                                return "<input type='text' name='value" + index + "' id='value" + index + "' style='width:60%' onkeypress='ValuePress("+index+")'/>" +
+                                        "<span id='valueValidation"+index+"' style = 'color:#a94442;display:none;'>@Messages.Required</span>";
+                            },width:"10%"
+                        },
+                        {
+                            "title":"@Resources.deductionMonth",
+                            "data": "", "render": function (data, type, row,meta) {
+                                 var $select = $("<select style='width: 60%;' id='MonthDDL"+index+"' onchange='MonthDDLChange("+index+")'></select>", {
+                                 });
+                                $('#MonthDDL'+(meta.row + 1)).prepend('<option value="0" selected="selected"> @Resources.Choose </option>');
+                                var months =  @Html.Raw(JsonConvert.SerializeObject(ViewBag.Months));
+                                 $.each(months, function (k, month) {
+ 
+                                        var $option = $("<option></option>", {
+                                            "text": month.Value,
+                                            "value": month.key
+                                        });
+                                         
+                                        $select.append($option);
+                                    });
+                               return $select.prop("outerHTML")+"<span id='MonthDDLValidation"+index+"' style = 'color:#a94442;display:none;'>@Messages.Required</span>";
+                            },"width": "10%"
+                            }, {
+                            "title":"@Resources.deductionYear",
+                            "data": "", "render": function (data, type, row) {
+                                var $select = $("<select style='width: 60%;' id='YearDDL"+index+"'></select>", {
+                                 });
+                                var Years =  @Html.Raw(JsonConvert.SerializeObject( ViewBag.Years));
+                                 $.each(Years, function (k, Year) {
+ 
+                                        var $option = $("<option></option>", {
+                                            "text": Year.Value,
+                                            "value": Year.key
+                                        });
+                                          if (Year.Value === @DateTime.Now.Year.ToString()) {
+                                            $option.attr("selected", "selected")
+                                        }
+                                        $select.append($option);
+                                    });
+                               return $select.prop("outerHTML");
+                            },"width": "10%"
+                        },
+                        {
+                            "data": "", "render": function (data, type, row,meta) {
+                               
+                                 return "<span id='span"+index+"' style='display:none;'>"+row.DaysDate+"</span><botton class='btn btn-primary' style='margin-top:3px' onclick='SaveVacationDeduction("+row.EmployeeId+","+row.HolidayTypeId+","+row.DaysNumber+","+row.FirstMonth+","+row.FirstYear+","+meta.row+")'>@Resources.Save</botton>"
+
+                            },"width": "10%"
+                        }
+                    ], "language": GetLanguage()
+                });
+                     $("#form")[0].reset();
+                } else {
+                     $("#VacationDeductionTB").show()
+                    $('#VacationDeductionTB').DataTable({
+                         destroy: true,
+                    data: response.msg , "columns": [
+                        {"title":"@Resources.SerialNumber",
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                index = (parseInt(meta.row) + 1);
+                                return  (parseInt(meta.row) + 1);
+                            },width: "2%"
+                        },
+
+                        {"title":"@Resources.Employee", "data": "EmpName",width:"10%" },
+                        { "title":"@Resources.Days","data": "DaysDate" ,width:"10%"},
+                            { "title":"@Resources.DaysNo", "data": "DaysNumber", width: "10%" },
+                        { "title":"@Resources.HolidayType","data": "HolidayName" ,width:"10%"},
+                        { "title":"@Resources.CurrentManagement","data": "DeptName" ,width:"10%"},
+
+                        {
+                            "title":"@Resources.Value",
+                            "data": "DeductionValue", "render": function (data, type, row) {
+                                return "<span id='ValueSpan"+ index+"'>"+data+"</span>" +
+                                    "<input type='text' name='value" + index + "' id='value" + index + "' style='width:60%; display:none;' value='" + data + "' onkeypress='ValuePress(" + index + ")'/>" +
+                                        "<span id='valueValidation"+index+"' style = 'color:#a94442;display:none;'>@Messages.Required</span>";
+                            },width:"10%"
+                        },
+                        {
+                            "title":"@Resources.deductionMonth",
+                            "data": "MonthName", "render": function (data, type, row,meta) {
+                                 var $select = $("<select style='width: 60%;display:none;' id='MonthDDL"+index+"' onchange='MonthDDLChange("+index+")'></select>", {
+                                 });
+                                var index2=(parseInt(meta.row) + 1);
+                                $('#MonthDDL'+index2).prepend('<option value="0"> @Resources.Choose </option>');
+                                var months =  @Html.Raw(JsonConvert.SerializeObject(ViewBag.Months));
+                                 $.each(months, function (k, month) {
+ 
+                                        var $option = $("<option></option>", {
+                                            "text": month.Value,
+                                            "value": month.key
+                                        });
+                                          if ( month.key === row.DeductionFromMonth) {
+                                            $option.attr("selected", "selected")
+                                        }
+                                        $select.append($option);
+                                    });
+                               return "<span id='MonthDDLSpan"+index+"'>"+data+"</span>"+$select.prop("outerHTML")+"<span id='MonthDDLValidation"+index+"' style = 'color:#a94442;display:none;'>@Messages.Required</span>";
+                            },"width": "10%"
+                            }, {
+                            "title":"@Resources.deductionYear",
+                            "data": "DeductionFromYear", "render": function (data, type, row) {
+                                var $select = $("<select style='width: 60%; display:none;' id='YearDDL"+index+"'></select>", {
+                                 });
+                                var Years =  @Html.Raw(JsonConvert.SerializeObject( ViewBag.Years));
+                                 $.each(Years, function (k, Year) {
+ 
+                                        var $option = $("<option></option>", {
+                                            "text": Year.Value,
+                                            "value": Year.key
+                                        });
+                                          if (Year.Value === row.DeductionFromYear) {
+                                            $option.attr("selected", "selected")
+                                        }
+                                        $select.append($option);
+                                    });
+                               return "<span id='YearDDLSpan"+index+"'>"+data+"</span>"+$select.prop("outerHTML");
+                            },"width": "10%"
+                        },{
+                    "data": "ID", "render": function (data, type, row,meta) {
+                                return "<botton class='btn btn-primary ED' id='EditButton" + index + "' style='margin-top:3px' onclick='EditVacationDeduction(" + index + ")'><span class='glyphicon glyphicon-pencil'></span></botton>" +
+                                    "<button class='btn btn-primary' style='display:none;' onclick='Edit("+row.EmployeeId+","+data+","+meta.row+")' id='EditBtn" +index + "'>@Resources.Edit</button>" +
+                                    "<button class='btn btn-primary' style='display:none;' onclick='Cancel()' id='CancelBtn"+index+"'>@Resources.Cancel</button>"+
+                                       "<botton class='btn btn-danger ED' style='margin-top:3px' id='DeleteBtn"+index+"' onclick='DeleteVacationDeduction(" + data + ","+meta.row+")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                    }
+                        }
+                
+                    ], "language": GetLanguage()
+                });
+                     $("#form")[0].reset();
+                }
+            },
+            error: function () {
+
+                toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+            }
+        });
+    }
+    let  SalaryStatus;
+    function GetSalaryStatus(EmpID, Month, Year) {
+        $.ajax({
+                    type: "Get",
+            url: "/VacationDeductions/GetCheckSalaryStatus",
+            data: {
+                EmployeeId: EmpID,
+                Month: Month,
+                Year:Year
+            },
+            async: false,
+             success: function (response) {
+                        
+                 SalaryStatus =response.data; 
+                 
+                    }
+         });
+         
+        return SalaryStatus;
+    }
+    function Edit(EmpID, Id, RowNum) {
+        
+          if ($("#value" + (RowNum+1)).val() == "" || $("#MonthDDL" + (RowNum+1)).val() == "0") {
+            if ($("#value" + (RowNum+1)).val() == "" ) {
+                $("#valueValidation" + (RowNum+1)).show();
+            }  
+             if ($("#MonthDDL"+(RowNum+1)).val() == "0") { 
+            $("#MonthDDLValidation" + (RowNum+1)).show();
+        }
+            return false;
+        }
+        debugger
+        var value = $("#value" + (RowNum+1)).val();
+        var Month = $("#MonthDDL" + (RowNum+1)).val();
+        var Year = $("#YearDDL" + (RowNum+1)).val();
+        var StatusSalary = GetSalaryStatus(EmpID, Month, Year);
+        if (StatusSalary==@((int)SalaryStatus.ApprovalAmount)) {
+                 toastr.error('@Messages.ApprovalSalary', '', { timeOut: 3000 });
+
+        }else if (StatusSalary==@((int)SalaryStatus.ReceivableReceived)) {
+                 toastr.error('@Messages.ReceivedSalary', '', { timeOut: 3000 });
+
+        }else if (StatusSalary==@((int)SalaryStatus.CancelEvent)) {
+                 toastr.error('@Messages.CanceledSalary', '', { timeOut: 3000 });
+
+        } else {
+             $.ajax({
+            type: "post",
+             url: "/VacationDeductions/edit",
+             data: {
+                 Id: Id,
+                 Value: value,
+                 Month: Month,
+                 Year: Year
+            },
+
+             success: function (response) {
+                 debugger;
+                 $('#VacationDeductionTB').DataTable().row(':eq(' + RowNum + ')').remove().draw(false);
+                  var data=  $('#VacationDeductionTB').DataTable().rows().data();
+                    $('#VacationDeductionTB').DataTable().clear().draw();
+                    $('#VacationDeductionTB').DataTable().rows.add( data ).draw()
+                 if (response.data!=null) {
+                     $('#VacationDeductionTB').DataTable().row.add( {
+                    "EmployeeId": response.data.EmployeeId ,
+                    "HolidayTypeId":   response.data.HolidayTypeId,
+                    "DaysDate":     response.data.DaysDate,
+                    "DaysNumber": response.data.DaysNumber,
+                    "DeductionFromMonth":     response.data.DeductionFromMonth,
+                    "DeductionFromYear":       response.data.DeductionFromYear,
+                    "DeductionValue":       response.data.DeductionValue,
+                    "ID":       response.data.ID,
+                    "MonthName":       response.data.MonthName,
+                    "EmpName":       response.data.EmpName,
+                    "HolidayName":       response.data.HolidayName,
+                    "DeptName":       response.data.DeptName,
+                     }).draw();
+                     var length = $('#VacationDeductionTB').DataTable().data().length-1;
+                     for (var i = length; i > 0; i--) {
+                         if (i != RowNum) {
+                             let RowPrevious = $('#VacationDeductionTB').DataTable().row(i - 1).data();
+                             let RowCurrent = $('#VacationDeductionTB').DataTable().row(i).data();
+                             $('#VacationDeductionTB').DataTable().row(i).data(RowPrevious);
+                             $('#VacationDeductionTB').DataTable().row(i - 1).data(RowCurrent);
+
+                         } else {
+                             break;
+                         }
+                    
+                     }  
+                     
+                    
+                 }
+               
+                toastr.success('@Messages.VacationsDeductionEdited ', '', { timeOut: 4000 })
+            },
+            error: function () {
+                 toastr.error('@Messages.NotSuccessfulOperation', ' ', { timeOut: 3000 });
+            }
+        });
+            EmpStore = null;  
+
+        }
+     
+
+    }
+    function Cancel() {
+        //To cancel Editing operation
+         $(".Unactive").show();
+        $(".Unactive").removeClass("Unactive");
+        $(".active").hide();
+        $(".active").removeClass("active");
+        if (EmpStore != null) {
+            $("#value" + EmpStore).val(ValueStore);
+            $("#MonthDDL" + EmpStore).val(MonthStore);
+            $("#YearDDL" + EmpStore).val(YearStore);
+            EmpStore = null;
+            MonthStore = null;
+            ValueStore = null;
+            YearStore = null;
+        }
+    }
+    function EditVacationDeduction(index1) {
+        //to prevent two editing operation that they are done at the same time
+        $(".Unactive").show();
+        $(".Unactive").removeClass("Unactive");
+        $(".active").hide();
+        $(".active").removeClass("active");
+         if (EmpStore != null) {
+            $("#value" + index1).val(ValueStore);
+            $("#MonthDDL" + index1).val(MonthStore);
+            $("#YearDDL" + index1).val(YearStore);
+            EmpStore = null;
+            MonthStore = null;
+            ValueStore = null;
+            YearStore = null;
+        }
+
+        $("#CancelBtn" + index1).show();
+        $("#CancelBtn" + index1).addClass("active");
+        $("#EditButton" + index1).hide();
+        $("#EditButton" + index1).addClass("Unactive");
+        $("#EditBtn" + index1).show();
+        $("#EditBtn" + index1).addClass("active");
+        $("#value" + index1).show();
+        $("#value" + index1).addClass("active");
+        $("#ValueSpan" + index1).hide();
+        $("#ValueSpan" + index1).addClass("Unactive");
+        $("#MonthDDL" + index1).show();
+        $("#MonthDDL" + index1).addClass("active");
+        $("#MonthDDLSpan" + index1).hide();
+        $("#MonthDDLSpan" + index1).addClass("Unactive");
+        $("#YearDDL" + index1).show();
+        $("#YearDDL" + index1).addClass("active");
+        $("#YearDDLSpan" + index1).hide();
+        $("#YearDDLSpan" + index1).addClass("Unactive");
+        $("#DeleteBtn" + index1).hide();
+        $("#DeleteBtn" + index1).addClass("Unactive");
+        EmpStore = index1;
+        ValueStore = $("#value" + index1).val();
+        MonthStore = $("#MonthDDL" + index1).val();
+        YearStore = $("#YearDDL" + index1).val();
+    }
+    
+    function ValuePress(index1) {
+         $("#valueValidation" + index1).hide();
+    }
+    function MonthDDLChange(index1) {
+                      $("#MonthDDLValidation" + index1).hide();
+    }
+    function SaveVacationDeduction(EmpID, HolidayTypeId, DaysNo,FirstMonth,FirstYear,rowNum) {
+        if ($("#value" + (rowNum+1)).val() == "" || $("#MonthDDL" + (rowNum+1)).val() == "0") {
+            if ($("#value" + (rowNum+1)).val() == "" ) {
+                $("#valueValidation" + (rowNum+1)).show();
+            }  
+             if ($("#MonthDDL"+(rowNum+1)).val() == "0") { 
+            $("#MonthDDLValidation" + (rowNum+1)).show();
+        }
+            return false;
+        }
+        var value = $("#value" + (rowNum+1)).val();
+        var Month = $("#MonthDDL" +(rowNum+1)).val();
+        var Year = $("#YearDDL" + (rowNum+1)).val();
+        var DateDays = $("#span" + (rowNum+1)).html();
+        var StatusSalary = GetSalaryStatus(EmpID, Month, Year);
+        if (StatusSalary ==@((int)SalaryStatus.ApprovalAmount)) {
+            toastr.error('@Messages.ApprovalSalary', '', { timeOut: 3000 });
+
+        } else if (StatusSalary ==@((int)SalaryStatus.ReceivableReceived)) {
+            toastr.error('@Messages.ReceivedSalary', '', { timeOut: 3000 });
+
+        } else if (StatusSalary ==@((int)SalaryStatus.CancelEvent)) {
+            toastr.error('@Messages.CanceledSalary', '', { timeOut: 3000 });
+
+        } else {
+             $.ajax({
+            type: "post",
+            url: "/VacationDeductions/save",
+            data: {
+                EmployeeId: EmpID,
+                HolidayTypeId: HolidayTypeId,
+                FirstMonth: FirstMonth,
+                FirstYear: FirstYear,
+                DaysNumber: DaysNo,
+                DaysDate: DateDays,
+                Value: value,
+                Month: Month,
+                Year: Year
+            },
+
+            success: function (response) {
+                toastr.success('@Messages.VacationDeductionSaved', '', { timeOut: 3000 });
+                $('#VacationDeductionTB').DataTable().row(':eq(' + rowNum + ')').remove().draw(false);
+                var data=  $('#VacationDeductionTB').DataTable().rows().data();
+                $('#VacationDeductionTB').DataTable().clear().draw();
+                $('#VacationDeductionTB').DataTable().rows.add( data ).draw();
+            },
+            error: function () {
+               
+                toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+            }
+        });
+        }
+       
+            }
+    function DeleteVacationDeduction(id, rowNum) {
+        //to prevent Deleting and editing operation that they are done at the same time
+        $(".Unactive").show();
+        $(".Unactive").removeClass("Unactive");
+        $(".active").hide();
+        $(".active").removeClass("active");
+         if (EmpStore != null) {
+            $("#value" + EmpStore).val(ValueStore);
+            $("#MonthDDL" + EmpStore).val(MonthStore);
+            $("#YearDDL" + EmpStore).val(YearStore);
+            EmpStore = null;
+            MonthStore = null;
+            ValueStore = null;
+            YearStore = null;
+        }
+         DeletedID=id;
+        rowNumber = rowNum;
+        $("#myModelDelete").modal("show");
+        }
+    //DeleteVacationDeductions
+    $("#DeleteVacationDeductions").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/VacationDeductions/delete?id=" + DeletedID,
+
+            success: function (response) {
+                $("#myModelDelete").modal("hide");
+                $('#VacationDeductionTB').DataTable().row(':eq(' + rowNumber + ')').remove().draw(false);
+                var data=  $('#VacationDeductionTB').DataTable().rows().data();
+                $('#VacationDeductionTB').DataTable().clear().draw();
+                $('#VacationDeductionTB').DataTable().rows.add( data ).draw();
+                toastr.success('@Messages.VacationsDeductionDeleted ', '', { timeOut: 4000 })
+            },
+            error: function () {
+                 toastr.error('@Messages.NotSuccessfulOperation', '@Messages.ErrorDeletion ', { timeOut: 3000 });
+            }
+        });
+    });
+    </script>
+}
+

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87E63881-7B38-436F-B276-7FC33F403BE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoDrive.Static</RootNamespace>
+    <AssemblyName>AutoDrive.Static</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\AttendanceType.cs" />
+    <Compile Include="Enums\BasicORAllType.cs" />
+    <Compile Include="Enums\BasicSalaryType.cs" />
+    <Compile Include="Enums\Days.cs" />
+    <Compile Include="Enums\EmployeeMoneyType.cs" />
+    <Compile Include="Enums\EmployeeMoneyTypeDetials.cs" />
+    <Compile Include="Enums\EmployeeStatus.cs" />
+    <Compile Include="Enums\EmployeeStatusKind.cs" />
+    <Compile Include="Enums\Extensions.cs" />
+    <Compile Include="Enums\Gender.cs" />
+    <Compile Include="Enums\IncreasesDeductionType.cs" />
+    <Compile Include="Enums\ItemType.cs" />
+    <Compile Include="Enums\LoanStatus.cs" />
+    <Compile Include="Enums\ItemTypes.cs" />
+    <Compile Include="Enums\Menu.cs" />
+    <Compile Include="Enums\Months.cs" />
+    <Compile Include="Enums\MotivationStatus.cs" />
+    <Compile Include="Enums\PayingType.cs" />
+    <Compile Include="Enums\PracticalOrVisual.cs" />
+    <Compile Include="Enums\Relation.cs" />
+    <Compile Include="Enums\RewardType.cs" />
+    <Compile Include="Enums\SalariesStatus.cs" />
+    <Compile Include="Enums\SalaryStatus.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\ViolationStatus.cs" />
+    <Compile Include="Enums\ViolationType.cs" />
+    <Compile Include="Files\FileHelper.cs" />
+    <Compile Include="Files\LC_Constants.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoDriveResources\AutoDriveResources.csproj">
+      <Project>{10b88062-0117-4e15-9491-78bbdf0467c8}</Project>
+      <Name>AutoDriveResources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMeBeforePublish.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

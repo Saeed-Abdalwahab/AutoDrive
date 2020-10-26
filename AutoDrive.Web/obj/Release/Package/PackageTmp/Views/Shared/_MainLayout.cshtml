@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+@{
+    //string direct = "right_col";
+
+    //string navbardir = "navbar-left";
+
+    //string contentdir = "left_col";
+
+    //string direct = "left_col";
+
+    //string navbardir = "navbar-right";
+
+    //string contentdir = "right_col";
+
+
+    string direct;
+    string contentdir;
+
+}
+@if (Request.Cookies["Language"] != null && Request.Cookies["Language"].Value.ToLower() == "En-Us".ToLower())
+{
+    @Styles.Render("~/Contenten/css")
+
+
+    direct = "left_col";
+
+    contentdir = "right_col";
+
+
+}
+else
+{
+    @Styles.Render("~/Content/css")
+
+
+
+    direct = "right_col";
+
+    contentdir = "left_col";
+}
+
+@RenderSection("Styles", required: false)
+<html lang="fa">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentellela Alela! | </title>
+
+    <!-- Bootstrap -->
+
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 @direct">
+                <div class="@direct scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="/Home/Index">
+                                            <i><img src="~/Images/home.png" /></i> <span>الرائيسية</span>
+                                        </a>
+                                    </li>
+
+                                }
+                                <li>
+                                    <a><i class="fa fa-lock"></i>@Messages.HumanResource  <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/hr/country/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.Countrys</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/Area/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.Area</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/Employee/AddEmployee">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.AddEmployee</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/Nationality/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.Nationality</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/BloodGroup/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.BloodGroup</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/Religion/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.Religion</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/LicenceTypeHR/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.LicenceTypeHR</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/Department/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.Departments</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/CertificationType/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.CertificationType</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/MaritalStatu/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.MaritalStatu</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/CarrerField/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.CarrerField</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/hr/MotivationType/index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Messages.MotivationType</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-lock"></i> منظومه القياده <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/AutoDriveMain/LookUp_DriveLevel/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>مستويات القياده</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/LicenceType/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>نوع رخصه المتدرب</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/LicenceCategory/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>وصف رخصه المتدرب</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/StudyPeriodSetting/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>مده الدراسه</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/AutoDriveMain/Nationality/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>الجنسيه</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/NationalType/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>نوع الجنسيه</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/Religion/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>الديانه</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/SpeechLanguage/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>اللغه</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/JobName/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>الوظيفه</span>
+                                            </a>
+                                        </li>
+
+
+                                        <li>
+                                            <a href="/AutoDriveMain/Trainee/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>المتدربين</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/AutoDriveMain/TraineeEvaluation/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>تقييم المتدربين</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+
+
+                                @*<li>
+                                        <a><i class="fa fa-lock"></i> منظومه القياده <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                <a href="/AutoDriveMain/LookUp_DriveLevel/Index">
+                                                    <i><img src="~/Images/امر شغل.png" /></i>  <span>مستويات القياده</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/AutoDriveMain/LicenceType/Index">
+                                                    <i><img src="~/Images/امر شغل.png" /></i>  <span>نوع رخصه المتدرب</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/AutoDriveMain/LicenceCategory/Index">
+                                                    <i><img src="~/Images/امر شغل.png" /></i>  <span>وصف رخصه المتدرب</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/AutoDriveMain/StudyPeriodSetting/Index">
+                                                    <i><img src="~/Images/امر شغل.png" /></i>  <span>مده الدراسه</span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>*@
+                                <li>
+                                    <a><i class="fa fa-lock"></i> @Resources.Payroll <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="/Payroll/BasicSalarySetting/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.BasicSalaryAndChanged</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/IncreasingDeductionSetting/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.IncreasesAndDeductions</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/JobDegree/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.JobDegree</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/JobLevel/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.JobLevel</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/IncreasesDeductionType/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.IncreasingDeductionType</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/MotivationEmployee/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.MotivationEmployee</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/ViolationType/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.ViolationType</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Payroll/EmployeeViolation/Index">
+                                                <i><img src="~/Images/امر شغل.png" /></i>  <span>@Resources.EmployeeViolation</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle" style="padding-top:10px;width:168px;">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            <select id="LanguageMenue" class="" style="display:inline-block">
+                                <option value="ar-EG">العربيه</option>
+                                <option value="en-US">English</option>
+                            </select>
+                        </div>
+                        @Html.Partial("_LoginPartial")
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="@contentdir" role="main">
+                <div class="">
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div id="searchbox" style="display:none">
+                                <label> بحث</label>
+                                <input type="text" name="name" value="" id="search" />
+                            </div>
+
+                            <div class="x_panel" id="content">
+
+                                @RenderBody()
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- jQuery -->
+
+
+    @Scripts.Render("~/test/Gentelella")
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/gijgo.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/jquery.cookie-1.4.1.min.js"></script>
+
+    <script>
+        function GetLanguage() {
+            var Language = $.cookie('Language');
+            if (Language == undefined) {
+                return "ar-EG";
+            }
+            else {
+                return Language;
+            }
+        }
+        $(document).ready(function () {
+
+            $(".x_panel").preloader({
+                text: 'جارى التحميل',
+                zIndex: '99999999999',
+            });
+            $("#LanguageMenue").change(function () {
+
+                $.ajax({
+                    url: "/Language/ChangeLanguage",
+                    type: "post",
+                    data: { SelectedLanguage: $("#LanguageMenue").val() },
+                    success: function (data) {
+                        if (data.statues) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
+
+            $("#LanguageMenue").val(GetLanguage());
+
+        });
+
+
+        $(window).load(function () {
+            setTimeout(function () {
+                $(".x_panel").preloader("remove");
+
+            }, 500);
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

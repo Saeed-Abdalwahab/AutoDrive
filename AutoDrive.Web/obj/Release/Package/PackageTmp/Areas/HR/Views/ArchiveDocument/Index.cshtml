@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = Messages.Employees;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+}
+@section Styles{
+
+    <style>
+    </style>
+}
+<div class="form-group">
+    <label class="control-label col-md-1" for="employeeVM_Name">@Resources.Employee</label>
+    <div class="col-md-5">
+        <input type="text" class="form-control" placeholder="@Messages.EmployeeSearch" id="EmployeeSearch" />
+        <span class="text-danger" id="ErrorMsg"></span>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+               //AutoComplete
+            $("#EmployeeSearch").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("EmployeesSearch","Employee")",
+                        type: "GET",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            debugger
+                            if (!data.length) {
+                                $('#EmployeeID').val("0")
+                                $('#EmployeeSearch').val("")
+
+
+                            }
+                            else
+                            {
+
+                                $("#ErrorMsg").text("");
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.GUID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                  window.location.href = "@Url.Action("EmployeeArchive","ArchiveDocument")" + "?ID=" + ui.item.ss;
+
+                },
+
+
+            });
+
+        });
+
+    </script>
+}

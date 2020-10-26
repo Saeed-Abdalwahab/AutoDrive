@@ -1,0 +1,124 @@
+﻿@using AutoDriveResources
+@{
+    ViewBag.Title =Resources.LoanPayment;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="x_content">
+    <h2>@Resources.LoanPayment</h2>
+
+    <div class="col-sm-12" id="con">
+        <table id="EmployeeLoanTB" class="table table-striped jambo_table bulk_action">
+            <thead>
+                <tr>
+                    <th>@Resources.SerialNumber</th>
+                    <th>@Resources.Employee</th>
+                    <th>@Resources.JobDegree</th>
+                    <th>@Resources.JobLevel</th>
+                    <th>@Resources.CurrentManagement</th>
+                    <th>@Resources.ValueLoan</th>
+                    <th>@Resources.TotalPaid</th>
+                    <th>@Resources.StatusLoan</th>
+                    <th>@Resources.ConvertToPayment</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>
+@section scripts{
+    <script>
+          function GetLanguage() {
+                var EN = {
+                    "sEmptyTable": "No data available in table",
+                    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ",",
+                    "sLengthMenu": "Show _MENU_ entries",
+                    "sLoadingRecords": "Loading...",
+                    "sProcessing": "Processing...",
+                    "sSearch": "Search:",
+                    "sZeroRecords": "No matching records found",
+                    "oPaginate": {
+                        "sFirst": "First",
+                        "sLast": "Last",
+                        "sNext": "Next",
+                        "sPrevious": "Previous"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": activate to sort column ascending",
+                        "sSortDescending": ": activate to sort column descending"
+                    }
+                };
+                var AR =
+                {
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    }
+                };
+                let LangFlag = @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ?"true":"false");
+                return (LangFlag == false ? EN : AR);
+        }
+        $(document).ready(function () {
+             $('#EmployeeLoanTB').DataTable({
+                    "ajax": {
+                        'url': "@Url.Action("GetUnderPaymentEmployeeLoans","EmployeeLoan")",
+                        'type': "GET"
+                    }, "columns": [
+                        {
+                            "data": null, orderable: false,
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            },width: "2%"
+                        },
+                       
+                        { "data": "EmpName",width:"10%" },
+                        { "data": "JobDegree" ,width:"10%"},
+                        { "data": "JobLevel" ,width:"10%"},
+                        { "data": "DeptName" ,width:"10%"},
+                     { "data": "LoanValue", width: "10%" },
+                  { "data": "TotalPaid", width: "10%" },
+                  { "data": "LoanStatus", width: "10%" },
+                        {
+                            "data": "EmloyeeLoanID", "render": function (data, type, row) {
+                               
+                                    return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='ConvertToPayment(" + data + ")'>@Resources.Convert</botton>"
+                               
+                            },"width": "10%"
+                        }
+                    ], "language": GetLanguage()
+                });
+        });
+        function ConvertToPayment(id) {
+             $.ajax({
+                    type: "post",
+                    url: "/EmployeeLoan/ConvertToPayment?id=" + id,
+
+                    success: function (response) {
+                        $("#EmployeeLoanTB").DataTable().ajax.reload();
+                        toastr.success('@Messages.PaymentConverted', '', { timeOut: 4000 })
+                    },
+                    error: function () {
+                        toastr.error('@Messages.NotSuccessfulOperation', '', { timeOut: 3000 });
+                    }
+                });
+        }
+    </script>
+}

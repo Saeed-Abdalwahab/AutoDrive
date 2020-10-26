@@ -1,0 +1,24 @@
+
+{
+  "sEmptyTable": "แํำส ๅไว฿ ศํวไวส ใสวอษ Ýํ วแฬฯๆแ",
+  "sLoadingRecords": "ฬวั๒ วแสอใํแ...",
+  "sProcessing": "ฬวั๒ วแสอใํแ...",
+  "sLengthMenu": "รูๅั _MENU_ ใฯฮแวส",
+  "sZeroRecords": "แใ ํฺหั ฺแ์ รํษ ำฬแวส",
+  "sInfo": "ลูๅวั _START_ ลแ์ _END_ ใไ รีแ _TOTAL_ ใฯฮแ",
+  "sInfoEmpty": "ํฺัึ 0 ลแ์ 0 ใไ รีแ 0 ำฬแ",
+  "sInfoFiltered": "(ใไสÞวษ ใไ ใฬใๆฺ _MAX_ ใ๕ฯฮแ)",
+  "sInfoPostFix": "",
+  "sSearch": "วศอห:",
+  "sUrl": "",
+  "oPaginate": {
+    "sFirst": "วแรๆแ",
+    "sPrevious": "วแำวศÞ",
+    "sNext": "วแสวแํ",
+    "sLast": "วแรฮํั"
+  },
+  "oAria": {
+    "sSortAscending": ": สÝฺํแ แสัสํศ วแฺใๆฯ สีวฺฯํว๐",
+    "sSortDescending": ": สÝฺํแ แสัสํศ วแฺใๆฯ สไวาแํว๐"
+  }
+}

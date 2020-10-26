@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AutoDrive.VM.AutoDriveHR.EmployeeVacationAccountInquiryVM>
+@using AutoDriveResources
+<style>
+    #EmployeeVacationInquiryTB{
+    background: #eef5f9;
+    color:black;
+    margin-top: 3%;
+}
+</style>
+<div class="row"></div>
+    <table class="table table-bordered" id="EmployeeVacationInquiryTB">
+        @if (Model.Count() > 0)
+        {
+            foreach (var Account in Model)
+            {
+                if (Account.column2==null)
+                {
+                    <tr style=" background: rgb(67, 142, 185);">
+                        <td>@Account.column1</td>
+                        <td></td>
+                        <td>@Account.column3</td>
+                    </tr>
+                    <tr>
+                        <td>@Resources.From</td>
+                        <td>@Resources.To</td>
+                        <td>@Resources.DaysNo</td>
+                    </tr>
+                    
+                }
+                else
+                {
+                    <tr>
+                        <td>@Account.column1</td>
+                        <td>@Account.column2</td>
+                        <td>@Account.column3</td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+
+            <tr>
+                <td colspan="3">@Resources.NotExistedBalanceForEmployee</td>
+            </tr>
+
+        }
+    </table>

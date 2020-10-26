@@ -1,0 +1,853 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.CourseReservationVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333%;
+    }
+
+    .col-md-8 {
+        width: 71.66666666%;
+    }
+</style>
+<div class="text-center">
+    <h3 class="center info"> @Messages.CourseReservation </h3>
+</div>
+
+@*Creat apopup Modal For Add And Edit*@
+
+
+
+@using (Html.BeginForm("CreateCourseReservation", "CourseReservation", FormMethod.Post, new { Id = "myForm", enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+
+
+        @if (Model != null)
+        {
+            <input value="@Model.ID" id="ID" name="ID" style="display:none" />
+
+
+            <input value="@Model.CourseReservation_Msg" id="CourseReservation_Msg" name="CourseReservation_Msg" style="display:none" />
+            <input value="@Model.TraineeId" id="TraineeId" name="TraineeId" style="display:none" />
+
+        }
+        <input value="@Model.TraineeEvaluationId" id="TraineeEvaluationId" name="TraineeEvaluationId" style="display:none" />
+
+        <div class="row ">
+            <div>
+                <div class="col-md-12">
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CodeSearch, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.DropDownList("ViewBag.CodeId", (SelectList)ViewBag.CodeId, Messages.ChooseTraineeCode , new { @class = "form-control", @id = "CodeId", @name = "CodeId" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessage("مطلوب", "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @placeholder = Resources.Code, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+
+
+
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.Name, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ArName, new { @class = "form-control", @placeholder = Resources.Name, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.EnName, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(x => x.EnName, new { @class = "form-control", @placeholder = Resources.EnName, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.LicenceType, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @if (@ViewBag.LangEn == true)
+                                {
+                                    @Html.TextBoxFor(m => m.LicenceTypeEnName, new { @class = "form-control", @placeholder = "LicenceCategory", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(m => m.LicenceTypeName, new { @class = "form-control", @placeholder = "فئه الرخصه", @readonly = "readonly" })
+
+                                }
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.LicenceCategory, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @if (@ViewBag.LangEn == true)
+                                {
+                                    @Html.TextBoxFor(m => m.LicenceCategoryEnName, new { @class = "form-control", @placeholder = "LicenceCategory", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(m => m.LicenceCategoryName, new { @class = "form-control", @placeholder = "فئه الرخصه", @readonly = "readonly" })
+
+                                }
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.FileNo, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.FileNo, new { @class = "form-control", @placeholder = Resources.FileNo, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.FileNo, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.StudyPeriodSetting, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @if (@ViewBag.LangEn == true)
+                                {
+                                    @Html.TextBoxFor(m => m.StudyPeriodSettingEnName, new { @class = "form-control", @placeholder = "Study Level", @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(m => m.StudyPeriodSettingName, new { @class = "form-control", @placeholder = "مستوى الدراسه", @readonly = "readonly" })
+
+                                }
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.StudyPeriodSettingName, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.VisualStudyCount, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.VisualStudyCount, new { @class = "form-control", @placeholder = Resources.VisualStudyCount, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.VisualStudyCount, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.PracticalCount, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.PracticalCount, new { @class = "form-control",  @placeholder =Resources.PracticalCount, @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.PracticalCount, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseStartDate, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CourseStartDate, new { @class = "form-control", @placeholder =Resources.CourseStartDate })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.CourseStartDate, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseEndDate, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CourseEndDate, new { @class = "form-control", @placeholder = Resources.CourseEndDate})
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.CourseEndDate, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-bottom:17px;">
+                        @Html.Label(Resources.CourseCost, htmlAttributes: new { @class = "col-md-4" })
+                        <div class="col-md-8">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CourseCost, new { @class = "form-control", @placeholder = "التكلفه" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.CourseCost, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="text-left">
+            @if (Model != null)
+            {
+                //if (Model.ID == 0)
+                //{
+                @*<button type="submit" class="btn btn-primary btn-lg btn-round " id="btnSave" data-placement="top" data-content="@Messages.AddNew" style="left:54%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>*@
+
+                <input type="submit" value="@Messages.SaveBTN" id="btnCreate" />
+                @*}
+            else
+            {
+                <input type="submit" value="تعديل" id="btnEdit" />
+                <input type="submit" value="حذف" id="btnDelete" />
+            }*@
+            }
+
+        </div>
+    </div>
+}
+
+
+
+<div class="container" style="margin-top:3%">
+
+    <table class="table table-striped" id="CourseReservationTable">
+        <thead>
+            <tr>
+                <th>م</th>
+                <th>الكود</th>
+                <th>اسم المتدرب</th>
+                <th>اسم المتدرب</th>
+                <th>مستوى الدراسه</th>
+                <th>مستوى الدراسه</th>
+                <th>تاريخ بدايه الدراسه</th>
+                <th>تاريخ نهايه الدراسه</th>
+                <th>التكلفه</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+    </table>
+</div>
+
+
+@*Creat apopup Modal For Add And Edit*@
+<div class="modal fade" id="MyModalDataTable">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="Modaltitle"></h4>
+            </div>
+            <div class="modal-body" style="height:138px">
+                <form id="formDataTable">
+                    <div class="form-horizontal">
+
+                        @Html.HiddenFor(m => m.ID, new { @id = "_ID" })
+
+                        <input value="@Model.CourseReservation_Msg" id="_CourseReservation_Msg" name="CourseReservation_Msg" style="display:none" />
+                        <input value="@Model.TraineeId" id="_TraineeId" name="TraineeId" style="display:none" />
+
+
+                        <input value="@Model.TraineeEvaluationId" id="_TraineeEvaluationId" name="TraineeEvaluationId" style="display:none" />
+                        <div class="form-group">
+
+                            @*-----------------------------------------------*@
+
+
+                            @*<input value="@Model.ID" id="_ID" name="ID" style="display:none" />*@
+
+
+
+                            <div class="row ">
+                                <div>
+
+
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @placeholder = "كود المتدرب", @readonly = "readonly", @Id = "_Code" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.Name, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                @if (@ViewBag.LangEn == true)
+                                                {
+                                                    <div class="col-md-10">
+
+                                                        @Html.TextBoxFor(m => m.EnName, new { @class = "form-control", @placeholder = "اسم المتدرب", @readonly = "readonly", @Id = "_EnName" })
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-10">
+
+                                                        @Html.TextBoxFor(m => m.ArName, new { @class = "form-control", @placeholder = "اسم المتدرب", @readonly = "readonly", @Id = "_ArName" })
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.ValidationMessageFor(model => model.ArName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                }
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.StudyPeriodSetting, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @if (@ViewBag.LangEn == true)
+                                                    {
+                                                        @Html.TextBoxFor(m => m.StudyPeriodSettingEnName, new { @class = "form-control", @placeholder = "مستوى الدراسه", @readonly = "readonly", @Id = "_StudyPeriodSettingEnName" })
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.TextBoxFor(m => m.StudyPeriodSettingName, new { @class = "form-control", @placeholder = "مستوى الدراسه", @readonly = "readonly", @Id = "_StudyPeriodSettingName" })
+
+                                                    }
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.StudyPeriodSettingName, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.CourseCost, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.CourseCost, new { @class = "form-control", @placeholder = "التكلفه", @Id = "_CourseCost" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.CourseCost, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.CourseStartDate, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.CourseStartDate, new { @class = "form-control", @placeholder = "تاريخ بدايه الدراسه", @Id = "_CourseStartDate" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.ValidationMessageFor(model => model.CourseStartDate, "", new { @class = "text-danger" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" style="margin-bottom:17px;">
+                                            @Html.Label(Resources.CourseEndDate, htmlAttributes: new { @class = "col-md-4" })
+                                            <div class="col-md-8">
+                                                <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.CourseEndDate, new { @class = "form-control", @placeholder = "تاريخ نهايه الدراسه", @Id = "_CourseEndDate" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @*------------------------------------------------*@
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="SaveCoruseReservation">حفظ</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">الغاء</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Delete Model*@
+<div class="modal fade" id="MyModalDataTableDelete" style="width:700px;  height:700px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="ModaltitleDelete"></h4>
+            </div>
+            <div class="modal-body" style="height:138px">
+                <form id="formDataTableDelete">
+                    <div class="form-horizontal">
+
+                        @Html.HiddenFor(m => m.ID, new { @id = "Delete_ID" })
+                        <div class="form-group">
+                            <div>
+                                @Html.Label("هل انت متأكد من حذف الدوره الدراسه هذه")
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="btnDeleteCourseReservation">حذف</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">الغاء</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+    <script>
+        $(function () {
+            var _Msg = $("#CourseReservation_Msg").val();
+            if (_Msg != "") {
+
+                toastr.success(_Msg, 'اشعار', { timeOut: 4000 });
+                $("#CourseReservation_Msg").val("");
+            }
+            $("#CourseStartDate").datepicker({
+                 dateFormat: 'mm/dd/yy'
+            });
+            $("#CourseEndDate").datepicker({
+               dateFormat: 'mm/dd/yy'
+            });
+              $("#CourseStartDate").change(function () {
+                //$("#CourseEndDate").val("");
+                $("#CourseEndDate").datepicker("option", "minDate", $(this).val());
+            });
+              $("#CourseEndDate").change(function () {
+                //$("#CourseStartDate").val("");
+                $("#CourseStartDate").datepicker("option", "maxDate", $(this).val());
+            });
+
+
+
+            $("#_CourseStartDate").datepicker({
+                 dateFormat: 'mm/dd/yy'
+            });
+            $("#_CourseEndDate").datepicker({
+                 dateFormat: 'mm/dd/yy'
+            });
+              $("#_CourseStartDate").change(function () {
+                //$("#CourseEndDate").val("");
+                $("#_CourseEndDate").datepicker("option", "minDate", $(this).val());
+            });
+              $("#_CourseEndDate").change(function () {
+                //$("#CourseStartDate").val("");
+                $("#_CourseStartDate").datepicker("option", "maxDate", $(this).val());
+            });
+
+
+            //$("#btnEdit").click(function () {
+            //    $("#myForm").attr("action", "/AutoDriveMain/CourseReservation/EditCourseReservation");
+            //});
+            //$("#btnDelete").click(function () {
+            //    $("#myForm").attr("action", "/AutoDriveMain/CourseReservation/DeleteCourseReservation");
+            //});
+
+
+
+            $("#CodeId").chosen();
+
+            $("#CodeId").change(function () {
+                if ($("#CodeId").val() == "") {
+                $("#ID").val("");
+                            $("#TraineeId").val("");
+                            $("#CodeId :selected").val("");
+                            $("#Code").val("");
+
+                            $("#TraineeEvaluationId").val("");
+                            $("#ArName").val("");
+                            $("#EnName").val("");
+                            $("#LicenceTypeName").val("");
+                            $("#LicenceTypeEnName").val("");
+                            $("#LicenceCategoryName").val("");
+                            $("#LicenceCategoryEnName").val("");
+                            $("#FileNo").val("");
+                            $("#StudyPeriodSettingName").val("");
+                            $("#StudyPeriodSettingEnName").val("");
+                            $("#VisualStudyCount").val("");
+                            $("#PracticalCount").val("");
+                            $("#CourseStartDate").val("");
+                            $("#CourseEndDate").val("");
+                            $("#CourseCost").val("");}
+                else {
+                    $.ajax({
+                        url: "@Url.Action("GetCourseReservationByCode","CourseReservation")",
+
+                        data: { NCode: $("#CodeId").val() },
+                        success: function (res) {
+                            $("#ID").val(res.ID);
+                            $("#TraineeId").val(res.TraineeId);
+                            $("#CodeId :selected").val(res.CodeId);
+                            $("#Code").val(res.Code);
+
+                            $("#TraineeEvaluationId").val(res.TraineeEvaluationId);
+                            $("#ArName").val(res.ArName);
+                            $("#EnName").val(res.EnName);
+                            $("#LicenceTypeName").val(res.LicenceTypeName);
+                            $("#LicenceTypeEnName").val(res.LicenceTypeEnName);
+                            $("#LicenceCategoryName").val(res.LicenceCategoryName);
+                            $("#LicenceCategoryEnName").val(res.LicenceCategoryEnName);
+                            $("#FileNo").val(res.FileNo);
+                            $("#StudyPeriodSettingName").val(res.StudyPeriodSettingName);
+                            $("#StudyPeriodSettingEnName").val(res.StudyPeriodSettingEnName);
+                            $("#VisualStudyCount").val(res.VisualStudyCount);
+                            $("#PracticalCount").val(res.PracticalCount);
+                            $("#CourseStartDate").val(res.CourseStartDate);
+                            $("#CourseEndDate").val(res.CourseEndDate);
+                            $("#CourseCost").val(res.CourseCost);
+                           
+                        }
+                    });
+                }
+            });
+        });
+
+        function SaveEval() {
+
+            if ($("#formDataTable").valid()) {
+                var data = $("#formDataTable").serialize();
+                $.ajax({
+                    type: "post",
+                    url:"@Url.Action("Save_CourseReservationDataTable","CourseReservation")",
+                      
+                    data: data,
+                    success: function (response) {
+                        if (response.msg == true) {
+                            if (data.split("&")[0] == "ID=0") {
+
+                                $("#CourseReservationTable").DataTable().ajax.reload();
+                                toastr.success('تم اضافه دوره دراسيه', 'اشعار', { timeOut: 4000 });
+                                AddLicenceCategory(0);
+                                //$("#MyModal").modal("hide");
+
+                            }
+                            else {
+                                $("#CourseReservationTable").DataTable().ajax.reload();
+                                toastr.success('تم تعديل حجز دوره دراسيه', 'اشعار', { timeOut: 4000 });
+                                $("#MyModalDataTable").modal("hide");
+                            }
+                        }
+                        else {
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+
+                        }
+                    },
+                    fail: function () {
+                        toastr.error('الاسم مسجل بالفعل', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    },
+                    error: function () {
+                        toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    }
+                });
+            }
+            else {
+                toastr.error('برجاءادخال الحقول', 'اشعار', { timeOut: 3000 });
+            }
+        }
+
+         function DeleteEval() {
+
+            if ($("#formDataTableDelete").valid()) {
+                var data = $("#formDataTableDelete").serialize();
+                $.ajax({
+                    type: "post",
+                    url:"@Url.Action("Delete_CourseReservationDataTable","CourseReservation")",
+                        
+                    data: data,
+                    success: function (response) {
+                        if (response.msg == true) {
+
+                                $("#CourseReservationTable").DataTable().ajax.reload();
+                                toastr.success('تم حذف  دوره دراسيه', 'اشعار', { timeOut: 4000 });
+                                $("#MyModalDataTableDelete").modal("hide");
+
+                        }
+                        else {
+
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+
+                        }
+                    },
+                    fail: function () {
+                        toastr.error('الاسم مسجل بالفعل', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    },
+                    error: function () {
+                        toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    }
+                });
+            }
+            else {
+                toastr.error('برجاءادخال الحقول', 'اشعار', { timeOut: 3000 });
+            }
+        }
+
+         function EditCourseReservation(ID) {
+
+
+             var url ="@Url.Action("GetCourseReservationDatatable_byId","CourseReservation")" + "/" + ID;
+                
+            $("#Modaltitle").html("تعديل حجز دوره دراسيه ");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (res) {
+
+            
+
+                    $("#MyModalDataTable").modal();
+                        $("#_ID").val(res.data.ID);
+                    $("#_TraineeId").val(res.data.TraineeId);
+                    $("#_TraineeEvaluationId").val(res.data.TraineeEvaluationId);
+                        $("#_Code").val(res.data.Code);
+
+                        $("#_ArName").val(res.data.ArName);
+                        $("#_EnName").val(res.data.EnName);
+                        
+                        $("#_StudyPeriodSettingName").val(res.data.StudyPeriodSettingName);
+                        $("#_StudyPeriodSettingEnName").val(res.data.StudyPeriodSettingEnName);
+
+                        $("#_CourseStartDate").val(res.data.CourseStartDate);
+                        $("#_CourseEndDate").val(res.data.CourseEndDate);
+                        $("#_CourseCost").val(res.data.CourseCost);
+
+
+                }
+            })
+        }
+
+
+         function DeleteCourseReservation(ID) {
+
+            //$("#_LicenceTypeId").change();
+
+            //$("#_TraineeId").change();
+             var url ="@Url.Action("GetCourseReservationDatatable_byId","CourseReservation")" + "/" + ID;
+
+          
+            $("#ModaltitleDelete").html("حذف الدوره الدراسه ");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (res) {
+
+                    $("#MyModalDataTableDelete").modal();
+                    $("#Delete_ID").val(res.data.ID);
+
+
+
+
+
+
+                }
+            })
+        }
+
+         $("#SaveCoruseReservation").click(function () {
+            SaveEval();
+        });
+
+       $("#btnDeleteCourseReservation").click(function(){
+            DeleteEval();
+       });
+        //-----------------------------------------------------------------------------------------------------
+
+                //datatable function
+        $(document).ready(function () {
+            @*$("#btnSave").click(function () {
+
+                alert('@ViewBag.TraineeFound');
+                toastr.success('@ViewBag.TraineeFound');
+            });*@
+
+            var t = $('#CourseReservationTable').DataTable({
+
+                "ajax": {
+
+                    'url':"@Url.Action("GetAllCoursesReservation","CourseReservation")" ,
+                    'type': "GET",
+
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+
+
+
+                    { "data": "Code" },
+                    { "data": "ArName" },
+                    { "data": "EnName" },
+
+                    { "data": "StudyPeriodSettingName" },
+                    { "data": "StudyPeriodSettingEnName" },
+
+                    { "data": "CourseStartDate" },
+                    { "data": "CourseEndDate" },
+                    { "data": "CourseCost" },
+
+
+
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' id='btnEditDataTable' onclick='EditCourseReservation(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteCourseReservation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+                ],
+                "language": {
+
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+
+                },
+
+                info: false,
+
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        });
+    </script>
+}

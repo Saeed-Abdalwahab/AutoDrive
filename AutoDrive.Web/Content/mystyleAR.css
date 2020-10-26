@@ -1,0 +1,20 @@
+﻿body {
+}
+.nav-md .container.body .left_col
+{
+    margin-right:245px;
+    width:81%!important;
+}
+
+.container.body .right_col {
+    background: #fff !important;
+}
+
+.container.body .left_col {
+    background: #eef5f9 !important;
+}
+
+.nav-sm ul.nav.child_menu {
+    right: 100% !important;
+    left:0px;
+}

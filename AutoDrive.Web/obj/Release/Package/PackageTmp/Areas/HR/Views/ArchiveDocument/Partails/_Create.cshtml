@@ -1,0 +1,147 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeArchiveVM
+
+    @{
+        string ItemPathImage = Model != null ? Model.Imagepath : "";
+    }
+
+    @Html.HiddenFor(model => model.ID)
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group col-md-12" id="test">
+
+        @if (ItemPathImage != "" && ItemPathImage != null)
+        {
+            <img src="@ItemPathImage" alt="Alternate Text" style="width:200px;height:200px;margin-bottom:20px;" class="center-block" />
+        }
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.DateString, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DateString, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Notes,new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            <input type="file" name="upload" id="D_photo" data-validate-length-range="6" data-validate-words="2" accept="image/png ,application/pdf, image/jpg ,image/jpeg" />
+            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <script>
+        
+       
+        $(document).ready(function () {
+
+            $('#DateString').datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+
+            $("#D_photo").change(function (e) {
+                for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+                    var file = e.originalEvent.srcElement.files[i];
+
+                    var img = document.createElement("img");
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        img.src = reader.result;
+                        reader.val
+                    }
+                    reader.readAsDataURL(file);
+                    img.style.marginRight = "40%";
+                    img.style.width = "200px";
+                    img.style.height = "200px";
+                    img.style.marginBottom = "20px";
+                    img.classList.add("center-block");
+
+                    $("#CreateData").css("height", "400px")
+                    $("#test").html("");
+                    $("#test").append(img);
+                }
+
+
+            })
+
+            $("#save").click(function () {
+                var arr = ['jpg', 'png', 'gif', 'jpeg', 'pdf'];
+                if ($("#D_photo").val() != "") {
+                    var filename = document.getElementById("D_photo").value;
+                    var ex = filename.substr(filename.lastIndexOf('.') + 1).toLowerCase();
+                    if ($.inArray(ex, arr) == -1) {
+
+                        $("span[data-valmsg-for='ItemPathImage']").text("اختر صوره")
+                        return false;
+                    }
+                }
+            })
+
+        })
+     function before() {
+         $(".x_panel").preloader({
+             text: 'جارى التحميل',
+            zIndex: '99999999999',
+
+        });
+    }
+
+
+
+        function ajaxpost(formData) {
+            var test = {
+                url: "@Url.Action("Create","ArchiveDocument")",
+                data: new FormData(formData),
+                type: "Post",
+                beforeSend: function () {
+                    $("body").preloader({ // loading text
+                        text: 'جارى التحميل',
+                        zIndex: '99999999999',
+                    });
+                },
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+
+                        $("#files").html(rs.View)
+                        $("body").preloader('remove');
+                        $("#MyModal").modal("hide")
+                        toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+                    }
+                    if (rs.data.Type == "NotValid") {
+                        $("body").preloader('remove')
+                        $("#CreateData").html(rs.View)
+                        $("#MyModal").modal("show")
+                    }
+                }
+
+            }
+            if ($(formData).attr("enctype") == "multipart/form-data") {
+                test["contentType"] = false
+                test["processData"] = false
+            }
+            $.ajax(test);
+            return false;
+        }
+
+
+
+
+    </script>

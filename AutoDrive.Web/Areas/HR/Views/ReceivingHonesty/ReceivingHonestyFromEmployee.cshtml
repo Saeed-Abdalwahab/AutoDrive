@@ -1,0 +1,165 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeVM
+@{
+    ViewBag.Title = Resources.Honesty;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int EmployeeId = Model != null ? Model.ID : 0;
+}
+
+<h1>@Messages.ReceivingHonestyFromEmployee</h1>
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-4">
+        <label>@Resources.EmployeeName</label> :
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="col-md-4">
+        <label>@Resources.EmployeeCode</label> :
+        @Html.DisplayFor(model => model.Code)
+    </div>
+    <div class="col-md-4">
+        <label>@Resources.EmployeeDepartment</label> :
+        @Html.DisplayFor(model => model.EmployeeDepartment)
+    </div>
+</div>
+
+<div class="row" style="margin-top:50px">
+    <table id="Honesty" class="table table-striped jambo_table bulk_action">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>@Messages.items</th>
+                <th>@Messages.ItemCode</th>
+                <th>@Resources.HonestyDate</th>
+                <th>@Messages.ReceivingHonestyDate</th>
+                <th></th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+          
+            $('#Honesty').DataTable({
+                ajax: {
+
+                    url: '@Url.Action("GetHonestyByEmID","ReceivingHonesty")',
+                    data: function (d) {
+                        return $.extend({}, d, {
+                            id: '@(Model.ID)',
+                        });
+                    },
+                    type: 'GET'
+
+                },
+                "columns": [
+                { data: "ID", visible: false, orderable: false },
+
+                    {
+                        "data": null, orderable: false,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { data: "ItemName" },
+                    { data: "ItemCode" },
+                    {
+                        "data": "HonestyDate",
+                        "render": function (data) {
+
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return date.getFullYear() + "/" + month + "/" + date.getDate();
+                            }
+                            else {
+                                return "-";
+                            }
+                        }
+                    },
+                    {
+                        "data": "honestyEndDate",
+                        "render": function (data, type, row, meta) {
+                             
+                            if (data != null) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var month = date.getMonth() + 1
+                                return "<input type='text' style='text-align:center' id=" + row.ID + " value=" + date.getFullYear() + "/" + month + "/" + date.getDate() + " >"
+                            }
+                            else {
+                                return "<input type='text' id=" + row.ID + " />"
+                            }
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' onclick='Save(" + data + ")'>حفظ</botton>"
+                        }
+                    },
+                ],
+                "language": {
+                    "sEmptyTable": "@Messages.sEmptyTable",
+                    "sLoadingRecords": "@Messages.sLoadingRecords",
+                    "sProcessing": "@Messages.sProcessing",
+                    "sLengthMenu": "@Messages.sLengthMenu",
+                    "sZeroRecords": "@Messages.sZeroRecords",
+                    "sInfo": "@Messages.sInfo",
+                    "sInfoEmpty": "@Messages.sInfoEmpty",
+                    "sInfoFiltered": "@Messages.sInfoFiltered",
+                    "sInfoPostFix": "",
+                    "sSearch": "@Messages.sSearch",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "@Messages.sFirst",
+                        "sPrevious": "@Messages.sPrevious",
+                        "sNext": "@Messages.sNext",
+                        "sLast": "@Messages.sLast"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": @Messages.sSortAscending",
+                        "sSortDescending": ": @Messages.sSortDescending"
+                    }
+                },
+
+                info: false,
+                "paging": false
+            })
+            $('#Honesty').DataTable().ajax.reload(function (json) {
+                var HonestyDate = $('input').datepicker({
+                    format: 'yyyy/mm/dd',
+                    uiLibrary: 'bootstrap',
+                });
+            });
+        })
+
+        function Save(id) {
+            debugger
+            var date = $("#" + id).val();
+
+            $.ajax({
+
+                url: "@Url.Action("Edite","ReceivingHonesty")",
+                data: { date: date ,id:id },
+                type: "Get",
+                success: function (rs) {
+                    debugger
+                    if (rs.data.Type == "Success") {
+                        toastr.success(rs.data.Message, " ", { timeOut: 1500 })
+                       
+                    }
+                    else {
+                        toastr.error(rs.data.Message, "خطاء", { timeOut: 1500 })
+                    }
+
+                },
+
+            })
+        }
+
+    </script>
+}

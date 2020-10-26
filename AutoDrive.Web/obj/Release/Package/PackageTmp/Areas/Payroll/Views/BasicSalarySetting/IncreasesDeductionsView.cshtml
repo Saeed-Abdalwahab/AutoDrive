@@ -1,0 +1,138 @@
+﻿@using AutoDriveResources
+@using AutoDrive.VM
+@using AutoDrive.Static.Enums
+@using AutoDrive.DAL.AutoDriveDB
+@using System.Linq;
+@{
+    ViewBag.Title = Resources.AddingIncreasesDeductionsToJob;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<IncreasingDeductionSettingVM> increasingDeductionSettingsLst = ViewBag.IncreasesDeductions;
+    List<int> IncreasesDeductionIDSLst = ViewBag.AddIncreasesDeduction;
+    int deduction = 0, increase = 0;
+    string name;
+}
+
+<div class="x_content">
+    <h2>@Resources.AddingIncreasesDeductionsToJob</h2>
+    
+        <div class="row">
+            <h4>@Resources.IncreasesShow</h4>
+            @foreach (var increasingDeductionSetting in increasingDeductionSettingsLst)
+            {
+
+                if (increasingDeductionSetting.IncreaseORDeduction == (int)IncreasesDeductionType.Increase && IncreasesDeductionIDSLst!=null)
+                {
+                    increase+=1;
+                    name = "IncreasesckBox" + @increase;
+                    <div class="form-check col-md-2">
+                        <input class="form-check-input" type="checkbox" id="@name" name="Increases" value=@increasingDeductionSetting.ID checked=@(IncreasesDeductionIDSLst.Contains(increasingDeductionSetting.ID)?true:false)>
+                        <label class="form-check-label" for="@name" style="color: black !important;">@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? increasingDeductionSetting.Name : increasingDeductionSetting.EnName)</label>
+                    </div>
+
+                }
+                else if(increasingDeductionSetting.IncreaseORDeduction == (int)IncreasesDeductionType.Increase)
+                {
+                    increase+=1;
+                     name = "IncreasesckBox" + @increase;
+                       <div class="form-check col-md-2">
+                        <input class="form-check-input" type="checkbox" id="@name" name="Increases" value=@increasingDeductionSetting.ID>
+                        <label class="form-check-label" for="@name" style="color: black !important;">@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? increasingDeductionSetting.Name : increasingDeductionSetting.EnName)</label>
+                    </div>
+                }
+            }
+        </div>
+    <div class="row" style="margin: 2%;"></div>
+        <div class="row">
+            <h4>@Resources.DeductionsShow</h4>
+            @foreach (var increasingDeductionSetting in increasingDeductionSettingsLst)
+            {
+                
+
+                if (increasingDeductionSetting.IncreaseORDeduction == (int)IncreasesDeductionType.Deduction && IncreasesDeductionIDSLst != null)
+                {
+                    deduction+=1;
+                    name = "deductionsckBox" + deduction;
+                    <div class="form-check col-md-2">
+                        <input class="form-check-input" type="checkbox" id="@name" name="deductions" value=@increasingDeductionSetting.ID checked=@(IncreasesDeductionIDSLst.Contains(increasingDeductionSetting.ID)?true:false)>
+                        <label class="form-check-label" for="@name" style="color: black !important;"> @(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? increasingDeductionSetting.Name : increasingDeductionSetting.EnName)</label>
+                    </div>
+
+                }
+                else if (increasingDeductionSetting.IncreaseORDeduction == (int)IncreasesDeductionType.Deduction)
+                {
+                    deduction+=1;
+                    name = "deductionsckBox" + deduction;
+                    <div class="form-check col-md-2">
+                        <input class="form-check-input" type="checkbox" id="@name" name="deductions" value=@increasingDeductionSetting.ID>
+                        <label class="form-check-label" for="@name" style="color: black !important;">@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? increasingDeductionSetting.Name : increasingDeductionSetting.EnName)</label>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row" style="margin: 2%;">
+            <button onclick="Save()" class="btn btn-primary" style="width: 14%;position: relative;right: 50%;">@Resources.Save</button>
+        </div>
+        
+  
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script>
+    function Save() {
+        debugger;
+        let deduction =@deduction;
+        let increase =@increase;
+        let BasicSalaryID =@ViewBag.BasicSalaryID;
+        //Increases
+        for (var i = 1; i <= increase; i++) {
+            if ($("#IncreasesckBox" + i).prop("checked") == true) {
+                let IncresaesDeductionSettingId = $("#IncreasesckBox" + i).val();
+                let url = "/BasicSalarySetting/SaveAddingIncreasesDeductionToJob?BasicSalaryId=" + BasicSalaryID+"&IncresaesDeductionSettingId=" + IncresaesDeductionSettingId;
+                 $.ajax({
+            type: "post",
+            url:url,
+            success: function (response) {
+            }   
+        });   
+            } else {
+                let IncresaesDeductionSettingId = $("#IncreasesckBox" + i).val();
+                let url = "/BasicSalarySetting/DeleteAddingIncreasesDeductionToJob?BasicSalaryId=" + BasicSalaryID+"&IncresaesDeductionSettingId=" + IncresaesDeductionSettingId;
+                 $.ajax({
+                  type: "post",
+                  url:url,
+                  success: function (response) { 
+            }   
+        });
+            }
+        }
+         //Deductions
+        for (var i = 1; i <= deduction; i++) {
+            if ($("#deductionsckBox" + i).prop("checked") == true) {
+                let IncresaesDeductionSettingId = $("#deductionsckBox" + i).val();
+                let url = "/BasicSalarySetting/SaveAddingIncreasesDeductionToJob?BasicSalaryId=" + BasicSalaryID+"&IncresaesDeductionSettingId=" + IncresaesDeductionSettingId;
+                 $.ajax({
+            type: "post",
+            url:url,
+            success: function (response) {
+            }   
+        });   
+            } else {
+                let IncresaesDeductionSettingId = $("#deductionsckBox" + i).val();
+                let url = "/BasicSalarySetting/DeleteAddingIncreasesDeductionToJob?BasicSalaryId=" + BasicSalaryID+"&IncresaesDeductionSettingId=" + IncresaesDeductionSettingId;
+                 $.ajax({
+                  type: "post",
+                  url:url,
+                  success: function (response) { 
+            }   
+        });
+            }
+        }
+        window.location.href = '@Url.Action("index","BasicSalarySetting")';
+       //  $.ajax({
+       //     type: "GET",
+       //     url:"/Payroll/BasicSalarySetting/Index",
+       //      success: function (response) {
+       //}   
+       // });   
+    }
+</script>

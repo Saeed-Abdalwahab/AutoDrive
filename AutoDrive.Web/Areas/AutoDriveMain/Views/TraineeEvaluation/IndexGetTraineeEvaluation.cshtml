@@ -1,0 +1,895 @@
+﻿@using AutoDriveResources
+@model AutoDrive.VM.AutoDriveMainViewModels.TraineeEvaluationVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .modal-body {
+        height: auto !important;
+    }
+
+    .col-md-4 {
+        width: 28.33333333% !important;
+    }
+
+    .col-md-8 {
+        width: 71.66666666% !important;
+    }
+</style>
+<div class="text-center">
+    <h3 class="center info"> @Messages.TraineeEvaluation</h3>
+</div>
+
+
+
+
+@using (Html.BeginForm("CreateTraineeEvaluation", "TraineeEvaluation", FormMethod.Post, new { Id = "myForm", enctype = "multipart/form-data" }))
+{
+<div class="form-horizontal">
+
+
+    @*   @if (Model != null)
+            {
+
+                <input type="text" value="@Model.ID" id="ID" name="ID" style="display:none" />
+
+
+
+        }*@
+    <input type="text" value="@Model.DateOfBirth" id="DateOfBirth" name="DateOfBirth" style="display:none" />
+    <div class="row ">
+        <div class="col-md-10">
+
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Trainee, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(x => x.TraineeId, (SelectList)ViewBag.TraineeId, Messages.ChooseTrainee, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.TraineeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.EditorFor(x => x.Code, new { htmlAttributes = new { @class = "form-control", Name = "Code", type = "Code", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.Age, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.EditorFor(x => x.TraineeAge, new { htmlAttributes = new { @class = "form-control", Name = "TraineeAge", type = "TraineeAge", @readonly = "readonly" } })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.TraineeAge, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.StudyPeriodSetting, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(x => x.StudyPeriodSettingId, (SelectList)ViewBag.StudyPeriodSettingId,Messages.ChooseLevel , new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.StudyPeriodSettingId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.LicenceType, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(x => x.LicenceTypeId, (SelectList)ViewBag.LicenceTypeId, Messages.ChooseLiceneType, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.LicenceTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.LicenceCategory, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        <select id="LicenceCategoryId" name="LicenceCategoryId" class="form-control">
+                            <option value="0">"@Messages.ChooseLicenceCategory"</option>
+                        </select>
+                        @*@Html.DropDownList("LicenceCategoryId2",null,  "--اختر فئه الرخصه--", new { @class = "form-control",@id="LicenceCategoryId2" })*@
+                    </div>
+                    <div class="col-md-2">
+                        @*@Html.ValidationMessageFor(model => model.LicenceCategoryId, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.EvaluationEmployee, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(x => x.EvaluationEmployeeId, (SelectList)ViewBag.EvaluationEmployeeId,Messages.ChooseEmployee, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.EvaluationEmployeeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6" style="margin-bottom:17px;">
+                @Html.Label(Resources.EvaluationDate, htmlAttributes: new { @class = "col-md-4" })
+                <div class="col-md-8">
+                    <div class="col-md-10">
+                        @Html.EditorFor(x => x.EvaluationDate, new { htmlAttributes = new { @class = "form-control", Name = "EvaluationDate" } })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.EvaluationDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-2">
+            @*<input type="file" name="f1" id="fileChooser" />*@
+            @*@if (Model != null)
+        {*@
+            @if (Model.TraineePhotopath != null)
+            {
+                <img src="~/Upload/@Model.TraineePhotopath" id="TraineePhotopath" width="96" height="96" />
+            }
+            else
+            {
+                <img src="~/Upload/t.png" id="TraineePhotopath" width="96" height="96" />
+
+            }
+            @*
+        }*@
+        </div>
+
+    </div>
+
+
+</div>
+
+    <div class="modal-footer">
+        <div>
+            <div class="text-left">
+                @if (Model != null)
+                {
+                    //if (Model.ID == 0)
+                    //{
+                    @*<button type="submit" class="btn btn-primary btn-lg btn-round " id="btnSave" data-placement="top" data-content="@Messages.AddNew" style="left:54%;bottom:15%"><span class="glyphicon glyphicon-plus"></span> </button>*@
+
+                    <input type="submit" value="@Messages.SaveBTN" id="btnSave" />
+                    @*}
+
+
+
+            else
+            {
+                <input type="submit" value="تعديل" id="btnEdit" />
+                <input type="submit" value="حذف" id="btnDelete" />
+            }*@
+                }
+                @*<a href="#" class="btn btn-primary" data-dismiss="modal">الغاء</a>*@
+
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+ 
+@*Creat apopup Modal For Add And Edit*@
+<div class="modal fade" id="MyModalDataTable">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="Modaltitle"></h4>
+            </div>
+            <div class="modal-body" style="height:138px">
+                <form id="formDataTable">
+                    <div class="form-horizontal">
+
+                        @Html.HiddenFor(m => m.ID, new { @id = "_ID" })
+                        <div class="form-group">
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.Trainee, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(x => x.TraineeId, (SelectList)ViewBag.TraineeId, Messages.ChooseTrainee, new { @class = "form-control", @name = "TraineeId", @id = "_TraineeId" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.TraineeId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.Code, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(x => x.Code, new { htmlAttributes = new { @class = "form-control", Name = "Code", type = "Code", @readonly = "readonly", @id = "_Code" } })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.Age, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(x => x.TraineeAge, new { htmlAttributes = new { @class = "form-control", Name = "TraineeAge", @id = "_TraineeAge", type = "TraineeAge", @readonly = "readonly" } })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.TraineeAge, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label("مستوى الدراسه", htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(x => x.StudyPeriodSettingId, (SelectList)ViewBag.StudyPeriodSettingId, Messages.ChooseLevel, new { @class = "form-control", @id = "_StudyPeriodSettingId", @name = "StudyPeriodSettingId" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.StudyPeriodSettingId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.LicenceType, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(x => x.LicenceTypeId, (SelectList)ViewBag.LicenceTypeId, Messages.ChooseLiceneType, new { @class = "form-control", @id = "_LicenceTypeId", @name = "LicenceTypeId" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.LicenceTypeId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.LicenceCategory, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        <select id="_LicenceCategoryId" name="LicenceCategoryId" class="form-control">
+                                            <option value="0">@Messages.ChooseLicenceCategory</option>
+                                        </select>
+                                        @*@Html.DropDownList("LicenceCategoryId2",null,  "--اختر فئه الرخصه--", new { @class = "form-control",@id="LicenceCategoryId2" })*@
+                                    </div>
+                                    <div class="col-md-2">
+                                        @*@Html.ValidationMessageFor(model => model.LicenceCategoryId, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.EvaluationEmployee, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(x => x.EvaluationEmployeeId, (SelectList)ViewBag.EvaluationEmployeeId, Messages.ChooseEmployee, new { @class = "form-control", @id = "_EvaluationEmployeeId", @name = "EvaluationEmployeeId" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.EvaluationEmployeeId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.EvaluationDate, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(x => x.EvaluationDate, new { htmlAttributes = new { @class = "form-control", Name = "EvaluationDate",  id = "_EvaluationDate" } })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.EvaluationDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="margin-bottom:17px;">
+                                @Html.Label(Resources.TraineePhotopath, htmlAttributes: new { @class = "col-md-4" })
+                                <div class="col-md-8">
+                                    <div class="col-md-10">
+                                        @if (Model.TraineePhotopath != null)
+                                        {
+                                            <img src="" id="_TraineePhotopath" name="TraineePhotopath" width="96" height="96" />
+                                        }
+                                        else
+                                        {
+                                            <img src="" id="_TraineePhotopath" name="TraineePhotopath" width="96" height="96" />
+
+                                        }
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="SaveTraineeEvaluation">@Messages.SaveBTN</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.BackBtn</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="MyModalDataTableDelete" style="width:700px;  height:700px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="ModaltitleDelete"></h4>
+            </div>
+            <div class="modal-body" style="height:138px">
+                <form id="formDataTableDelete">
+                    <div class="form-horizontal">
+
+                        @Html.HiddenFor(m => m.ID, new { @id = "Delete_ID" })
+                        <div class="form-group">
+                            <div>
+                                @Html.Label("هل انت متأكد من حذف هذا التقييم")
+                            </div>
+                           
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-left">
+                    <a href="#" class="btn btn-primary" id="btnDeleteTraineeEvaluation">@Messages.ConfirmBtn</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">@Messages.BackBtn</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Creat Popup For Delete*@
+@*<div id="DeletDiv" class="d-none">
+
+</div>*@
+
+
+
+    
+
+<div class="container" style="margin-top:3%">
+
+    <table class="table table-striped" id="TraineeEvaluationTable">
+        <thead>
+            <tr>
+                <th>م</th>
+                <th>@Resources.Trainee</th>
+                <th>@Resources.Code</th>
+                @*<th>العمر</th>*@
+                <th>@Resources.StudyPeriodSetting</th>
+                <th>@Resources.LicenceType</th>
+                <th>@Resources.LicenceCategory</th>
+                <th>@Resources.EvaluationEmployee</th>
+                <th>@Resources.EvaluationDate</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+    </table>
+</div>
+
+
+
+@section scripts
+{
+    @*<script src="~/vendors/jquery/jquery.datetimepicker.js"></script>*@
+
+    <script>
+
+
+
+        $(function () {
+            $("#TraineeId").chosen();
+
+
+            $("#LicenceTypeId").change(function () {
+                $("#LicenceCategoryId").empty();
+                var licenceType = $("#LicenceTypeId").val();
+
+                $.ajax({
+                    url:"@Url.Action("GetLicenceGategoryByLicenceTypeId","TraineeEvaluation")",
+                    data: { licenceId: licenceType },
+                    async: false,
+                    success: function (res) {
+
+                        $("#LicenceCategoryId").append("<option value='" + 0 + "'>" + "@Messages.ChooseLicenceCategory" + "</option>");
+
+                        $.each(res, function (i, e) {
+                            //alert(res[i].Name);
+                            $("#LicenceCategoryId").append("<option value='" + e.ID + "'>" + e.Name + "</option>");
+                        });
+                    }
+
+                });
+            });
+
+
+            $("#TraineeId").change(function () {
+                var Traineeid = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("GetTraineeCode_Age_Photo","TraineeEvaluation")",
+                  
+                    data: { TraineeId: Traineeid },
+                    async: false,
+                    success: function (res) {
+
+
+                        $("#Code").val(res.obj.Code);
+
+
+                        $("#DateOfBirth").val(res.obj.DateOfBirth);
+                        const age = moment().diff(res.obj.DateOfBirth, 'years');
+                        if (age > 0) {
+                            $("#TraineeAge").val(age);
+                        }
+                        else {
+                            $("#TraineeAge").val(0);
+                        }
+
+
+                        $("#TraineePhotopath").val(res.obj.TraineePhotopath);
+                        var srcimg = "/Upload/" + res.obj.TraineePhotopath;
+                        $("#TraineePhotopath").attr('src', srcimg);
+
+                    }
+
+                });
+            });
+
+            $('#EvaluationDate').datepicker({
+                dateFormat: 'mm/dd/yy',
+            });
+            $('#DateOfBirth').datepicker({
+                dateFormat: 'mm/dd/yy',
+            });
+
+            $("#btnEdit").click(function () {
+                $("#myForm").attr("action", "/AutoDriveMain/TraineeEvaluation/EditTraineeEvaluation");
+            });
+            $("#btnDelete").click(function () {
+                $("#myForm").attr("action", "/AutoDriveMain/TraineeEvaluation/DeleteTraineeEvaluation");
+            });
+        });
+
+
+
+        //-------------------------------------------------------------------------------------------------
+        function SaveEval() {
+
+            if ($("#formDataTable").valid()) {
+                var data = $("#formDataTable").serialize();
+                $.ajax({
+                    type: "post",
+                    url:"@Url.Action("Save_TraineeEvaluationDataTable","TraineeEvaluation")",
+                    data: data,
+                    success: function (response) {
+                        if (response.msg == true) {
+                            if (data.split("&")[0] == "ID=0") {
+
+                                $("#TraineeEvaluationTable").DataTable().ajax.reload();
+                                toastr.success('تم اضافه تقييم المتدرب', 'اشعار', { timeOut: 4000 });
+                                AddLicenceCategory(0);
+                                //$("#MyModal").modal("hide");
+
+                            }
+                            else {
+                                $("#TraineeEvaluationTable").DataTable().ajax.reload();
+                                toastr.success('تم تعديل تقييم المتدرب', 'اشعار', { timeOut: 4000 });
+                                $("#MyModalDataTable").modal("hide");
+                            }
+                        }
+                        else {
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+
+                        }
+                    },
+                    fail: function () {
+                        toastr.error('الاسم مسجل بالفعل', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    },
+                    error: function () {
+                        toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    }
+                });
+            }
+            else {
+                toastr.error('برجاءادخال الحقول', 'اشعار', { timeOut: 3000 });
+            }
+        }
+
+
+
+
+
+         function DeleteEval() {
+           
+            if ($("#formDataTableDelete").valid()) {
+                var data = $("#formDataTableDelete").serialize();
+                $.ajax({
+                    type: "post",
+                    url:"@Url.Action("Delete_TraineeEvaluationDataTable","TraineeEvaluation")",
+                      
+                    data: data,
+                    success: function (response) {
+                        if (response.msg == true) {
+                            
+                                $("#TraineeEvaluationTable").DataTable().ajax.reload();
+                                toastr.success('تم حذف  تقييم المتدرب', 'اشعار', { timeOut: 4000 });
+                                $("#MyModalDataTableDelete").modal("hide");
+                           
+                        }
+                        else {
+                            
+                            toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+
+                        }
+                    },
+                    fail: function () {
+                        toastr.error('الاسم مسجل بالفعل', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    },
+                    error: function () {
+                        toastr.error('عمليه غير ناجحه', 'حدث خطأ اثناء الاضافه برجاء المحاوله مره اخري ', { timeOut: 3000 });
+                    }
+                });
+            }
+            else {
+                toastr.error('برجاءادخال الحقول', 'اشعار', { timeOut: 3000 });
+            }
+        }
+        //function AddLicenceCategory(ID) {
+        //    $("#formDataTable")[0].reset();
+        //    $("#Modaltitle").html("إضافه رخصه المتدرب");
+        //    $("#_ID").val("0");
+
+        //    $("#MyModal").modal();
+        //}
+
+
+        $("#_LicenceTypeId").change(function () {
+
+            $("#_LicenceCategoryId").empty();
+            var _licenceType = $("#_LicenceTypeId").val();
+            $.ajax({
+                url:"@Url.Action("GetLicenceGategoryByLicenceTypeId","TraineeEvaluation")",
+                data: { licenceId: _licenceType },
+                async: false,
+                success: function (res) {
+
+                    $("#_LicenceCategoryId").append("<option value='" + 0 + "'>" + "@Messages.ChooseLicenceCategory" + "</option>");
+
+                    $.each(res, function (i, e) {
+                        $("#_LicenceCategoryId").append("<option value='" + e.ID + "'>" + e.Name + "</option>");
+                    });
+                }
+
+            });
+        });
+        $("#_TraineeId").change(function () {
+            var Traineeid = $(this).val();
+            $.ajax({
+                url:"@Url.Action("GetTraineeCode_Age_Photo","TraineeEvaluation")",
+                    
+                data: { TraineeId: Traineeid },
+                async: false,
+                success: function (res) {
+
+
+                    $("#_Code").val(res.obj.Code);
+
+
+                    $("#_DateOfBirth").val(res.obj.DateOfBirth);
+                    const age = moment().diff(res.obj.DateOfBirth, 'years');
+                    if (age > 0) {
+                        $("#_TraineeAge").val(age);
+                    }
+                    else {
+                        $("#_TraineeAge").val(0);
+                    }
+
+
+                    //$("#_TraineePhotopath").val(res.obj.Photopath);
+                    //var srcimg = "/Upload/" + res.obj.Photopath;
+                    //$("#_TraineePhotopath").attr('src', srcimg);
+
+                }
+
+            });
+        });
+
+        $('#_EvaluationDate').datepicker({
+                            "dateFormat": 'mm/dd/yy',
+
+            //"setDate": new Date(),
+            //"autoclose": true
+        });
+        $('#_DateOfBirth').datepicker({
+                            "dateFormat": 'mm/dd/yy',
+
+            // "setDate": new Date(),
+            //"autoclose": true
+        });
+        function EditTraineeEvaluation(ID) {
+
+            $("#_LicenceTypeId").change();
+            $("#_TraineeId").change();
+
+            var url ="@Url.Action("GetTraineeEvaluationDatatable_byId","TraineeEvaluation")"+ "/" + ID;
+              
+            $("#Modaltitle").html("تعديل تقييم التدرب ");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (rs) {
+
+
+
+                    $("#MyModalDataTable").modal();
+                    $("#_ID").val(rs.data.ID);
+                    $("#_TraineeId").val(rs.data.TraineeId);
+                    $("#_Code").val(rs.data.Code);
+
+                    const age = moment().diff(rs.data.DateOfBirth, 'years');
+
+                    if (age > 0) {
+                        $("#_TraineeAge").val(age);
+                    }
+                    else {
+                        $("#_TraineeAge").val(0);
+                    }
+
+                    $("#_StudyPeriodSettingId").val(rs.data.StudyPeriodSettingId);
+                    $("#_LicenceTypeId").val(rs.data.LicenceTypeId);
+                    $("#_LicenceCategoryId").val(rs.data.LicenceCategoryId);
+                    $("#_EvaluationEmployeeId").val(rs.data.EvaluationEmployeeId);
+                    $("#_EvaluationDate").val(rs.data.EvaluationDate);
+
+                    $("#_TraineePhotopath").val(rs.data.TraineePhotopath);
+
+                    if (rs.data.TraineePhotopath != null) {
+                        var _srcimg = "/Upload/" + rs.data.TraineePhotopath;
+                    }
+                    else {
+                        var _srcimg = "/Upload/t.png";
+                    }
+                   
+                    $("#_TraineePhotopath").attr('src', _srcimg);
+                        
+
+
+                }
+            })
+        }
+
+
+        function DeleteTraineeEvaluation(ID) {
+
+            //$("#_LicenceTypeId").change();
+
+            //$("#_TraineeId").change();
+            var url ="@Url.Action("GetTraineeEvaluationDatatable_byId","TraineeEvaluation")"+ "/" + ID;
+
+            $("#ModaltitleDelete").html("حذف تقييم المتدرب ");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (rs) {
+
+                    $("#MyModalDataTableDelete").modal();
+                    $("#Delete_ID").val(rs.data.ID);
+                    
+                   
+
+
+
+
+                }
+            })
+        }
+
+
+
+
+        $("#SaveTraineeEvaluation").click(function () {
+
+            SaveEval();
+        });
+
+       $("#btnDeleteTraineeEvaluation").click(function(){
+            DeleteEval();
+       });
+        //----------------------------------------------------------------------------------------
+        //datatable function
+        $(document).ready(function () {
+            @*$("#btnSave").click(function () {
+
+                alert('@ViewBag.TraineeFound');
+                toastr.success('@ViewBag.TraineeFound');
+            });*@
+
+            var t = $('#TraineeEvaluationTable').DataTable({
+
+                "ajax": {
+                    'url':"@Url.Action("GetTraineeEvaluation_List","TraineeEvaluation")",
+                       
+                    'type': "GET",
+                    
+                },
+                "columns": [
+                    {
+                        "data": null, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+
+
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"TraineeEnName":"TraineeName" },
+                    { "data": "Code" },
+                    //{ "data": "TraineeAge" },
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"StudyPeriodSettingEnName":"StudyPeriodSettingName" },
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"LicenceTypeEnName":"LicenceTypeName" },
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"LicenceCategoryEnName":"LicenceCategoryName" },
+                    { "data": '@ViewBag.CheckUS'=="En-Us"?"EvaluationEmployeeEnName": "EvaluationEmployeeName"},
+                    { "data": "EvaluationDate" },
+
+
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-primary ED' style='margin-top:3px' id='btnEditDataTable' onclick='EditTraineeEvaluation(" + data + ")'><span class='glyphicon glyphicon-pencil'></span></botton>"
+                        }
+                    },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<botton class='btn btn-danger ED' style='margin-top:3px' onclick='DeleteTraineeEvaluation(" + data + ")'><span class='glyphicon glyphicon-trash'></span></botton>"
+                        }
+                    },
+
+
+                ],
+                "language": {
+
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "الأول",
+                        "sPrevious": "السابق",
+                        "sNext": "التالي",
+                        "sLast": "الأخير"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+
+                },
+
+                info: false,
+
+            })
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+        });
+
+         $(function () {
+            var xEn = '@Session["EnTraineeFound"]';
+            var xAr = '@Session["TraineeFound"]';
+            var vbg = '@ViewBag.CheckUS';
+             //alert(xEn);
+             //alert(xAr);
+             //alert(vbg);
+
+            if (vbg== "En-Us" && xEn != "0") {
+               // alert(xEn);
+                toastr.success(xEn, { timeOut: 4000 });
+            }
+            else if(vbg == "Ar-Egy" && xAr!="0") {
+               //alert(xAr);
+
+                toastr.success(xAr, { timeOut: 4000 });
+
+            }
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+}
+

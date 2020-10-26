@@ -1,0 +1,87 @@
+﻿@model AutoDrive.VM.AutoDriveHR.EmployeeDepartmentVM
+    @{ 
+        var DepartmentIDval = Model.DepartmentId == 0 ? "" : Model.DepartmentId.ToString();
+    }
+
+    <form enctype="multipart/form-data" id="DepartmentForm" action="@Url.Action("Save","EmployeeDepartment")">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.HiddenFor(x=>x.ID)
+                @Html.HiddenFor(x=>x.EmployeeId)
+                @Html.LabelFor(x => x.DepartmentId, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @{
+                        var Cook = Request.Cookies["Language"];
+                        if (Cook != null && Cook.Value.ToLower() == "En-Us".ToLower())
+                        {
+                            <input type="text" class="form-control" value="@Model.DepartmentEnName" placeholder="@Messages.DepartmentSearch" id="DepartmentIDAutoComplete" />
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control" value="@Model.DepartmentName" placeholder="@Messages.DepartmentSearch" id="DepartmentIDAutoComplete" />
+
+                        }
+                    }
+                    @Html.ValidationMessageFor(x => x.DepartmentId, "", new { @class = "text-danger" })
+                   
+                    @Html.TextBoxFor(x => x.DepartmentId,  new { @class = "form-control", style = "visibility: hidden" })
+
+                </div>
+                @Html.LabelFor(x => x.StartDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(x => x.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(x => x.StartDate, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(x => x.EndDate, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(x => x.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(x => x.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </form>
+<script>
+     $("[data-val-date]").datepicker({
+                
+     });
+        $("#EndDate").datepicker("option", "minDate", $("#StartDate").val());
+
+    $("[data-val-date]").attr("ReadOnly", "ReadOnly")
+    $("#StartDate").change(function () {
+        $("#EndDate").val("");
+        $("#EndDate").datepicker("option", "minDate", $(this).val());
+    });
+
+    $("#DepartmentId").val("@DepartmentIDval");
+       //AutoComplete
+            $("#DepartmentIDAutoComplete").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("Departments","EmployeeDepartment")",
+                        type: "GET",
+                        dataType: "json",
+                        data: { Text: request.term },
+                        success: function (data) {
+                            if (!data.length) {
+                                $('#DepartmentId').val("")
+                                $('#DepartmentIDAutoComplete').val("")
+
+                            }
+                            else {
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Name, ss: item.ID };
+                                }));
+                            }
+                        }
+                    });
+                },
+
+                select: function (event, ui) {
+                    $('#DepartmentId').val(ui.item.ss);
+                },
+
+
+            });
+
+</script>
